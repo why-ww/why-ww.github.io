@@ -1,1 +1,9 @@
 theme: minima
+title: why-ww's Blog
+description: My first GitHub Pages blog
+baseurl: ""
+url: "https://why-ww.github.io"
+markdown: kramdown
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
