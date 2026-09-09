@@ -1,7 +1,7 @@
 ---
-layout:post
-title:"BugKu CTF Writeup - 滑稽"
-date:2026-09-09
+layout: post
+title: "BugKu CTF Writeup - 滑稽"
+date: 2026-09-09
 ---
 # BugKu CTF Writeup - 滑稽
 ## 题目类型
