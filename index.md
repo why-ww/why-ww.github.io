@@ -4,12 +4,12 @@ layout: home
 
 <div class="hero">
 
-# WHY-WW'S BLOG
+  <h1>WHY-WW'S BLOG</h1>
 
-<div class="hero-line"></div>
+  <div class="hero-line"></div>
 
-## Cybersecurity
+  <h2>Cybersecurity</h2>
 
-My write-ups
+  <p>My write-ups</p>
 
 </div>
