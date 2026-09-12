@@ -13,21 +13,26 @@ WEB
 <br>if($what==’flag’)
 <br>echo ‘flag{**}’;
 ## 解题过程
-1.下载Burp Suite Community Edition （代理拦截 HTTP工具）
-2.安装浏览器扩展插件 witchyOmega(代理切换插件)
-3.Burp 代理检查，顶部点 Proxy → Settings 查看设置
-4.确认监听：127.0.0.1 端口 8080
-5.切回 Proxy 主页面，点击Intercept，打开 Intercept is on。
-6.开启浏览器代理，浏览器右上角点 SwitchyOmega 图标，选择 proxy
-7.在浏览器进入题目网址进行访问，让burp拦截数据包
-8.切回 Burp，会看到抓到了一条 GET 请求（抓包成功）
-9.修改数据包：进入RAW，将GET改为POST
-10.在所有请求头的最后一行下面，新增一行：
+<br>1.下载Burp Suite Community Edition （代理拦截 HTTP工具）
+<br>2.安装浏览器扩展插件 witchyOmega(代理切换插件)
+<br>3.Burp 代理检查，顶部点 Proxy → Settings 查看设置
+<br>4.确认监听：127.0.0.1 端口 8080
+<br>5.切回 Proxy 主页面，点击Intercept，打开 Intercept is on。
+<br>6.开启浏览器代理，浏览器右上角点 SwitchyOmega 图标，选择 proxy
+<br>7.在浏览器进入题目网址进行访问，让burp拦截数据包
+<br>8.切回 Burp，会看到抓到了一条 GET 请求（抓包成功）
+<br>![Burp抓包界面](/images/burp.1.png)
+<br>9.修改数据包：进入RAW，将GET改为POST
+<br>10.在所有请求头的最后一行下面，新增一行：
 <br>Content-Type: application/x-www-form-urlencoded
-11.空一行之后写请求体写请求体：what=flag
-12.点击 Burp 上的 Forward（转发），把修改后的包发给服务器
-13.在下面切换到 Response（响应）标签，里面就是服务器返回的内容，找到 flag。
-14.浏览器右上角 SwitchyOmega，切回 直接连接，关闭代理
+<br>11.空一行之后写请求体写请求体：what=flag
+<br>![RAW修改界面](/images/burp.2.png)
+<br>12.点击 Burp 上的 Forward（转发），把修改后的包发给服务器
+<br>13.点击上方HTTP history 查看 Burp 代理抓到的浏览器和服务器之间的 HTTP 通信记录。
+<br>![HTTP history](/images/burp.3.png)
+<br>14.在下面切换到 Response（响应）标签，里面就是服务器返回的内容，找到 flag。
+<br>![找到flag](/images/burp.4.png)
+<br>15.浏览器右上角 SwitchyOmega，切回 直接连接，关闭代理
 ## 疑问与解答
 ### 1.Burp Suite 和 witchyOmega 在其中发挥了什么作用？
 <br>1. 接管流量：配合 SwitchyOmega，把浏览器发出的所有 HTTP 请求都先送到 Burp（127.0.0.1:8080），而不是直接发给服务器。
