@@ -164,8 +164,12 @@ body {
    首页博客文章标题
 ========================= */
 
+/* =========================
+   首页博客文章标题
+========================= */
+
 .post-link {
-    color: #b9dcff;
+    color: #c9e6ff !important;
 
     font-size: 27px;
 
@@ -180,11 +184,10 @@ body {
 /* 鼠标放上去 */
 
 .post-link:hover {
-    color: #d0e9ff;
+    color: #e2f1ff !important;
 
     text-decoration: none;
 }
-
 /* =========================
    8. 日期
 ========================= */
