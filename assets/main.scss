@@ -5,17 +5,26 @@
 
 
 /* =========================
-   整个网站
+   1. 整个网站
 ========================= */
 
 body {
     background-color: #0d1117;
     color: #c9d1d9;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    line-height: 1.8;
 }
 
 
 /* =========================
-   顶部导航栏
+   2. 网站顶部导航栏
 ========================= */
 
 .site-header {
@@ -24,127 +33,51 @@ body {
     border-bottom: 1px solid #30363d;
 }
 
-
-/* 博客名字 */
-
 .site-title {
-    color: #58a6ff !important;
-    font-weight: bold;
+    color: #8ab4e8 !important;
+
+    font-size: 32px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-decoration: none;
 }
 
 
-/* 顶部导航链接 */
+/* =========================
+   3. 导航栏文字
+========================= */
 
 .site-nav .page-link {
-    color: #c9d1d9 !important;
+    color: #c9d1d9;
+}
+
+.site-nav .page-link:hover {
+    color: #8ab4e8;
 }
 
 
 /* =========================
-   页面主体
+   4. 页面标题
+   例如：首页的 Posts
 ========================= */
 
-.page-content {
-    background-color: #0d1117;
+.page-heading {
+    color: #e6edf3;
+
+    font-size: 38px;
+    font-weight: 500;
+
+    margin-top: 20px;
+    margin-bottom: 35px;
 }
 
 
 /* =========================
-   首页 Hero
+   5. 首页文章列表
+   主页基本保持原来的样子
 ========================= */
-
-.hero {
-
-    text-align: center;
-
-    padding: 80px 30px;
-
-    margin-bottom: 60px;
-
-    background-color: #161b22;
-
-    border: 1px solid #30363d;
-
-    border-radius: 16px;
-
-}
-
-
-/* 主标题 */
-
-.hero h1 {
-
-    color: #58a6ff;
-
-    font-size: 42px;
-
-    letter-spacing: 3px;
-
-}
-
-
-/* Cybersecurity */
-
-.hero h2 {
-
-    color: #f0f6fc;
-
-    font-size: 25px;
-
-    font-weight: normal;
-
-}
-
-
-/* My write-ups */
-
-.hero {
-
-    color: #8b949e;
-
-    font-size: 17px;
-
-}
-
-
-/* 中间蓝线 */
-
-.hero-line {
-
-    width: 60px;
-
-    height: 3px;
-
-    background-color: #58a6ff;
-
-    margin: 25px auto;
-
-}
-
-
-/* =========================
-   Posts 标题
-========================= */
-
-.home h2 {
-    color: #f0f6fc;
-}
-
-
-/* =========================
-   文章列表
-========================= */
-
-.post-list {
-
-    list-style: none;
-
-    margin-left: 0;
-
-}
-
-
-/* 每篇文章 */
 
 .post-list > li {
 
@@ -152,60 +85,319 @@ body {
 
     border: 1px solid #30363d;
 
-    border-radius: 12px;
+    border-radius: 14px;
 
-    padding: 25px;
+    padding: 28px 30px;
 
-    margin-bottom: 20px;
+    margin-bottom: 28px;
 
-    transition: 0.2s;
-
+    transition: 0.2s ease;
 }
 
 
-/* 鼠标放上去 */
+/* 鼠标放上文章卡片 */
 
 .post-list > li:hover {
 
-    transform: translateY(-5px);
+    border-color: #4f81bd;
 
-    border-color: #58a6ff;
-
+    transform: translateY(-2px);
 }
 
 
 /* =========================
-   文章标题
+   6. 首页文章标题
 ========================= */
 
 .post-link {
 
-    color: #58a6ff !important;
+    color: #8ab4e8;
 
-    font-size: 22px;
+    font-size: 27px;
 
-    font-weight: bold;
+    font-weight: 600;
+
+    line-height: 1.4;
 
     text-decoration: none;
-
 }
 
 
 .post-link:hover {
 
-    color: #79c0ff !important;
+    color: #9fc5f8;
 
+    text-decoration: none;
 }
 
 
-/* 日期 */
+/* =========================
+   7. 日期
+========================= */
 
 .post-meta {
+
     color: #8b949e;
+
+    font-size: 15px;
 }
 
 
-/* 页脚 */
+/* =========================
+   8. 文章页面
+   文章主标题
+========================= */
+
+.post-title {
+
+    color: #e6edf3;
+
+    font-size: 42px;
+
+    font-weight: 600;
+
+    line-height: 1.25;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================
+   9. 文章正文
+========================= */
+
+.post-content {
+
+    color: #c9d1d9;
+
+    font-size: 18px;
+
+    line-height: 1.9;
+}
+
+
+/* 普通段落 */
+
+.post-content p {
+
+    margin-bottom: 22px;
+}
+
+
+/* =========================
+   10. 一级文章标题
+   Markdown 中的 ##
+========================= */
+
+.post-content h2 {
+
+    color: #e6edf3;
+
+    font-size: 30px;
+
+    font-weight: 600;
+
+    margin-top: 55px;
+
+    margin-bottom: 20px;
+
+    padding-bottom: 10px;
+
+    border-bottom: 1px solid #30363d;
+
+    line-height: 1.4;
+}
+
+
+/* =========================
+   11. 二级文章标题
+   Markdown 中的 ###
+========================= */
+
+.post-content h3 {
+
+    color: #9fc5f8;
+
+    font-size: 22px;
+
+    font-weight: 600;
+
+    margin-top: 35px;
+
+    margin-bottom: 15px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   12. 更小的标题
+   Markdown 中的 ####
+========================= */
+
+.post-content h4 {
+
+    color: #c9d1d9;
+
+    font-size: 19px;
+
+    font-weight: 600;
+
+    margin-top: 28px;
+
+    margin-bottom: 12px;
+}
+
+
+/* =========================
+   13. 行内代码
+   例如：`POST`
+========================= */
+
+.post-content code {
+
+    background-color: #21262d;
+
+    color: #9fc5f8;
+
+    padding: 3px 6px;
+
+    border-radius: 4px;
+
+    font-size: 16px;
+
+    font-family:
+        "Courier New",
+        monospace;
+}
+
+
+/* =========================
+   14. 代码块
+========================= */
+
+pre {
+
+    background-color: #161b22;
+
+    border: 1px solid #30363d;
+
+    border-radius: 8px;
+
+    padding: 18px;
+
+    margin: 25px 0;
+
+    overflow-x: auto;
+}
+
+
+/* 代码块内部文字 */
+
+pre code {
+
+    background-color: transparent;
+
+    color: #c9d1d9;
+
+    padding: 0;
+
+    font-size: 16px;
+}
+
+
+/* =========================
+   15. 文章中的链接
+========================= */
+
+.post-content a {
+
+    color: #8ab4e8;
+
+    text-decoration: underline;
+
+    text-underline-offset: 3px;
+}
+
+
+.post-content a:hover {
+
+    color: #9fc5f8;
+}
+
+
+/* =========================
+   16. 引用内容
+========================= */
+
+blockquote {
+
+    color: #aeb6c2;
+
+    border-left: 4px solid #4f81bd;
+
+    background-color: #161b22;
+
+    padding: 12px 20px;
+
+    margin: 25px 0;
+}
+
+
+/* =========================
+   17. 分割线
+========================= */
+
+hr {
+
+    border: none;
+
+    border-top: 1px solid #30363d;
+
+    margin: 40px 0;
+}
+
+
+/* =========================
+   18. 列表
+========================= */
+
+.post-content ul,
+.post-content ol {
+
+    margin-bottom: 25px;
+
+    padding-left: 30px;
+}
+
+
+.post-content li {
+
+    margin-bottom: 10px;
+}
+
+
+/* =========================
+   19. 图片
+========================= */
+
+.post-content img {
+
+    max-width: 100%;
+
+    height: auto;
+
+    border-radius: 8px;
+
+    margin: 20px 0;
+
+    border: 1px solid #30363d;
+}
+
+
+/* =========================
+   20. 页脚
+========================= */
 
 .site-footer {
 
@@ -213,26 +405,82 @@ body {
 
     border-top: 1px solid #30363d;
 
+    color: #8b949e;
 }
 
 
 /* =========================
-   手机适配
+   21. 手机端适配
 ========================= */
 
 @media screen and (max-width: 600px) {
 
-    .hero {
 
-        padding: 50px 20px;
+    /* 网站标题 */
 
+    .site-title {
+
+        font-size: 28px;
     }
 
 
-    .hero h1 {
+    /* 页面标题 */
+
+    .page-heading {
+
+        font-size: 34px;
+    }
+
+
+    /* 文章主标题 */
+
+    .post-title {
+
+        font-size: 36px;
+    }
+
+
+    /* 一级标题 */
+
+    .post-content h2 {
 
         font-size: 28px;
 
+        margin-top: 45px;
+    }
+
+
+    /* 二级标题 */
+
+    .post-content h3 {
+
+        font-size: 22px;
+    }
+
+
+    /* 正文 */
+
+    .post-content {
+
+        font-size: 17px;
+    }
+
+
+    /* 首页文章标题 */
+
+    .post-link {
+
+        font-size: 24px;
+    }
+
+
+    /* 文章卡片 */
+
+    .post-list > li {
+
+        padding: 25px;
+
+        margin-bottom: 25px;
     }
 
 }
