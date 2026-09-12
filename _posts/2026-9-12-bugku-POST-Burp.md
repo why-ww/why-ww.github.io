@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "BugKu CTF Writeup - POST-Burp"
+title: "BugKu CTF Writeup - POST - Burp"
 date: 2026-9-12
 ---
 # BugKu CTF Writeup - POST - Burp
