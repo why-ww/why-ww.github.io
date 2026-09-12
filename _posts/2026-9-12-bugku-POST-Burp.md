@@ -1,9 +1,9 @@
 ---
 layout: post
-title: "BugKu CTF Writeup - POST"
+title: "BugKu CTF Writeup - POST-Burp"
 date: 2026-9-12
 ---
-# BugKu CTF Writeup - POST
+# BugKu CTF Writeup - POST - Burp
 ## 题目类型
 WEB
 ## 题目描述
