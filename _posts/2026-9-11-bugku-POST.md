@@ -35,7 +35,7 @@ WEB
 <br>HTTP 请求分为两大部分：<span style="color:blue">请求头（Header）</span>和 <span style="color:blue">请求体（Body）</span>
 <br><span style="color:blue">请求头</span>：描述这次请求的基本信息（访问哪个网址、浏览器是什么、编码、Cookie 等）
 <br><span style="color:blue">请求体</span>：就是放在请求头后面，用来存放 POST 提交的数据，GET 请求默认没有请求体。
-<br>服务器的`$_POST`就是专门读取请求体里的表单数据。
+<br>服务器的$_POST`就是专门读取请求体里的表单数据。
 ### <br>3.curl是什么？
 <br>curl 是一个命令行工具，直接在终端发送 HTTP 请求，不用浏览器。
 <br>在curl -X POST -d "what=flag" http://XXXXXX中：
