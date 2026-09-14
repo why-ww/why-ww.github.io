@@ -37,4 +37,4 @@ PWN
 <br>3.基础 Linux 命令：
 <br>-s → list，列出当前目录下所有文件
 <br>-cat flag → concatenate，读取文件内容，打印到屏幕
-<br>通过网络连接远程靶机 → 在远程 Linux 环境执行基础命令 → 找到并读取 flag 文件
+4.<br>通过网络连接远程靶机 → 在远程 Linux 环境执行基础命令 → 找到并读取 flag 文件
