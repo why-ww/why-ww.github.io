@@ -66,20 +66,45 @@ WEB
 <br>因为有很多假flag，使用git show xxxxxxx 直接看本次提交全部修改
 <br>直到找到正确的flag
 ## 疑问与解答
-### 1.
-<br>
+### 1.GitHack， python3.x.x 在这道题里是干什么用的？
+<br>GitHack 是一个用 Python 写的脚本程序；Python3.x.x 用来运行这个脚本。
+<br>GitHack.py：是别人写好的 Python 源代码脚本（专门用来利用.git 泄露漏洞）
+<br>GitHack的作用：
+<br>- 向目标网站自动发送 HTTP 请求，把服务器上.git文件夹里面所有文件（HEAD、index、objects 打包文件）批量下载到你的电脑。
+<br>- 自动解析 git 内部的压缩对象、索引文件，在本地还原出完整可用的 git 仓库。
+<br>Python3.x.x只用来运行 GitHack 脚本。
+### <br>2.dir 命令的作用是什么？
+<br>dir = directory（目录），是Windows CMD 原生命令。
+<br>功能：查看当前文件夹里面有哪些文件、子文件夹，列出文件名字、修改时间、大小。
 
-### <br>2.
-<br>
-
-### <br>3.
-<br>
-
-### <br>4.
-<br>
+### <br>3.为什么输入 ls -a ？
+<br>ls = list，列出当前文件夹的文件
+<br>-a 是参数（a = all，全部）
+<br>ls -a = 列出所有文件，包括【隐藏文件 / 隐藏文件夹】
+### <br>4.ls -a 和 dir有什么区别？
+<br>Windows CMD：dir /a 等价于 GitBash ls -a，作用同样是显示隐藏文件
+### <br>5.为什么要用 git-dumper，有什么作用？
+<br>浏览器、wget、普通下载工具直接下载.git文件夹经常下不全、文件残缺，残缺的.git 仓库，git 命令会报错用不了。
+<br>git-dumper 就是专门为 .git 源码泄露漏洞写的 Python 工具，专门把网站上残缺的.git 完整扒下来，修复成本地能正常使用的 git 仓库。
+### <br>5.cd git_dump_result和git reflog分别有什么作用?
+<br>cd git_dump_result:
+<br>git 的命令必须在 git 仓库文件夹里面运行，不然会报错。
+所以先用 cd (change directory)进到我们刚刚用 git-dumper 下载好的仓库目录。
+<br>git reflog:
+<br>git：调用 Git 程序
+<br>reflog：全称 reference log，引用日志
+即记录你本地仓库所有 HEAD 的移动历史（所有版本变动记录）
+- HEAD 可以简单理解成：Git 当前 “正在指向哪个版本” 的指针。
+- 每次 commit 提交、切换版本、回滚 (reset)，HEAD 指针都会移动，每一次移动都会被 reflog 记下来。
+### <br>6.每一次commit有什么不同，为什么哈希值不同？
+<br>上传时间不一样，每次 commit 都对应一个不同的时间点。
+### <br>7.Git 是什么？
+<br>版本控制工具，每次commit会保存项目文件快照；所有版本记录存放在隐藏文件夹.git。
 ## 笔记
 这道题主要学习了：
-<br>1.
-<br>2.
-<br>3.
-<br><span style="color:red"></span>
+<br>1.漏洞基础：.git 源码泄露
+<br>网站上线时，服务器对外暴露了 .git 文件夹，外网可以访问下载仓库
+<br>攻击者可以拿到网站源码，**回溯所有历史提交**；就算文件后续被修改 / 删除，旧版本内容依然保存在.git 中，可以找回。
+<br>2.如何使用Python + GitHack /git-dumper
+<br>3.终端基础命令（GitBash）：cd/ls/ls -a/cat文件名。
+<br>4.使用git reflog：引用日志，记录所有 HEAD 指针移动记录。
