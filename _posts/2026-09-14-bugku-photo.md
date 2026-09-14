@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "BugKu CTF Writeup - 这是一张单纯的图片"
-date: 2026-XX-XX
+date: 2026-09-14
 ---
 # BugKu CTF Writeup - 这是一张单纯的图片
 ## 题目类型
