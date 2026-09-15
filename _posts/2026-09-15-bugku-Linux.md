@@ -18,7 +18,7 @@ MISC
 <br> - sudo mount -o loop flag mnt
 <br> - cat mnt/flag.txt
 <br>5.终端直接输出flag
-<br>![图片描述](images/Linux.png)
+<br>![图片描述](/images/Linux.png)
 ## 疑问与解答
 ### 1.为什么 flag 在 Windows 里点不动？
 <br>因为它没有扩展名，而且不是普通文本或程序，而是一个 Linux 文件系统镜像，Windows 资源管理器不能直接打开。
