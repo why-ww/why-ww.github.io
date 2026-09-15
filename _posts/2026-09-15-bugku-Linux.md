@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "BugKu CTF Writeup - Linux"
-date: 2026-XX-XX
+date: 2026-09-15
 ---
 # BugKu CTF Writeup - Linux
 ## 题目类型
