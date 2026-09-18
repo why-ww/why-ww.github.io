@@ -1,5 +1,7 @@
 ---
-layout: post
+layout: writeup
+tags: [bugku]
+permalink: /2026/09/16/bugku-.!.html
 title: "BugKu CTF Writeup - .!?"
 date: 2026-09-16
 ---
