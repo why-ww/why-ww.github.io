@@ -1,0 +1,9 @@
+---
+layout: post
+---
+<nav class="writeup-breadcrumb" aria-label="文章所属专题">
+  <a href="{{ '/' | relative_url }}">主页</a>
+  <span aria-hidden="true">/</span>
+  {% include writeup-tags.html post=page %}
+</nav>
+{{ content }}

@@ -1,5 +1,6 @@
 ---
 layout: home
+section: home
 ---
 
 <div class="hero">

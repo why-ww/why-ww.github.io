@@ -1,5 +1,6 @@
 ---
-layout: post
+layout: writeup
+tags: [bugku]
 title: "BugKu CTF Writeup - 你必须让他停下"
 date: 2026-09-11
 ---

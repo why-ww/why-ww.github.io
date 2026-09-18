@@ -1,5 +1,6 @@
 ---
-layout: post
+layout: writeup
+tags: [bugku]
 title: "BugKu CTF Writeup - 入门逆向"
 date: 2026-09-15
 ---

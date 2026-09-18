@@ -3,6 +3,113 @@
 
 @import "minima";
 
+/* 专题导航与标签沿用深色卡片、浅蓝色强调色。 */
+.site-header > .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.topic-nav,
+.writeup-filters,
+.writeup-tags,
+.writeup-meta,
+.writeup-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.topic-nav a,
+.writeup-filters a,
+.writeup-tag,
+.post-content a.writeup-tag {
+    color: #c9d1d9;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 5px 14px;
+    text-decoration: none;
+}
+
+.topic-nav a:hover,
+.writeup-filters a:hover,
+.writeup-tag:hover,
+.post-content a.writeup-tag:hover {
+    color: #9fc5f8;
+    border-color: #4f81bd;
+    text-decoration: none;
+}
+
+.topic-nav a[aria-current],
+.writeup-filters a[aria-current] {
+    color: #9fc5f8;
+    background-color: #1c2b40;
+    border-color: #4f81bd;
+    font-weight: 600;
+}
+
+.topic-nav a:focus-visible,
+.writeup-filters a:focus-visible,
+.writeup-tags a:focus-visible {
+    outline: 2px solid #9fc5f8;
+    outline-offset: 4px;
+}
+
+.writeup-filters {
+    margin-bottom: 30px;
+}
+
+.writeup-filters span,
+.post-count {
+    color: #8b949e;
+    font-size: 14px;
+    font-weight: 400;
+    margin-left: 6px;
+}
+
+.writeup-meta {
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.writeup-tag,
+.post-content a.writeup-tag {
+    color: #8ab4e8;
+    font-size: 13px;
+    padding: 1px 10px;
+}
+
+.writeup-breadcrumb {
+    margin-bottom: 30px;
+    color: #8b949e;
+    font-size: 15px;
+}
+
+.writeup-empty {
+    background-color: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 14px;
+    padding: 28px 30px;
+    margin-bottom: 28px;
+    color: #8b949e;
+}
+
+.writeup-empty p:last-child {
+    margin-bottom: 0;
+}
+
+@media screen and (max-width: 600px) {
+    .topic-nav {
+        width: 100%;
+        padding-bottom: 4px;
+    }
+}
+
 
 /* =========================
    1. 整个网站

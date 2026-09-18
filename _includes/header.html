@@ -1,0 +1,10 @@
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    <a class="site-title" rel="author" href="{{ '/' | relative_url }}">{{ site.title | escape }}</a>
+    <nav class="topic-nav" aria-label="主导航">
+      <a href="{{ '/' | relative_url }}"{% if page.section == 'home' %} aria-current="page"{% endif %}>主页</a>
+      <a href="{{ '/ctfhub/' | relative_url }}"{% if page.section == 'ctfhub' or page.tags contains 'ctfhub' %} aria-current="{% if page.tags contains 'ctfhub' %}location{% else %}page{% endif %}"{% endif %}>CTFHub</a>
+      <a href="{{ '/bugku/' | relative_url }}"{% if page.section == 'bugku' or page.tags contains 'bugku' %} aria-current="{% if page.tags contains 'bugku' %}location{% else %}page{% endif %}"{% endif %}>bugku</a>
+    </nav>
+  </div>
+</header>

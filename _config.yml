@@ -1,3 +1,11 @@
 title: WHY-WW'S BLOG
 theme: minima
 timezone: Asia/Shanghai
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: writeup
+exclude:
+  - README.md

@@ -1,0 +1,21 @@
+---
+layout: default
+---
+<div class="home">
+  <div class="hero">
+    <h1>{{ page.topic_title | escape }}</h1>
+    <p>{{ page.description | escape }}</p>
+  </div>
+  {% if page.platform == 'ctfhub' %}
+    {% assign hub_posts = site.posts | where_exp: 'post', "post.tags contains 'ctfhub'" %}
+    {% assign web_posts = hub_posts | where_exp: 'post', "post.tags contains 'web'" %}
+    {% assign misc_posts = hub_posts | where_exp: 'post', "post.tags contains 'misc'" %}
+    <nav class="writeup-filters" aria-label="CTFHub 文章方向">
+      <a href="{{ '/ctfhub/' | relative_url }}"{% unless page.direction %} aria-current="page"{% endunless %}>全部 <span>{{ hub_posts.size }}</span></a>
+      <a href="{{ '/ctfhub/web/' | relative_url }}"{% if page.direction == 'web' %} aria-current="page"{% endif %}>web <span>{{ web_posts.size }}</span></a>
+      <a href="{{ '/ctfhub/misc/' | relative_url }}"{% if page.direction == 'misc' %} aria-current="page"{% endif %}>misc <span>{{ misc_posts.size }}</span></a>
+    </nav>
+  {% endif %}
+  {{ content }}
+  {% include writeup-list.html %}
+</div>

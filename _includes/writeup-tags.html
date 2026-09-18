@@ -1,0 +1,9 @@
+<span class="writeup-tags">
+  {% if include.post.tags contains 'ctfhub' %}
+    <a class="writeup-tag" href="{{ '/ctfhub/' | relative_url }}">CTFHub</a>
+    {% if include.post.tags contains 'web' %}<a class="writeup-tag" href="{{ '/ctfhub/web/' | relative_url }}">web</a>{% endif %}
+    {% if include.post.tags contains 'misc' %}<a class="writeup-tag" href="{{ '/ctfhub/misc/' | relative_url }}">misc</a>{% endif %}
+  {% elsif include.post.tags contains 'bugku' %}
+    <a class="writeup-tag" href="{{ '/bugku/' | relative_url }}">bugku</a>
+  {% endif %}
+</span>

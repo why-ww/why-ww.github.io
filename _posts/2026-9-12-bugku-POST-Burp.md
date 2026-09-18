@@ -1,5 +1,6 @@
 ---
-layout: post
+layout: writeup
+tags: [bugku]
 title: "BugKu CTF Writeup - POST - Burp"
 date: 2026-9-12
 ---

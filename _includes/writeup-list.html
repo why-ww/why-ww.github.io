@@ -1,0 +1,27 @@
+{% assign visible_posts = site.posts %}
+{% if page.platform %}
+  {% assign visible_posts = visible_posts | where_exp: 'post', 'post.tags contains page.platform' %}
+{% endif %}
+{% if page.direction %}
+  {% assign visible_posts = visible_posts | where_exp: 'post', 'post.tags contains page.direction' %}
+{% endif %}
+<h2 class="post-list-heading">{{ page.list_title | default: '最新文章' }} <span class="post-count">{{ visible_posts.size }} 篇</span></h2>
+{% if visible_posts.size > 0 %}
+  <ul class="post-list">
+    {% for post in visible_posts %}
+      <li>
+        <div class="writeup-meta">
+          <time class="post-meta" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
+          {% include writeup-tags.html post=post %}
+        </div>
+        <h3><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
+        {% if site.show_excerpts %}{{ post.excerpt }}{% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <div class="writeup-empty">
+    <p>这里还没有{% if page.direction %} {{ page.direction }}{% endif %}文章。</p>
+    <p>CTFHub Writeup 持续更新中，敬请期待。</p>
+  </div>
+{% endif %}
