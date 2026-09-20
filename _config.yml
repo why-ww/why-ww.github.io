@@ -9,3 +9,5 @@ defaults:
       layout: writeup
 exclude:
   - README.md
+  - docs
+  - tests

@@ -1,0 +1,16 @@
+<section class="skilltree" data-skilltree data-initial-page="{{ page.initial_tree | default: 'root' | escape }}" aria-label="CTFHub 技能树">
+  <div class="skill-heading"><div><h1>CTFHub Writeup</h1><p>沿着技能树，记录每一步学习。</p></div><span class="skill-platform">技能树</span></div>
+  <div class="skill-panel">
+    <div class="skill-toolbar">
+      <div class="skill-navigation"><a class="skill-back" data-back href="#root" hidden>← 返回上层</a><nav class="skill-breadcrumb" aria-label="技能树路径"></nav></div>
+      <div class="skill-legend" aria-label="学习状态"><span><i></i>未学习</span><span><i class="learning"></i>学习中</span><span><i class="mastered"></i>已掌握</span></div>
+    </div>
+    <div class="skill-title-row"><h2 data-tree-title tabindex="-1">技能树</h2><p data-progress></p></div>
+    <p class="skill-mobile-hint">← 左右滑动，查看完整技能树 →</p>
+    <div class="skill-viewport" tabindex="0" role="region" aria-label="技能树画布，可横向滚动"><div class="skill-stage"></div></div>
+    <div class="skill-footer"><p>点击分类进入子树 · 点击题目阅读 writeup</p><div class="skill-zoom"><button type="button" class="skill-control" data-zoom-out aria-label="缩小技能树">−</button><span data-zoom-label>100%</span><button type="button" class="skill-control" data-zoom-in aria-label="放大技能树">+</button><button type="button" class="skill-control" data-center>居中</button></div></div>
+  </div>
+  <section class="skill-unmapped" data-unmapped hidden><h2>其他 CTFHub 文章</h2><ul></ul></section>
+  <p class="skill-sr-only" role="status" aria-live="polite" data-live></p>
+  <dialog class="skill-dialog" aria-labelledby="skill-dialog-title"><h2 id="skill-dialog-title"></h2><p class="skill-dialog-path" data-dialog-path></p><div data-dialog-content></div><button type="button" class="skill-control" data-close>关闭</button></dialog>
+</section>

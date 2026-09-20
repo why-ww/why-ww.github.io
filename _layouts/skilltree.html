@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<link rel="stylesheet" href="{{ '/assets/css/skilltree.css' | relative_url }}">
+{% include skilltree-panel.html %}
+{% assign hub_posts = site.posts | where_exp: 'post', "post.tags contains 'ctfhub'" %}
+<noscript>
+  <p>开启 JavaScript 可浏览完整技能树。你也可以直接阅读以下 CTFHub 文章：</p>
+  <ul>{% for post in hub_posts %}<li><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></li>{% else %}<li>尚未发布 CTFHub writeup。</li>{% endfor %}</ul>
+</noscript>
+{% capture json_lt %}\u003c{% endcapture %}
+<script type="application/json" id="skilltree-data">{{ site.data.ctfhub_skilltree | jsonify | replace: '<', json_lt }}</script>
+<script type="application/json" id="skilltree-posts">[
+{% for post in hub_posts %}
+  {"skill":{{ post.skill | jsonify | replace: '<', json_lt }},"title":{{ post.title | jsonify | replace: '<', json_lt }},"url":{{ post.url | relative_url | jsonify | replace: '<', json_lt }}}{% unless forloop.last %},{% endunless %}
+{% endfor %}
+]</script>
+<script src="{{ '/assets/js/skilltree.js' | relative_url }}" defer></script>

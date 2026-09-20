@@ -1,8 +1,14 @@
 <span class="writeup-tags">
   {% if include.post.tags contains 'ctfhub' %}
     <a class="writeup-tag" href="{{ '/ctfhub/' | relative_url }}">CTFHub</a>
-    {% if include.post.tags contains 'web' %}<a class="writeup-tag" href="{{ '/ctfhub/web/' | relative_url }}">web</a>{% endif %}
-    {% if include.post.tags contains 'misc' %}<a class="writeup-tag" href="{{ '/ctfhub/misc/' | relative_url }}">misc</a>{% endif %}
+    {% assign skill_node = site.data.ctfhub_skilltree.nodes[include.post.skill] %}
+    {% if skill_node.owner %}
+      {% assign skill_group = site.data.ctfhub_skilltree.pages[skill_node.owner] %}
+      <a class="writeup-tag" href="{{ '/ctfhub/' | relative_url }}#{{ skill_node.owner | uri_escape }}">{{ skill_group.title | escape }}</a>
+    {% else %}
+      {% if include.post.tags contains 'web' %}<a class="writeup-tag" href="{{ '/ctfhub/' | relative_url }}#web">web</a>{% endif %}
+      {% if include.post.tags contains 'misc' %}<a class="writeup-tag" href="{{ '/ctfhub/' | relative_url }}#misc">misc</a>{% endif %}
+    {% endif %}
   {% elsif include.post.tags contains 'bugku' %}
     <a class="writeup-tag" href="{{ '/bugku/' | relative_url }}">bugku</a>
   {% endif %}

@@ -1,0 +1,38 @@
+const assert = require('node:assert/strict');
+const data = require('../_data/ctfhub_skilltree.json');
+const {createModel} = require('../assets/js/skilltree.js');
+const leafIds = Object.keys(data.nodes).filter(id=>!data.nodes[id].page);
+const empty = createModel(data,[]);
+assert.equal(empty.members('root').size,leafIds.length);
+for (const id of Object.keys(data.pages)) {
+ assert(empty.members(id).size>0,id);
+ assert.equal(empty.status(id).state,'unlearned');
+ assert.equal(empty.path(id)[0].id,'root');
+}
+const article = skill=>({skill,title:'Test '+skill,url:'/test/'});
+const partial = createModel(data,[article('web-http/请求方式')]);
+assert.equal(partial.status('web-http/请求方式').state,'mastered');
+assert.equal(partial.status('web-http').state,'learning');
+assert.equal(partial.status('web').done,1);
+assert.equal(partial.status('root').done,1);
+assert.equal(partial.status('pwn').done,0);
+const httpMembers=[...empty.members('web-http')];
+const allHttp=createModel(data,httpMembers.map(article));
+assert.equal(allHttp.status('web-http').state,'mastered');
+assert.equal(allHttp.status('web').state,'learning');
+const sequence=createModel(data,[article('web-sql/整数型注入')]);
+assert.equal(sequence.status('web-sql/整数型注入').state,'mastered');
+assert.equal(sequence.status('web-sql/字符型注入').state,'unlearned');
+const duplicate=createModel(data,[article('web-http/请求方式'),article('web-http/请求方式')]);
+assert.equal(duplicate.status('root').done,1);
+assert.equal(duplicate.articles.get('web-http/请求方式').length,2);
+const collision=createModel(data,[article('web-xss/过滤空格')]);
+assert.equal(collision.status('web-rce/command-spaces').done,0);
+const all=createModel(data,leafIds.map(article));
+assert.equal(all.status('root').state,'mastered');
+assert.equal(all.status('root').done,leafIds.length);
+assert.equal(createModel(data,[article('invalid'),{title:'Old article',url:'/old/'}]).unmapped.length,2);
+assert.deepEqual(empty.path('pwn-gdb').map(x=>x.id),['root','pwn','pwn-tools','pwn-gdb']);
+assert.deepEqual(empty.path('aes-cbc').map(x=>x.id),['root','crypto','crypto-aes','aes-cbc']);
+assert.equal(data.pages['pwn-gdb'].tree.children[0].id,'pwn-gdb/GDB插件');
+console.log(`PASS ${Object.keys(data.pages).length} subtrees, ${leafIds.length} article nodes; category aggregation, sequence independence, collisions, multi-article nodes and fallback.`);

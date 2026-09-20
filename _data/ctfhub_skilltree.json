@@ -1,0 +1,3731 @@
+{
+  "version": 1,
+  "pages": {
+    "root": {
+      "title": "CTF",
+      "parent": null,
+      "tree": {
+        "id": "root",
+        "children": [
+          {
+            "id": "basics",
+            "children": [
+              {
+                "id": "root/签到",
+                "children": [
+                  {
+                    "id": "web",
+                    "children": [
+                      {
+                        "id": "web-advanced",
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "id": "pwn",
+                    "children": []
+                  },
+                  {
+                    "id": "reverse",
+                    "children": []
+                  },
+                  {
+                    "id": "crypto",
+                    "children": []
+                  },
+                  {
+                    "id": "misc",
+                    "children": []
+                  },
+                  {
+                    "id": "eggs",
+                    "children": []
+                  },
+                  {
+                    "id": "blockchain",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "basics": {
+      "title": "基础知识",
+      "parent": "root",
+      "tree": {
+        "id": "basics",
+        "children": [
+          {
+            "id": "basics/CTF简介",
+            "children": []
+          },
+          {
+            "id": "basics/竞赛模式",
+            "children": []
+          },
+          {
+            "id": "basics/比赛形式",
+            "children": []
+          },
+          {
+            "id": "basics/题目类型",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web": {
+      "title": "Web",
+      "parent": "root",
+      "tree": {
+        "id": "web",
+        "children": [
+          {
+            "id": "web-pre",
+            "children": [
+              {
+                "id": "web-tools",
+                "children": [
+                  {
+                    "id": "web-leak",
+                    "children": []
+                  },
+                  {
+                    "id": "web-password",
+                    "children": []
+                  },
+                  {
+                    "id": "web-sql",
+                    "children": []
+                  },
+                  {
+                    "id": "web-xss",
+                    "children": []
+                  },
+                  {
+                    "id": "web-upload",
+                    "children": []
+                  },
+                  {
+                    "id": "web-rce",
+                    "children": []
+                  },
+                  {
+                    "id": "web-ssrf",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "web-pre": {
+      "title": "Web前置技能",
+      "parent": "web",
+      "tree": {
+        "id": "web-pre",
+        "children": [
+          {
+            "id": "web-pre/操作系统",
+            "children": []
+          },
+          {
+            "id": "web-pre/数据库",
+            "children": []
+          },
+          {
+            "id": "web-http",
+            "children": []
+          },
+          {
+            "id": "web-pre/HTML/CSS",
+            "children": []
+          },
+          {
+            "id": "web-pre/程序语言",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web-http": {
+      "title": "HTTP协议",
+      "parent": "web-pre",
+      "tree": {
+        "id": "web-http",
+        "children": [
+          {
+            "id": "web-http/请求方式",
+            "children": []
+          },
+          {
+            "id": "web-http/302跳转",
+            "children": []
+          },
+          {
+            "id": "web-http/Cookie",
+            "children": []
+          },
+          {
+            "id": "web-http/基础认证",
+            "children": []
+          },
+          {
+            "id": "web-http/响应包源代码",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web-tools": {
+      "title": "Web工具配置",
+      "parent": "web",
+      "tree": {
+        "id": "web-tools",
+        "children": [
+          {
+            "id": "web-tools/虚拟机",
+            "children": []
+          },
+          {
+            "id": "web-tools/BurpSuite",
+            "children": []
+          },
+          {
+            "id": "web-tools/Chrome",
+            "children": []
+          },
+          {
+            "id": "web-tools/WebShell",
+            "children": []
+          },
+          {
+            "id": "web-tools/菜刀类工具",
+            "children": []
+          },
+          {
+            "id": "web-tools/端口扫描",
+            "children": []
+          },
+          {
+            "id": "web-tools/远程连接",
+            "children": []
+          },
+          {
+            "id": "web-tools/目录爆破",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web-leak": {
+      "title": "信息泄露",
+      "parent": "web",
+      "tree": {
+        "id": "web-leak",
+        "children": [
+          {
+            "id": "web-leak/目录遍历",
+            "children": []
+          },
+          {
+            "id": "web-leak/PHPINFO",
+            "children": []
+          },
+          {
+            "id": "web-backup",
+            "children": []
+          },
+          {
+            "id": "web-git",
+            "children": []
+          },
+          {
+            "id": "web-leak/SVN泄露",
+            "children": []
+          },
+          {
+            "id": "web-leak/HG泄露",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web-backup": {
+      "title": "备份文件下载",
+      "parent": "web-leak",
+      "tree": {
+        "id": "web-backup",
+        "children": [
+          {
+            "id": "web-backup/网站源码",
+            "children": []
+          },
+          {
+            "id": "web-backup/bak文件",
+            "children": []
+          },
+          {
+            "id": "web-backup/vim缓存",
+            "children": []
+          },
+          {
+            "id": "web-backup/.DS_Store",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web-git": {
+      "title": "Git泄露",
+      "parent": "web-leak",
+      "tree": {
+        "id": "web-git",
+        "children": [
+          {
+            "id": "web-git/Log",
+            "children": []
+          },
+          {
+            "id": "web-git/Stash",
+            "children": []
+          },
+          {
+            "id": "web-git/Index",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web-password": {
+      "title": "密码口令",
+      "parent": "web",
+      "tree": {
+        "id": "web-password",
+        "children": [
+          {
+            "id": "web-password/弱口令",
+            "children": [
+              {
+                "id": "web-password/字典爆破",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "web-password/默认口令",
+            "children": []
+          },
+          {
+            "id": "web-password/社会工程",
+            "children": []
+          }
+        ]
+      }
+    },
+    "web-sql": {
+      "title": "SQL注入",
+      "parent": "web",
+      "tree": {
+        "id": "web-sql",
+        "children": [
+          {
+            "id": "web-sql/整数型注入",
+            "children": [
+              {
+                "id": "web-sql/字符型注入",
+                "children": [
+                  {
+                    "id": "web-sql/报错注入",
+                    "children": [
+                      {
+                        "id": "web-sql/布尔盲注",
+                        "children": [
+                          {
+                            "id": "web-sql/时间盲注",
+                            "children": [
+                              {
+                                "id": "web-sql/MySQL结构",
+                                "children": [
+                                  {
+                                    "id": "web-sql/Cookie注入",
+                                    "children": [
+                                      {
+                                        "id": "web-sql/UA注入",
+                                        "children": [
+                                          {
+                                            "id": "web-sql/Refer注入",
+                                            "children": [
+                                              {
+                                                "id": "web-sql/二次注入",
+                                                "children": []
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "id": "web-sql/Where后注入",
+                                    "children": [
+                                      {
+                                        "id": "web-sql/AND/OR注入",
+                                        "children": [
+                                          {
+                                            "id": "web-sql/ORDER BY 注入",
+                                            "children": [
+                                              {
+                                                "id": "web-sql/UPDATE注入",
+                                                "children": [
+                                                  {
+                                                    "id": "web-sql/INSERT注入",
+                                                    "children": []
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  {
+                                    "id": "web-sql/过滤空格",
+                                    "children": []
+                                  },
+                                  {
+                                    "id": "web-sql/综合训练 SQLI-LABS",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "web-xss": {
+      "title": "XSS",
+      "parent": "web",
+      "tree": {
+        "id": "web-xss",
+        "children": [
+          {
+            "id": "web-xss/反射型",
+            "children": [
+              {
+                "id": "web-xss/存储型",
+                "children": [
+                  {
+                    "id": "web-xss/DOM反射",
+                    "children": [
+                      {
+                        "id": "web-xss/DOM跳转",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "web-xss/过滤空格",
+            "children": [
+              {
+                "id": "web-xss/过滤关键词",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "web-upload": {
+      "title": "文件上传",
+      "parent": "web",
+      "tree": {
+        "id": "web-upload",
+        "children": [
+          {
+            "id": "web-upload/无验证",
+            "children": [
+              {
+                "id": "web-upload/前端验证",
+                "children": [
+                  {
+                    "id": "web-upload/.htaccess",
+                    "children": []
+                  },
+                  {
+                    "id": "web-upload/MIME绕过",
+                    "children": [
+                      {
+                        "id": "web-upload/00截断",
+                        "children": [
+                          {
+                            "id": "web-upload/后缀大小写绕过",
+                            "children": [
+                              {
+                                "id": "web-upload/点绕过",
+                                "children": [
+                                  {
+                                    "id": "web-upload/空格绕过",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "id": "web-upload/双写后缀",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "id": "web-upload/文件头检查",
+                    "children": [
+                      {
+                        "id": "web-upload/突破getimagesize()",
+                        "children": [
+                          {
+                            "id": "web-upload/突破exif_imagetype()",
+                            "children": [
+                              {
+                                "id": "web-upload/二次渲染",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "web-rce": {
+      "title": "RCE",
+      "parent": "web",
+      "tree": {
+        "id": "web-rce",
+        "children": [
+          {
+            "id": "web-rce/无过滤执行",
+            "children": [
+              {
+                "id": "web-rce/no-filter-spaces",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "web-rce/eval执行",
+            "children": []
+          },
+          {
+            "id": "web-rce/文件包含",
+            "children": [
+              {
+                "id": "web-rce/php://input",
+                "children": [
+                  {
+                    "id": "web-rce/读取源代码",
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "id": "web-rce/远程包含",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "web-rce/命令注入",
+            "children": [
+              {
+                "id": "web-rce/过滤cat",
+                "children": [
+                  {
+                    "id": "web-rce/command-spaces",
+                    "children": [
+                      {
+                        "id": "web-rce/过滤目录分隔符",
+                        "children": [
+                          {
+                            "id": "web-rce/过滤运算符",
+                            "children": [
+                              {
+                                "id": "web-rce/综合过滤练习",
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "web-ssrf": {
+      "title": "SSRF",
+      "parent": "web",
+      "tree": {
+        "id": "web-ssrf",
+        "children": [
+          {
+            "id": "web-ssrf/内网访问",
+            "children": [
+              {
+                "id": "web-ssrf/伪协议读取文件",
+                "children": [
+                  {
+                    "id": "web-ssrf/端口扫描",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "web-ssrf/POST请求",
+            "children": [
+              {
+                "id": "web-ssrf/上传文件",
+                "children": [
+                  {
+                    "id": "web-ssrf/FastCGI协议",
+                    "children": [
+                      {
+                        "id": "web-ssrf/Redis协议",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "web-ssrf/URL Bypass",
+            "children": [
+              {
+                "id": "web-ssrf/数字IP Bypass",
+                "children": [
+                  {
+                    "id": "web-ssrf/302跳转 Bypass",
+                    "children": [
+                      {
+                        "id": "web-ssrf/DNS重绑定 Bypass",
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "web-advanced": {
+      "title": "Web进阶",
+      "parent": "root",
+      "tree": {
+        "id": "web-advanced",
+        "children": [
+          {
+            "id": "advanced-php",
+            "children": []
+          },
+          {
+            "id": "web-advanced/Python",
+            "children": []
+          },
+          {
+            "id": "web-advanced/Java",
+            "children": []
+          },
+          {
+            "id": "web-advanced/Node.js",
+            "children": []
+          },
+          {
+            "id": "advanced-linux",
+            "children": []
+          },
+          {
+            "id": "advanced-jwt",
+            "children": []
+          }
+        ]
+      }
+    },
+    "advanced-php": {
+      "title": "PHP",
+      "parent": "web-advanced",
+      "tree": {
+        "id": "advanced-php",
+        "children": [
+          {
+            "id": "advanced-php/PHP伪协议",
+            "children": []
+          },
+          {
+            "id": "advanced-php/弱类型",
+            "children": []
+          },
+          {
+            "id": "php-disable",
+            "children": []
+          },
+          {
+            "id": "advanced-php/Bypass open_basedir",
+            "children": []
+          }
+        ]
+      }
+    },
+    "php-disable": {
+      "title": "Bypass disable_function",
+      "parent": "advanced-php",
+      "tree": {
+        "id": "php-disable",
+        "children": [
+          {
+            "id": "php-disable/LD_PRELOAD",
+            "children": []
+          },
+          {
+            "id": "php-disable/ShellShock",
+            "children": []
+          },
+          {
+            "id": "php-disable/Apache Mod CGI",
+            "children": []
+          },
+          {
+            "id": "php-disable/PHP-FPM",
+            "children": []
+          },
+          {
+            "id": "php-disable/GC UAF",
+            "children": [
+              {
+                "id": "php-disable/Json Serializer UAF",
+                "children": [
+                  {
+                    "id": "php-disable/Backtrace UAF",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "php-disable/COM 组件",
+            "children": []
+          },
+          {
+            "id": "php-disable/FFI 扩展",
+            "children": [
+              {
+                "id": "php-disable/ImageMagick",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "php-disable/iconv",
+            "children": [
+              {
+                "id": "php-disable/bypass iconv 1",
+                "children": [
+                  {
+                    "id": "php-disable/bypass iconv 2",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "advanced-linux": {
+      "title": "Linux",
+      "parent": "web-advanced",
+      "tree": {
+        "id": "advanced-linux",
+        "children": [
+          {
+            "id": "advanced-linux/动态加载器",
+            "children": []
+          },
+          {
+            "id": "advanced-linux//proc/cmdline",
+            "children": [
+              {
+                "id": "advanced-linux//proc/environ",
+                "children": [
+                  {
+                    "id": "advanced-linux//proc/fd",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "advanced-jwt": {
+      "title": "JSON Web Token",
+      "parent": "web-advanced",
+      "tree": {
+        "id": "advanced-jwt",
+        "children": [
+          {
+            "id": "advanced-jwt/基础知识",
+            "children": [
+              {
+                "id": "advanced-jwt/敏感信息泄露",
+                "children": []
+              },
+              {
+                "id": "advanced-jwt/重签名",
+                "children": [
+                  {
+                    "id": "advanced-jwt/无签名",
+                    "children": []
+                  },
+                  {
+                    "id": "advanced-jwt/弱密钥",
+                    "children": []
+                  },
+                  {
+                    "id": "advanced-jwt/修改签名算法",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "pwn": {
+      "title": "Pwn",
+      "parent": "root",
+      "tree": {
+        "id": "pwn",
+        "children": [
+          {
+            "id": "pwn-pre",
+            "children": [
+              {
+                "id": "pwn-tools",
+                "children": [
+                  {
+                    "id": "pwn-stack",
+                    "children": []
+                  },
+                  {
+                    "id": "pwn-heap",
+                    "children": []
+                  },
+                  {
+                    "id": "pwn-format",
+                    "children": []
+                  },
+                  {
+                    "id": "pwn-array",
+                    "children": []
+                  },
+                  {
+                    "id": "pwn-kernel",
+                    "children": []
+                  },
+                  {
+                    "id": "pwn-other",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "pwn-pre": {
+      "title": "Pwn前置技能",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-pre",
+        "children": [
+          {
+            "id": "pwn-pre/汇编语言",
+            "children": []
+          },
+          {
+            "id": "pwn-pre/堆栈结构",
+            "children": []
+          },
+          {
+            "id": "pwn-pre/elf文件结构",
+            "children": [
+              {
+                "id": "pwn-pre/glibc",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "pwn-pre/内存保护技术",
+            "children": []
+          },
+          {
+            "id": "pwn-pre/Python",
+            "children": [
+              {
+                "id": "pwn-pre/ShellCode",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "pwn-pre/动态调试技术",
+            "children": [
+              {
+                "id": "pwn-pre/Linux内核",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "pwn-tools": {
+      "title": "Pwn工具配置",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-tools",
+        "children": [
+          {
+            "id": "pwn-gdb",
+            "children": []
+          },
+          {
+            "id": "pwn-tools/pwntools",
+            "children": []
+          },
+          {
+            "id": "pwn-tools/IDA Pro",
+            "children": []
+          },
+          {
+            "id": "pwn-tools/one_gadget",
+            "children": []
+          },
+          {
+            "id": "pwn-tools/libc search",
+            "children": []
+          },
+          {
+            "id": "pwn-tools/ROPgadget",
+            "children": []
+          }
+        ]
+      }
+    },
+    "pwn-gdb": {
+      "title": "GDB",
+      "parent": "pwn-tools",
+      "tree": {
+        "id": "pwn-gdb",
+        "children": [
+          {
+            "id": "pwn-gdb/GDB插件",
+            "children": []
+          }
+        ]
+      }
+    },
+    "pwn-stack": {
+      "title": "栈溢出",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-stack",
+        "children": [
+          {
+            "id": "pwn-stack/ret2text",
+            "children": [
+              {
+                "id": "pwn-stack/ret2shellcode",
+                "children": [
+                  {
+                    "id": "pwn-stack/ret2libc",
+                    "children": [
+                      {
+                        "id": "pwn-stack/ret2dl_resolve",
+                        "children": [
+                          {
+                            "id": "pwn-stack/ret2VDSO",
+                            "children": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "pwn-stack/栈扩展",
+            "children": [
+              {
+                "id": "pwn-stack/栈迁移",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "pwn-stack/leak pie",
+            "children": [
+              {
+                "id": "pwn-stack/leak canary",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "pwn-stack/ROP",
+            "children": [
+              {
+                "id": "pwn-stack/SROP",
+                "children": [
+                  {
+                    "id": "pwn-stack/BROP",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "pwn-heap": {
+      "title": "堆溢出",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-heap",
+        "children": [
+          {
+            "id": "pwn-heap/FastBin Attack",
+            "children": [
+              {
+                "id": "pwn-heap/Unsorted Attack",
+                "children": [
+                  {
+                    "id": "pwn-heap/Largebin Attack",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "pwn-heap/Chunk Extend",
+            "children": []
+          },
+          {
+            "id": "pwn-heap/off by one",
+            "children": [
+              {
+                "id": "pwn-heap/off by null",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "pwn-heap/Use After Free(UAF)",
+            "children": []
+          },
+          {
+            "id": "pwn-heap/unlink",
+            "children": []
+          },
+          {
+            "id": "pwn-heap/tcache Attack",
+            "children": []
+          },
+          {
+            "id": "pwn-heap/House of Einherjar",
+            "children": [
+              {
+                "id": "pwn-heap/House of spirit",
+                "children": [
+                  {
+                    "id": "pwn-heap/House of roman",
+                    "children": [
+                      {
+                        "id": "pwn-heap/House of orange",
+                        "children": [
+                          {
+                            "id": "pwn-heap/House of Lore",
+                            "children": [
+                              {
+                                "id": "pwn-heap/House of Force",
+                                "children": [
+                                  {
+                                    "id": "pwn-heap/House of Rabbit",
+                                    "children": []
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "pwn-format": {
+      "title": "字符串格式化",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-format",
+        "children": [
+          {
+            "id": "pwn-format/读数据",
+            "children": []
+          },
+          {
+            "id": "pwn-format/写数据",
+            "children": [
+              {
+                "id": "pwn-format/利用ebp写入",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "pwn-format/__printf_chk %a",
+            "children": []
+          }
+        ]
+      }
+    },
+    "pwn-array": {
+      "title": "数组溢出",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-array",
+        "children": [
+          {
+            "id": "pwn-array/越界写",
+            "children": []
+          },
+          {
+            "id": "pwn-array/越界读",
+            "children": []
+          }
+        ]
+      }
+    },
+    "pwn-kernel": {
+      "title": "Linux内核Pwn",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-kernel",
+        "children": [
+          {
+            "id": "pwn-kernel/内核基础",
+            "children": [
+              {
+                "id": "pwn-kernel/Kernel UAF",
+                "children": []
+              },
+              {
+                "id": "pwn-kernel/Kernel ROP",
+                "children": [
+                  {
+                    "id": "pwn-kernel/ret2user",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "pwn-kernel/Bypass smep",
+            "children": []
+          },
+          {
+            "id": "pwn-kernel/Double Fetch",
+            "children": []
+          }
+        ]
+      }
+    },
+    "pwn-other": {
+      "title": "异构",
+      "parent": "pwn",
+      "tree": {
+        "id": "pwn-other",
+        "children": [
+          {
+            "id": "pwn-other/ARM Pwn",
+            "children": []
+          },
+          {
+            "id": "pwn-other/MIPS Pwn",
+            "children": []
+          }
+        ]
+      }
+    },
+    "reverse": {
+      "title": "Reverse",
+      "parent": "root",
+      "tree": {
+        "id": "reverse",
+        "children": [
+          {
+            "id": "reverse/Reverse前置技能",
+            "children": [
+              {
+                "id": "reverse/Reverse工具配置",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "crypto": {
+      "title": "Crypto",
+      "parent": "root",
+      "tree": {
+        "id": "crypto",
+        "children": [
+          {
+            "id": "crypto-pre",
+            "children": [
+              {
+                "id": "crypto-tools",
+                "children": [
+                  {
+                    "id": "crypto-classic",
+                    "children": []
+                  },
+                  {
+                    "id": "crypto-aes",
+                    "children": []
+                  },
+                  {
+                    "id": "crypto-des",
+                    "children": []
+                  },
+                  {
+                    "id": "crypto/RSA",
+                    "children": []
+                  },
+                  {
+                    "id": "crypto/流密码",
+                    "children": []
+                  },
+                  {
+                    "id": "crypto/哈希",
+                    "children": []
+                  },
+                  {
+                    "id": "crypto/ECC(椭圆加密算法)",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "crypto-pre": {
+      "title": "Crypto前置技能",
+      "parent": "crypto",
+      "tree": {
+        "id": "crypto-pre",
+        "children": [
+          {
+            "id": "crypto-pre/基础数学",
+            "children": []
+          },
+          {
+            "id": "crypto-pre/数论",
+            "children": []
+          },
+          {
+            "id": "crypto-pre/抽象代数",
+            "children": []
+          },
+          {
+            "id": "crypto-pre/群论",
+            "children": []
+          },
+          {
+            "id": "crypto-pre/Python",
+            "children": []
+          },
+          {
+            "id": "crypto-pre/C++",
+            "children": []
+          }
+        ]
+      }
+    },
+    "crypto-tools": {
+      "title": "Crypto工具配置",
+      "parent": "crypto",
+      "tree": {
+        "id": "crypto-tools",
+        "children": [
+          {
+            "id": "crypto-tools/Conda",
+            "children": []
+          },
+          {
+            "id": "crypto-tools/yafu",
+            "children": []
+          },
+          {
+            "id": "crypto-tools/factordb",
+            "children": []
+          },
+          {
+            "id": "crypto-tools/quipqiup",
+            "children": []
+          },
+          {
+            "id": "crypto-tools/MATLAB",
+            "children": []
+          }
+        ]
+      }
+    },
+    "crypto-classic": {
+      "title": "古典密码",
+      "parent": "crypto",
+      "tree": {
+        "id": "crypto-classic",
+        "children": [
+          {
+            "id": "crypto-classic/AAencode",
+            "children": [
+              {
+                "id": "crypto-classic/JJencode",
+                "children": [
+                  {
+                    "id": "crypto-classic/Base系列",
+                    "children": [
+                      {
+                        "id": "crypto-classic/栅栏密码",
+                        "children": [
+                          {
+                            "id": "crypto-classic/jsfuck",
+                            "children": [
+                              {
+                                "id": "crypto-classic/brainfuck",
+                                "children": [
+                                  {
+                                    "id": "crypto-classic/凯撒密码",
+                                    "children": [
+                                      {
+                                        "id": "crypto-classic/猪圈密码",
+                                        "children": [
+                                          {
+                                            "id": "crypto-classic/摩斯电码",
+                                            "children": [
+                                              {
+                                                "id": "crypto-classic/JOTHER",
+                                                "children": [
+                                                  {
+                                                    "id": "crypto-classic/URL编码",
+                                                    "children": [
+                                                      {
+                                                        "id": "crypto-classic/培根密码",
+                                                        "children": [
+                                                          {
+                                                            "id": "crypto-classic/维吉尼亚密码",
+                                                            "children": []
+                                                          }
+                                                        ]
+                                                      }
+                                                    ]
+                                                  }
+                                                ]
+                                              }
+                                            ]
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "crypto-aes": {
+      "title": "AES",
+      "parent": "crypto",
+      "tree": {
+        "id": "crypto-aes",
+        "children": [
+          {
+            "id": "aes-cbc",
+            "children": []
+          },
+          {
+            "id": "aes-ecb",
+            "children": []
+          },
+          {
+            "id": "crypto-aes/GCM",
+            "children": []
+          }
+        ]
+      }
+    },
+    "aes-cbc": {
+      "title": "CBC",
+      "parent": "crypto-aes",
+      "tree": {
+        "id": "aes-cbc",
+        "children": [
+          {
+            "id": "aes-cbc/CBC字节反转",
+            "children": [
+              {
+                "id": "aes-cbc/CBC Padding Oracle",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "aes-ecb": {
+      "title": "ECB",
+      "parent": "crypto-aes",
+      "tree": {
+        "id": "aes-ecb",
+        "children": [
+          {
+            "id": "aes-ecb/ECB Byte at time",
+            "children": [
+              {
+                "id": "aes-ecb/ECB 已知明文攻击",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "crypto-des": {
+      "title": "DES",
+      "parent": "crypto",
+      "tree": {
+        "id": "crypto-des",
+        "children": [
+          {
+            "id": "crypto-des/Double DES",
+            "children": [
+              {
+                "id": "crypto-des/Three DES",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "misc": {
+      "title": "Misc",
+      "parent": "root",
+      "tree": {
+        "id": "misc",
+        "children": [
+          {
+            "id": "misc/Misc前置技能",
+            "children": [
+              {
+                "id": "misc-tools",
+                "children": [
+                  {
+                    "id": "misc-traffic",
+                    "children": []
+                  },
+                  {
+                    "id": "misc-forensics",
+                    "children": []
+                  },
+                  {
+                    "id": "misc-stego",
+                    "children": []
+                  },
+                  {
+                    "id": "misc-radio",
+                    "children": []
+                  },
+                  {
+                    "id": "misc-iot",
+                    "children": []
+                  },
+                  {
+                    "id": "misc-industrial",
+                    "children": []
+                  },
+                  {
+                    "id": "misc-cards",
+                    "children": []
+                  },
+                  {
+                    "id": "misc-password",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "misc-tools": {
+      "title": "Misc工具配置",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-tools",
+        "children": [
+          {
+            "id": "tools-stego",
+            "children": []
+          },
+          {
+            "id": "tools-traffic",
+            "children": []
+          },
+          {
+            "id": "tools-forensics",
+            "children": []
+          },
+          {
+            "id": "misc-tools/无线射频类工具",
+            "children": []
+          },
+          {
+            "id": "tools-iot",
+            "children": []
+          },
+          {
+            "id": "tools-password",
+            "children": []
+          }
+        ]
+      }
+    },
+    "tools-stego": {
+      "title": "数据隐写类工具",
+      "parent": "misc-tools",
+      "tree": {
+        "id": "tools-stego",
+        "children": [
+          {
+            "id": "tools-stego/010Editor",
+            "children": []
+          },
+          {
+            "id": "tools-stego/Stegsolve",
+            "children": []
+          }
+        ]
+      }
+    },
+    "tools-traffic": {
+      "title": "流量分析类工具",
+      "parent": "misc-tools",
+      "tree": {
+        "id": "tools-traffic",
+        "children": [
+          {
+            "id": "tools-traffic/Wireshark",
+            "children": []
+          }
+        ]
+      }
+    },
+    "tools-forensics": {
+      "title": "电子取证类工具",
+      "parent": "misc-tools",
+      "tree": {
+        "id": "tools-forensics",
+        "children": [
+          {
+            "id": "tools-forensics/volatility",
+            "children": []
+          }
+        ]
+      }
+    },
+    "tools-iot": {
+      "title": "物联网类工具",
+      "parent": "misc-tools",
+      "tree": {
+        "id": "tools-iot",
+        "children": [
+          {
+            "id": "tools-iot/QEMU",
+            "children": []
+          },
+          {
+            "id": "tools-iot/Binwalk",
+            "children": []
+          }
+        ]
+      }
+    },
+    "tools-password": {
+      "title": "密码破解类工具",
+      "parent": "misc-tools",
+      "tree": {
+        "id": "tools-password",
+        "children": [
+          {
+            "id": "tools-password/HashCat",
+            "children": []
+          },
+          {
+            "id": "tools-password/EWSA",
+            "children": []
+          },
+          {
+            "id": "tools-password/在线网站",
+            "children": []
+          }
+        ]
+      }
+    },
+    "misc-traffic": {
+      "title": "流量分析",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-traffic",
+        "children": [
+          {
+            "id": "traffic-db",
+            "children": []
+          },
+          {
+            "id": "traffic-mail",
+            "children": []
+          },
+          {
+            "id": "traffic-protocol",
+            "children": []
+          },
+          {
+            "id": "misc-traffic/原始流量",
+            "children": []
+          }
+        ]
+      }
+    },
+    "traffic-db": {
+      "title": "数据库类流量",
+      "parent": "misc-traffic",
+      "tree": {
+        "id": "traffic-db",
+        "children": [
+          {
+            "id": "traffic-db/MySQL流量",
+            "children": []
+          },
+          {
+            "id": "traffic-db/SQL Server流量",
+            "children": []
+          },
+          {
+            "id": "traffic-db/Oracle流量",
+            "children": []
+          },
+          {
+            "id": "traffic-db/Redis流量",
+            "children": []
+          },
+          {
+            "id": "traffic-db/MongoDB流量",
+            "children": []
+          }
+        ]
+      }
+    },
+    "traffic-mail": {
+      "title": "邮件流量",
+      "parent": "misc-traffic",
+      "tree": {
+        "id": "traffic-mail",
+        "children": [
+          {
+            "id": "traffic-mail/SMTP",
+            "children": []
+          },
+          {
+            "id": "traffic-mail/POP3",
+            "children": []
+          },
+          {
+            "id": "traffic-mail/IMAP",
+            "children": []
+          }
+        ]
+      }
+    },
+    "traffic-protocol": {
+      "title": "协议流量分析",
+      "parent": "misc-traffic",
+      "tree": {
+        "id": "traffic-protocol",
+        "children": [
+          {
+            "id": "traffic-protocol/HTTP流量",
+            "children": [
+              {
+                "id": "traffic-protocol/HTTPS流量",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "traffic-protocol/FTP",
+            "children": []
+          },
+          {
+            "id": "traffic-protocol/ICMP",
+            "children": []
+          },
+          {
+            "id": "traffic-protocol/SNMP",
+            "children": []
+          },
+          {
+            "id": "traffic-protocol/DNS",
+            "children": []
+          },
+          {
+            "id": "traffic-protocol/Telnet",
+            "children": []
+          }
+        ]
+      }
+    },
+    "misc-forensics": {
+      "title": "电子取证",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-forensics",
+        "children": [
+          {
+            "id": "misc-forensics/硬盘取证",
+            "children": []
+          },
+          {
+            "id": "misc-forensics/内存取证",
+            "children": []
+          },
+          {
+            "id": "misc-forensics/密钥恢复",
+            "children": [
+              {
+                "id": "misc-forensics/BitLocker",
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    },
+    "misc-stego": {
+      "title": "数据隐写",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-stego",
+        "children": [
+          {
+            "id": "misc-stego/图片隐写",
+            "children": []
+          },
+          {
+            "id": "misc-stego/音频隐写",
+            "children": []
+          },
+          {
+            "id": "misc-stego/视频隐写",
+            "children": []
+          },
+          {
+            "id": "misc-stego/NTFS流",
+            "children": []
+          }
+        ]
+      }
+    },
+    "misc-radio": {
+      "title": "无线射频",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-radio",
+        "children": [
+          {
+            "id": "misc-radio/Wi-Fi",
+            "children": []
+          },
+          {
+            "id": "misc-radio/蓝牙",
+            "children": []
+          },
+          {
+            "id": "misc-radio/SDR",
+            "children": []
+          },
+          {
+            "id": "misc-radio/ZigBee",
+            "children": []
+          }
+        ]
+      }
+    },
+    "misc-iot": {
+      "title": "物联网",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-iot",
+        "children": [
+          {
+            "id": "misc-iot/固件解包",
+            "children": [
+              {
+                "id": "misc-iot/固件分析",
+                "children": [
+                  {
+                    "id": "misc-iot/程序调试",
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "misc-iot/MQTT协议",
+            "children": []
+          },
+          {
+            "id": "misc-iot/CoAP协议",
+            "children": []
+          },
+          {
+            "id": "iot-mcu",
+            "children": []
+          }
+        ]
+      }
+    },
+    "iot-mcu": {
+      "title": "单片机",
+      "parent": "misc-iot",
+      "tree": {
+        "id": "iot-mcu",
+        "children": [
+          {
+            "id": "iot-mcu/51单片机",
+            "children": []
+          },
+          {
+            "id": "iot-mcu/Arduino",
+            "children": []
+          }
+        ]
+      }
+    },
+    "misc-industrial": {
+      "title": "工业控制",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-industrial",
+        "children": [
+          {
+            "id": "misc-industrial/梯形图",
+            "children": []
+          },
+          {
+            "id": "misc-industrial/modbus",
+            "children": []
+          },
+          {
+            "id": "misc-industrial/s7comm",
+            "children": []
+          },
+          {
+            "id": "misc-industrial/PLC固件",
+            "children": []
+          },
+          {
+            "id": "misc-industrial/SCADA工程",
+            "children": []
+          }
+        ]
+      }
+    },
+    "misc-cards": {
+      "title": "各种卡",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-cards",
+        "children": [
+          {
+            "id": "misc-cards/RFID",
+            "children": []
+          },
+          {
+            "id": "misc-cards/接触式卡片",
+            "children": []
+          }
+        ]
+      }
+    },
+    "misc-password": {
+      "title": "密码破解",
+      "parent": "misc",
+      "tree": {
+        "id": "misc-password",
+        "children": [
+          {
+            "id": "misc-password/RAR密码破解",
+            "children": []
+          },
+          {
+            "id": "misc-password/ZIP密码破解",
+            "children": [
+              {
+                "id": "misc-password/ZIP伪加密",
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "misc-password/Wi-Fi密码破解",
+            "children": []
+          },
+          {
+            "id": "misc-password/Office密码破解",
+            "children": []
+          },
+          {
+            "id": "misc-password/哈希破解",
+            "children": []
+          }
+        ]
+      }
+    },
+    "eggs": {
+      "title": "彩蛋",
+      "parent": "root",
+      "tree": {
+        "id": "eggs",
+        "children": [
+          {
+            "id": "eggs/首页",
+            "children": []
+          },
+          {
+            "id": "eggs/公众号",
+            "children": []
+          },
+          {
+            "id": "eggs/题目入口",
+            "children": []
+          },
+          {
+            "id": "eggs/Writeup",
+            "children": []
+          },
+          {
+            "id": "eggs/工具",
+            "children": []
+          },
+          {
+            "id": "eggs/赛事",
+            "children": []
+          },
+          {
+            "id": "eggs/真题",
+            "children": []
+          },
+          {
+            "id": "eggs/投稿提交",
+            "children": []
+          }
+        ]
+      }
+    },
+    "blockchain": {
+      "title": "BlockChain",
+      "parent": "root",
+      "tree": {
+        "id": "blockchain",
+        "children": [
+          {
+            "id": "blockchain/薅羊毛",
+            "children": []
+          },
+          {
+            "id": "blockchain/溢出攻击",
+            "children": []
+          }
+        ]
+      }
+    }
+  },
+  "nodes": {
+    "root": {
+      "label": "CTF",
+      "page": "root"
+    },
+    "basics": {
+      "label": "基础知识",
+      "page": "basics"
+    },
+    "root/签到": {
+      "label": "签到",
+      "owner": "root",
+      "unavailable": false
+    },
+    "web": {
+      "label": "Web",
+      "page": "web"
+    },
+    "web-advanced": {
+      "label": "Web进阶",
+      "page": "web-advanced"
+    },
+    "pwn": {
+      "label": "Pwn",
+      "page": "pwn"
+    },
+    "reverse": {
+      "label": "Reverse",
+      "page": "reverse"
+    },
+    "crypto": {
+      "label": "Crypto",
+      "page": "crypto"
+    },
+    "misc": {
+      "label": "Misc",
+      "page": "misc"
+    },
+    "eggs": {
+      "label": "彩蛋",
+      "page": "eggs"
+    },
+    "blockchain": {
+      "label": "BlockChain",
+      "page": "blockchain"
+    },
+    "basics/CTF简介": {
+      "label": "CTF简介",
+      "owner": "basics",
+      "unavailable": false
+    },
+    "basics/竞赛模式": {
+      "label": "竞赛模式",
+      "owner": "basics",
+      "unavailable": false
+    },
+    "basics/比赛形式": {
+      "label": "比赛形式",
+      "owner": "basics",
+      "unavailable": false
+    },
+    "basics/题目类型": {
+      "label": "题目类型",
+      "owner": "basics",
+      "unavailable": false
+    },
+    "web-pre": {
+      "label": "Web前置技能",
+      "page": "web-pre"
+    },
+    "web-tools": {
+      "label": "Web工具配置",
+      "page": "web-tools"
+    },
+    "web-leak": {
+      "label": "信息泄露",
+      "page": "web-leak"
+    },
+    "web-password": {
+      "label": "密码口令",
+      "page": "web-password"
+    },
+    "web-sql": {
+      "label": "SQL注入",
+      "page": "web-sql"
+    },
+    "web-xss": {
+      "label": "XSS",
+      "page": "web-xss"
+    },
+    "web-upload": {
+      "label": "文件上传",
+      "page": "web-upload"
+    },
+    "web-rce": {
+      "label": "RCE",
+      "page": "web-rce"
+    },
+    "web-ssrf": {
+      "label": "SSRF",
+      "page": "web-ssrf"
+    },
+    "web-pre/操作系统": {
+      "label": "操作系统",
+      "owner": "web-pre",
+      "unavailable": true
+    },
+    "web-pre/数据库": {
+      "label": "数据库",
+      "owner": "web-pre",
+      "unavailable": true
+    },
+    "web-http": {
+      "label": "HTTP协议",
+      "page": "web-http"
+    },
+    "web-pre/HTML/CSS": {
+      "label": "HTML/CSS",
+      "owner": "web-pre",
+      "unavailable": true
+    },
+    "web-pre/程序语言": {
+      "label": "程序语言",
+      "owner": "web-pre",
+      "unavailable": true
+    },
+    "web-http/请求方式": {
+      "label": "请求方式",
+      "owner": "web-http",
+      "unavailable": false
+    },
+    "web-http/302跳转": {
+      "label": "302跳转",
+      "owner": "web-http",
+      "unavailable": false
+    },
+    "web-http/Cookie": {
+      "label": "Cookie",
+      "owner": "web-http",
+      "unavailable": false
+    },
+    "web-http/基础认证": {
+      "label": "基础认证",
+      "owner": "web-http",
+      "unavailable": false
+    },
+    "web-http/响应包源代码": {
+      "label": "响应包源代码",
+      "owner": "web-http",
+      "unavailable": false
+    },
+    "web-tools/虚拟机": {
+      "label": "虚拟机",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-tools/BurpSuite": {
+      "label": "BurpSuite",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-tools/Chrome": {
+      "label": "Chrome",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-tools/WebShell": {
+      "label": "WebShell",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-tools/菜刀类工具": {
+      "label": "菜刀类工具",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-tools/端口扫描": {
+      "label": "端口扫描",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-tools/远程连接": {
+      "label": "远程连接",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-tools/目录爆破": {
+      "label": "目录爆破",
+      "owner": "web-tools",
+      "unavailable": true
+    },
+    "web-leak/目录遍历": {
+      "label": "目录遍历",
+      "owner": "web-leak",
+      "unavailable": false
+    },
+    "web-leak/PHPINFO": {
+      "label": "PHPINFO",
+      "owner": "web-leak",
+      "unavailable": false
+    },
+    "web-backup": {
+      "label": "备份文件下载",
+      "page": "web-backup"
+    },
+    "web-git": {
+      "label": "Git泄露",
+      "page": "web-git"
+    },
+    "web-leak/SVN泄露": {
+      "label": "SVN泄露",
+      "owner": "web-leak",
+      "unavailable": false
+    },
+    "web-leak/HG泄露": {
+      "label": "HG泄露",
+      "owner": "web-leak",
+      "unavailable": false
+    },
+    "web-backup/网站源码": {
+      "label": "网站源码",
+      "owner": "web-backup",
+      "unavailable": false
+    },
+    "web-backup/bak文件": {
+      "label": "bak文件",
+      "owner": "web-backup",
+      "unavailable": false
+    },
+    "web-backup/vim缓存": {
+      "label": "vim缓存",
+      "owner": "web-backup",
+      "unavailable": false
+    },
+    "web-backup/.DS_Store": {
+      "label": ".DS_Store",
+      "owner": "web-backup",
+      "unavailable": false
+    },
+    "web-git/Log": {
+      "label": "Log",
+      "owner": "web-git",
+      "unavailable": false
+    },
+    "web-git/Stash": {
+      "label": "Stash",
+      "owner": "web-git",
+      "unavailable": false
+    },
+    "web-git/Index": {
+      "label": "Index",
+      "owner": "web-git",
+      "unavailable": false
+    },
+    "web-password/弱口令": {
+      "label": "弱口令",
+      "owner": "web-password",
+      "unavailable": false
+    },
+    "web-password/字典爆破": {
+      "label": "字典爆破",
+      "owner": "web-password",
+      "unavailable": true
+    },
+    "web-password/默认口令": {
+      "label": "默认口令",
+      "owner": "web-password",
+      "unavailable": false
+    },
+    "web-password/社会工程": {
+      "label": "社会工程",
+      "owner": "web-password",
+      "unavailable": true
+    },
+    "web-sql/整数型注入": {
+      "label": "整数型注入",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/字符型注入": {
+      "label": "字符型注入",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/报错注入": {
+      "label": "报错注入",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/布尔盲注": {
+      "label": "布尔盲注",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/时间盲注": {
+      "label": "时间盲注",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/MySQL结构": {
+      "label": "MySQL结构",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/Cookie注入": {
+      "label": "Cookie注入",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/UA注入": {
+      "label": "UA注入",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/Refer注入": {
+      "label": "Refer注入",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/二次注入": {
+      "label": "二次注入",
+      "owner": "web-sql",
+      "unavailable": true
+    },
+    "web-sql/Where后注入": {
+      "label": "Where后注入",
+      "owner": "web-sql",
+      "unavailable": true
+    },
+    "web-sql/AND/OR注入": {
+      "label": "AND/OR注入",
+      "owner": "web-sql",
+      "unavailable": true
+    },
+    "web-sql/ORDER BY 注入": {
+      "label": "ORDER BY 注入",
+      "owner": "web-sql",
+      "unavailable": true
+    },
+    "web-sql/UPDATE注入": {
+      "label": "UPDATE注入",
+      "owner": "web-sql",
+      "unavailable": true
+    },
+    "web-sql/INSERT注入": {
+      "label": "INSERT注入",
+      "owner": "web-sql",
+      "unavailable": true
+    },
+    "web-sql/过滤空格": {
+      "label": "过滤空格",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-sql/综合训练 SQLI-LABS": {
+      "label": "综合训练 SQLI-LABS",
+      "owner": "web-sql",
+      "unavailable": false
+    },
+    "web-xss/反射型": {
+      "label": "反射型",
+      "owner": "web-xss",
+      "unavailable": false
+    },
+    "web-xss/存储型": {
+      "label": "存储型",
+      "owner": "web-xss",
+      "unavailable": false
+    },
+    "web-xss/DOM反射": {
+      "label": "DOM反射",
+      "owner": "web-xss",
+      "unavailable": false
+    },
+    "web-xss/DOM跳转": {
+      "label": "DOM跳转",
+      "owner": "web-xss",
+      "unavailable": false
+    },
+    "web-xss/过滤空格": {
+      "label": "过滤空格",
+      "owner": "web-xss",
+      "unavailable": false
+    },
+    "web-xss/过滤关键词": {
+      "label": "过滤关键词",
+      "owner": "web-xss",
+      "unavailable": false
+    },
+    "web-upload/无验证": {
+      "label": "无验证",
+      "owner": "web-upload",
+      "unavailable": false
+    },
+    "web-upload/前端验证": {
+      "label": "前端验证",
+      "owner": "web-upload",
+      "unavailable": false
+    },
+    "web-upload/.htaccess": {
+      "label": ".htaccess",
+      "owner": "web-upload",
+      "unavailable": false
+    },
+    "web-upload/MIME绕过": {
+      "label": "MIME绕过",
+      "owner": "web-upload",
+      "unavailable": false
+    },
+    "web-upload/00截断": {
+      "label": "00截断",
+      "owner": "web-upload",
+      "unavailable": false
+    },
+    "web-upload/后缀大小写绕过": {
+      "label": "后缀大小写绕过",
+      "owner": "web-upload",
+      "unavailable": true
+    },
+    "web-upload/点绕过": {
+      "label": "点绕过",
+      "owner": "web-upload",
+      "unavailable": true
+    },
+    "web-upload/空格绕过": {
+      "label": "空格绕过",
+      "owner": "web-upload",
+      "unavailable": true
+    },
+    "web-upload/双写后缀": {
+      "label": "双写后缀",
+      "owner": "web-upload",
+      "unavailable": false
+    },
+    "web-upload/文件头检查": {
+      "label": "文件头检查",
+      "owner": "web-upload",
+      "unavailable": false
+    },
+    "web-upload/突破getimagesize()": {
+      "label": "突破getimagesize()",
+      "owner": "web-upload",
+      "unavailable": true
+    },
+    "web-upload/突破exif_imagetype()": {
+      "label": "突破exif_imagetype()",
+      "owner": "web-upload",
+      "unavailable": true
+    },
+    "web-upload/二次渲染": {
+      "label": "二次渲染",
+      "owner": "web-upload",
+      "unavailable": true
+    },
+    "web-rce/无过滤执行": {
+      "label": "无过滤执行",
+      "owner": "web-rce",
+      "unavailable": true
+    },
+    "web-rce/no-filter-spaces": {
+      "label": "过滤空格",
+      "owner": "web-rce",
+      "unavailable": true
+    },
+    "web-rce/eval执行": {
+      "label": "eval执行",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/文件包含": {
+      "label": "文件包含",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/php://input": {
+      "label": "php://input",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/读取源代码": {
+      "label": "读取源代码",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/远程包含": {
+      "label": "远程包含",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/命令注入": {
+      "label": "命令注入",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/过滤cat": {
+      "label": "过滤cat",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/command-spaces": {
+      "label": "过滤空格",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/过滤目录分隔符": {
+      "label": "过滤目录分隔符",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/过滤运算符": {
+      "label": "过滤运算符",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-rce/综合过滤练习": {
+      "label": "综合过滤练习",
+      "owner": "web-rce",
+      "unavailable": false
+    },
+    "web-ssrf/内网访问": {
+      "label": "内网访问",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/伪协议读取文件": {
+      "label": "伪协议读取文件",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/端口扫描": {
+      "label": "端口扫描",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/POST请求": {
+      "label": "POST请求",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/上传文件": {
+      "label": "上传文件",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/FastCGI协议": {
+      "label": "FastCGI协议",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/Redis协议": {
+      "label": "Redis协议",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/URL Bypass": {
+      "label": "URL Bypass",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/数字IP Bypass": {
+      "label": "数字IP Bypass",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/302跳转 Bypass": {
+      "label": "302跳转 Bypass",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "web-ssrf/DNS重绑定 Bypass": {
+      "label": "DNS重绑定 Bypass",
+      "owner": "web-ssrf",
+      "unavailable": false
+    },
+    "advanced-php": {
+      "label": "PHP",
+      "page": "advanced-php"
+    },
+    "web-advanced/Python": {
+      "label": "Python",
+      "owner": "web-advanced",
+      "unavailable": true
+    },
+    "web-advanced/Java": {
+      "label": "Java",
+      "owner": "web-advanced",
+      "unavailable": true
+    },
+    "web-advanced/Node.js": {
+      "label": "Node.js",
+      "owner": "web-advanced",
+      "unavailable": true
+    },
+    "advanced-linux": {
+      "label": "Linux",
+      "page": "advanced-linux"
+    },
+    "advanced-jwt": {
+      "label": "JSON Web Token",
+      "page": "advanced-jwt"
+    },
+    "advanced-php/PHP伪协议": {
+      "label": "PHP伪协议",
+      "owner": "advanced-php",
+      "unavailable": true
+    },
+    "advanced-php/弱类型": {
+      "label": "弱类型",
+      "owner": "advanced-php",
+      "unavailable": true
+    },
+    "php-disable": {
+      "label": "Bypass disable_function",
+      "page": "php-disable"
+    },
+    "advanced-php/Bypass open_basedir": {
+      "label": "Bypass open_basedir",
+      "owner": "advanced-php",
+      "unavailable": true
+    },
+    "php-disable/LD_PRELOAD": {
+      "label": "LD_PRELOAD",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/ShellShock": {
+      "label": "ShellShock",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/Apache Mod CGI": {
+      "label": "Apache Mod CGI",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/PHP-FPM": {
+      "label": "PHP-FPM",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/GC UAF": {
+      "label": "GC UAF",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/Json Serializer UAF": {
+      "label": "Json Serializer UAF",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/Backtrace UAF": {
+      "label": "Backtrace UAF",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/COM 组件": {
+      "label": "COM 组件",
+      "owner": "php-disable",
+      "unavailable": true
+    },
+    "php-disable/FFI 扩展": {
+      "label": "FFI 扩展",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/ImageMagick": {
+      "label": "ImageMagick",
+      "owner": "php-disable",
+      "unavailable": true
+    },
+    "php-disable/iconv": {
+      "label": "iconv",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/bypass iconv 1": {
+      "label": "bypass iconv 1",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "php-disable/bypass iconv 2": {
+      "label": "bypass iconv 2",
+      "owner": "php-disable",
+      "unavailable": false
+    },
+    "advanced-linux/动态加载器": {
+      "label": "动态加载器",
+      "owner": "advanced-linux",
+      "unavailable": false
+    },
+    "advanced-linux//proc/cmdline": {
+      "label": "/proc/cmdline",
+      "owner": "advanced-linux",
+      "unavailable": true
+    },
+    "advanced-linux//proc/environ": {
+      "label": "/proc/environ",
+      "owner": "advanced-linux",
+      "unavailable": true
+    },
+    "advanced-linux//proc/fd": {
+      "label": "/proc/fd",
+      "owner": "advanced-linux",
+      "unavailable": true
+    },
+    "advanced-jwt/基础知识": {
+      "label": "基础知识",
+      "owner": "advanced-jwt",
+      "unavailable": false
+    },
+    "advanced-jwt/敏感信息泄露": {
+      "label": "敏感信息泄露",
+      "owner": "advanced-jwt",
+      "unavailable": false
+    },
+    "advanced-jwt/重签名": {
+      "label": "重签名",
+      "owner": "advanced-jwt",
+      "unavailable": true
+    },
+    "advanced-jwt/无签名": {
+      "label": "无签名",
+      "owner": "advanced-jwt",
+      "unavailable": false
+    },
+    "advanced-jwt/弱密钥": {
+      "label": "弱密钥",
+      "owner": "advanced-jwt",
+      "unavailable": false
+    },
+    "advanced-jwt/修改签名算法": {
+      "label": "修改签名算法",
+      "owner": "advanced-jwt",
+      "unavailable": false
+    },
+    "pwn-pre": {
+      "label": "Pwn前置技能",
+      "page": "pwn-pre"
+    },
+    "pwn-tools": {
+      "label": "Pwn工具配置",
+      "page": "pwn-tools"
+    },
+    "pwn-stack": {
+      "label": "栈溢出",
+      "page": "pwn-stack"
+    },
+    "pwn-heap": {
+      "label": "堆溢出",
+      "page": "pwn-heap"
+    },
+    "pwn-format": {
+      "label": "字符串格式化",
+      "page": "pwn-format"
+    },
+    "pwn-array": {
+      "label": "数组溢出",
+      "page": "pwn-array"
+    },
+    "pwn-kernel": {
+      "label": "Linux内核Pwn",
+      "page": "pwn-kernel"
+    },
+    "pwn-other": {
+      "label": "异构",
+      "page": "pwn-other"
+    },
+    "pwn-pre/汇编语言": {
+      "label": "汇编语言",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/堆栈结构": {
+      "label": "堆栈结构",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/elf文件结构": {
+      "label": "elf文件结构",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/glibc": {
+      "label": "glibc",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/内存保护技术": {
+      "label": "内存保护技术",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/Python": {
+      "label": "Python",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/ShellCode": {
+      "label": "ShellCode",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/动态调试技术": {
+      "label": "动态调试技术",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-pre/Linux内核": {
+      "label": "Linux内核",
+      "owner": "pwn-pre",
+      "unavailable": true
+    },
+    "pwn-gdb": {
+      "label": "GDB",
+      "page": "pwn-gdb"
+    },
+    "pwn-tools/pwntools": {
+      "label": "pwntools",
+      "owner": "pwn-tools",
+      "unavailable": true
+    },
+    "pwn-tools/IDA Pro": {
+      "label": "IDA Pro",
+      "owner": "pwn-tools",
+      "unavailable": true
+    },
+    "pwn-tools/one_gadget": {
+      "label": "one_gadget",
+      "owner": "pwn-tools",
+      "unavailable": true
+    },
+    "pwn-tools/libc search": {
+      "label": "libc search",
+      "owner": "pwn-tools",
+      "unavailable": true
+    },
+    "pwn-tools/ROPgadget": {
+      "label": "ROPgadget",
+      "owner": "pwn-tools",
+      "unavailable": true
+    },
+    "pwn-gdb/GDB插件": {
+      "label": "GDB插件",
+      "owner": "pwn-gdb",
+      "unavailable": false
+    },
+    "pwn-stack/ret2text": {
+      "label": "ret2text",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-stack/ret2shellcode": {
+      "label": "ret2shellcode",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-stack/ret2libc": {
+      "label": "ret2libc",
+      "owner": "pwn-stack",
+      "unavailable": true
+    },
+    "pwn-stack/ret2dl_resolve": {
+      "label": "ret2dl_resolve",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-stack/ret2VDSO": {
+      "label": "ret2VDSO",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-stack/栈扩展": {
+      "label": "栈扩展",
+      "owner": "pwn-stack",
+      "unavailable": true
+    },
+    "pwn-stack/栈迁移": {
+      "label": "栈迁移",
+      "owner": "pwn-stack",
+      "unavailable": true
+    },
+    "pwn-stack/leak pie": {
+      "label": "leak pie",
+      "owner": "pwn-stack",
+      "unavailable": true
+    },
+    "pwn-stack/leak canary": {
+      "label": "leak canary",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-stack/ROP": {
+      "label": "ROP",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-stack/SROP": {
+      "label": "SROP",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-stack/BROP": {
+      "label": "BROP",
+      "owner": "pwn-stack",
+      "unavailable": false
+    },
+    "pwn-heap/FastBin Attack": {
+      "label": "FastBin Attack",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/Unsorted Attack": {
+      "label": "Unsorted Attack",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/Largebin Attack": {
+      "label": "Largebin Attack",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/Chunk Extend": {
+      "label": "Chunk Extend",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/off by one": {
+      "label": "off by one",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/off by null": {
+      "label": "off by null",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/Use After Free(UAF)": {
+      "label": "Use After Free(UAF)",
+      "owner": "pwn-heap",
+      "unavailable": true
+    },
+    "pwn-heap/unlink": {
+      "label": "unlink",
+      "owner": "pwn-heap",
+      "unavailable": true
+    },
+    "pwn-heap/tcache Attack": {
+      "label": "tcache Attack",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/House of Einherjar": {
+      "label": "House of Einherjar",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/House of spirit": {
+      "label": "House of spirit",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/House of roman": {
+      "label": "House of roman",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/House of orange": {
+      "label": "House of orange",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/House of Lore": {
+      "label": "House of Lore",
+      "owner": "pwn-heap",
+      "unavailable": false
+    },
+    "pwn-heap/House of Force": {
+      "label": "House of Force",
+      "owner": "pwn-heap",
+      "unavailable": true
+    },
+    "pwn-heap/House of Rabbit": {
+      "label": "House of Rabbit",
+      "owner": "pwn-heap",
+      "unavailable": true
+    },
+    "pwn-format/读数据": {
+      "label": "读数据",
+      "owner": "pwn-format",
+      "unavailable": false
+    },
+    "pwn-format/写数据": {
+      "label": "写数据",
+      "owner": "pwn-format",
+      "unavailable": false
+    },
+    "pwn-format/利用ebp写入": {
+      "label": "利用ebp写入",
+      "owner": "pwn-format",
+      "unavailable": false
+    },
+    "pwn-format/__printf_chk %a": {
+      "label": "__printf_chk %a",
+      "owner": "pwn-format",
+      "unavailable": true
+    },
+    "pwn-array/越界写": {
+      "label": "越界写",
+      "owner": "pwn-array",
+      "unavailable": false
+    },
+    "pwn-array/越界读": {
+      "label": "越界读",
+      "owner": "pwn-array",
+      "unavailable": false
+    },
+    "pwn-kernel/内核基础": {
+      "label": "内核基础",
+      "owner": "pwn-kernel",
+      "unavailable": true
+    },
+    "pwn-kernel/Kernel UAF": {
+      "label": "Kernel UAF",
+      "owner": "pwn-kernel",
+      "unavailable": false
+    },
+    "pwn-kernel/Kernel ROP": {
+      "label": "Kernel ROP",
+      "owner": "pwn-kernel",
+      "unavailable": false
+    },
+    "pwn-kernel/ret2user": {
+      "label": "ret2user",
+      "owner": "pwn-kernel",
+      "unavailable": true
+    },
+    "pwn-kernel/Bypass smep": {
+      "label": "Bypass smep",
+      "owner": "pwn-kernel",
+      "unavailable": true
+    },
+    "pwn-kernel/Double Fetch": {
+      "label": "Double Fetch",
+      "owner": "pwn-kernel",
+      "unavailable": false
+    },
+    "pwn-other/ARM Pwn": {
+      "label": "ARM Pwn",
+      "owner": "pwn-other",
+      "unavailable": false
+    },
+    "pwn-other/MIPS Pwn": {
+      "label": "MIPS Pwn",
+      "owner": "pwn-other",
+      "unavailable": false
+    },
+    "reverse/Reverse前置技能": {
+      "label": "Reverse前置技能",
+      "owner": "reverse",
+      "unavailable": true
+    },
+    "reverse/Reverse工具配置": {
+      "label": "Reverse工具配置",
+      "owner": "reverse",
+      "unavailable": true
+    },
+    "crypto-pre": {
+      "label": "Crypto前置技能",
+      "page": "crypto-pre"
+    },
+    "crypto-tools": {
+      "label": "Crypto工具配置",
+      "page": "crypto-tools"
+    },
+    "crypto-classic": {
+      "label": "古典密码",
+      "page": "crypto-classic"
+    },
+    "crypto-aes": {
+      "label": "AES",
+      "page": "crypto-aes"
+    },
+    "crypto-des": {
+      "label": "DES",
+      "page": "crypto-des"
+    },
+    "crypto/RSA": {
+      "label": "RSA",
+      "owner": "crypto",
+      "unavailable": false
+    },
+    "crypto/流密码": {
+      "label": "流密码",
+      "owner": "crypto",
+      "unavailable": false
+    },
+    "crypto/哈希": {
+      "label": "哈希",
+      "owner": "crypto",
+      "unavailable": false
+    },
+    "crypto/ECC(椭圆加密算法)": {
+      "label": "ECC(椭圆加密算法)",
+      "owner": "crypto",
+      "unavailable": false
+    },
+    "crypto-pre/基础数学": {
+      "label": "基础数学",
+      "owner": "crypto-pre",
+      "unavailable": true
+    },
+    "crypto-pre/数论": {
+      "label": "数论",
+      "owner": "crypto-pre",
+      "unavailable": true
+    },
+    "crypto-pre/抽象代数": {
+      "label": "抽象代数",
+      "owner": "crypto-pre",
+      "unavailable": true
+    },
+    "crypto-pre/群论": {
+      "label": "群论",
+      "owner": "crypto-pre",
+      "unavailable": true
+    },
+    "crypto-pre/Python": {
+      "label": "Python",
+      "owner": "crypto-pre",
+      "unavailable": true
+    },
+    "crypto-pre/C++": {
+      "label": "C++",
+      "owner": "crypto-pre",
+      "unavailable": true
+    },
+    "crypto-tools/Conda": {
+      "label": "Conda",
+      "owner": "crypto-tools",
+      "unavailable": true
+    },
+    "crypto-tools/yafu": {
+      "label": "yafu",
+      "owner": "crypto-tools",
+      "unavailable": true
+    },
+    "crypto-tools/factordb": {
+      "label": "factordb",
+      "owner": "crypto-tools",
+      "unavailable": true
+    },
+    "crypto-tools/quipqiup": {
+      "label": "quipqiup",
+      "owner": "crypto-tools",
+      "unavailable": true
+    },
+    "crypto-tools/MATLAB": {
+      "label": "MATLAB",
+      "owner": "crypto-tools",
+      "unavailable": true
+    },
+    "crypto-classic/AAencode": {
+      "label": "AAencode",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/JJencode": {
+      "label": "JJencode",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/Base系列": {
+      "label": "Base系列",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/栅栏密码": {
+      "label": "栅栏密码",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/jsfuck": {
+      "label": "jsfuck",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/brainfuck": {
+      "label": "brainfuck",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/凯撒密码": {
+      "label": "凯撒密码",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/猪圈密码": {
+      "label": "猪圈密码",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/摩斯电码": {
+      "label": "摩斯电码",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/JOTHER": {
+      "label": "JOTHER",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/URL编码": {
+      "label": "URL编码",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/培根密码": {
+      "label": "培根密码",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "crypto-classic/维吉尼亚密码": {
+      "label": "维吉尼亚密码",
+      "owner": "crypto-classic",
+      "unavailable": true
+    },
+    "aes-cbc": {
+      "label": "CBC",
+      "page": "aes-cbc"
+    },
+    "aes-ecb": {
+      "label": "ECB",
+      "page": "aes-ecb"
+    },
+    "crypto-aes/GCM": {
+      "label": "GCM",
+      "owner": "crypto-aes",
+      "unavailable": true
+    },
+    "aes-cbc/CBC字节反转": {
+      "label": "CBC字节反转",
+      "owner": "aes-cbc",
+      "unavailable": true
+    },
+    "aes-cbc/CBC Padding Oracle": {
+      "label": "CBC Padding Oracle",
+      "owner": "aes-cbc",
+      "unavailable": true
+    },
+    "aes-ecb/ECB Byte at time": {
+      "label": "ECB Byte at time",
+      "owner": "aes-ecb",
+      "unavailable": true
+    },
+    "aes-ecb/ECB 已知明文攻击": {
+      "label": "ECB 已知明文攻击",
+      "owner": "aes-ecb",
+      "unavailable": true
+    },
+    "crypto-des/Double DES": {
+      "label": "Double DES",
+      "owner": "crypto-des",
+      "unavailable": true
+    },
+    "crypto-des/Three DES": {
+      "label": "Three DES",
+      "owner": "crypto-des",
+      "unavailable": true
+    },
+    "misc/Misc前置技能": {
+      "label": "Misc前置技能",
+      "owner": "misc",
+      "unavailable": true
+    },
+    "misc-tools": {
+      "label": "Misc工具配置",
+      "page": "misc-tools"
+    },
+    "misc-traffic": {
+      "label": "流量分析",
+      "page": "misc-traffic"
+    },
+    "misc-forensics": {
+      "label": "电子取证",
+      "page": "misc-forensics"
+    },
+    "misc-stego": {
+      "label": "数据隐写",
+      "page": "misc-stego"
+    },
+    "misc-radio": {
+      "label": "无线射频",
+      "page": "misc-radio"
+    },
+    "misc-iot": {
+      "label": "物联网",
+      "page": "misc-iot"
+    },
+    "misc-industrial": {
+      "label": "工业控制",
+      "page": "misc-industrial"
+    },
+    "misc-cards": {
+      "label": "各种卡",
+      "page": "misc-cards"
+    },
+    "misc-password": {
+      "label": "密码破解",
+      "page": "misc-password"
+    },
+    "tools-stego": {
+      "label": "数据隐写类工具",
+      "page": "tools-stego"
+    },
+    "tools-traffic": {
+      "label": "流量分析类工具",
+      "page": "tools-traffic"
+    },
+    "tools-forensics": {
+      "label": "电子取证类工具",
+      "page": "tools-forensics"
+    },
+    "misc-tools/无线射频类工具": {
+      "label": "无线射频类工具",
+      "owner": "misc-tools",
+      "unavailable": true
+    },
+    "tools-iot": {
+      "label": "物联网类工具",
+      "page": "tools-iot"
+    },
+    "tools-password": {
+      "label": "密码破解类工具",
+      "page": "tools-password"
+    },
+    "tools-stego/010Editor": {
+      "label": "010Editor",
+      "owner": "tools-stego",
+      "unavailable": true
+    },
+    "tools-stego/Stegsolve": {
+      "label": "Stegsolve",
+      "owner": "tools-stego",
+      "unavailable": true
+    },
+    "tools-traffic/Wireshark": {
+      "label": "Wireshark",
+      "owner": "tools-traffic",
+      "unavailable": true
+    },
+    "tools-forensics/volatility": {
+      "label": "volatility",
+      "owner": "tools-forensics",
+      "unavailable": true
+    },
+    "tools-iot/QEMU": {
+      "label": "QEMU",
+      "owner": "tools-iot",
+      "unavailable": true
+    },
+    "tools-iot/Binwalk": {
+      "label": "Binwalk",
+      "owner": "tools-iot",
+      "unavailable": true
+    },
+    "tools-password/HashCat": {
+      "label": "HashCat",
+      "owner": "tools-password",
+      "unavailable": true
+    },
+    "tools-password/EWSA": {
+      "label": "EWSA",
+      "owner": "tools-password",
+      "unavailable": true
+    },
+    "tools-password/在线网站": {
+      "label": "在线网站",
+      "owner": "tools-password",
+      "unavailable": true
+    },
+    "traffic-db": {
+      "label": "数据库类流量",
+      "page": "traffic-db"
+    },
+    "traffic-mail": {
+      "label": "邮件流量",
+      "page": "traffic-mail"
+    },
+    "traffic-protocol": {
+      "label": "协议流量分析",
+      "page": "traffic-protocol"
+    },
+    "misc-traffic/原始流量": {
+      "label": "原始流量",
+      "owner": "misc-traffic",
+      "unavailable": true
+    },
+    "traffic-db/MySQL流量": {
+      "label": "MySQL流量",
+      "owner": "traffic-db",
+      "unavailable": false
+    },
+    "traffic-db/SQL Server流量": {
+      "label": "SQL Server流量",
+      "owner": "traffic-db",
+      "unavailable": true
+    },
+    "traffic-db/Oracle流量": {
+      "label": "Oracle流量",
+      "owner": "traffic-db",
+      "unavailable": true
+    },
+    "traffic-db/Redis流量": {
+      "label": "Redis流量",
+      "owner": "traffic-db",
+      "unavailable": false
+    },
+    "traffic-db/MongoDB流量": {
+      "label": "MongoDB流量",
+      "owner": "traffic-db",
+      "unavailable": false
+    },
+    "traffic-mail/SMTP": {
+      "label": "SMTP",
+      "owner": "traffic-mail",
+      "unavailable": true
+    },
+    "traffic-mail/POP3": {
+      "label": "POP3",
+      "owner": "traffic-mail",
+      "unavailable": true
+    },
+    "traffic-mail/IMAP": {
+      "label": "IMAP",
+      "owner": "traffic-mail",
+      "unavailable": true
+    },
+    "traffic-protocol/HTTP流量": {
+      "label": "HTTP流量",
+      "owner": "traffic-protocol",
+      "unavailable": true
+    },
+    "traffic-protocol/HTTPS流量": {
+      "label": "HTTPS流量",
+      "owner": "traffic-protocol",
+      "unavailable": true
+    },
+    "traffic-protocol/FTP": {
+      "label": "FTP",
+      "owner": "traffic-protocol",
+      "unavailable": true
+    },
+    "traffic-protocol/ICMP": {
+      "label": "ICMP",
+      "owner": "traffic-protocol",
+      "unavailable": false
+    },
+    "traffic-protocol/SNMP": {
+      "label": "SNMP",
+      "owner": "traffic-protocol",
+      "unavailable": true
+    },
+    "traffic-protocol/DNS": {
+      "label": "DNS",
+      "owner": "traffic-protocol",
+      "unavailable": true
+    },
+    "traffic-protocol/Telnet": {
+      "label": "Telnet",
+      "owner": "traffic-protocol",
+      "unavailable": true
+    },
+    "misc-forensics/硬盘取证": {
+      "label": "硬盘取证",
+      "owner": "misc-forensics",
+      "unavailable": true
+    },
+    "misc-forensics/内存取证": {
+      "label": "内存取证",
+      "owner": "misc-forensics",
+      "unavailable": true
+    },
+    "misc-forensics/密钥恢复": {
+      "label": "密钥恢复",
+      "owner": "misc-forensics",
+      "unavailable": true
+    },
+    "misc-forensics/BitLocker": {
+      "label": "BitLocker",
+      "owner": "misc-forensics",
+      "unavailable": true
+    },
+    "misc-stego/图片隐写": {
+      "label": "图片隐写",
+      "owner": "misc-stego",
+      "unavailable": true
+    },
+    "misc-stego/音频隐写": {
+      "label": "音频隐写",
+      "owner": "misc-stego",
+      "unavailable": true
+    },
+    "misc-stego/视频隐写": {
+      "label": "视频隐写",
+      "owner": "misc-stego",
+      "unavailable": true
+    },
+    "misc-stego/NTFS流": {
+      "label": "NTFS流",
+      "owner": "misc-stego",
+      "unavailable": true
+    },
+    "misc-radio/Wi-Fi": {
+      "label": "Wi-Fi",
+      "owner": "misc-radio",
+      "unavailable": true
+    },
+    "misc-radio/蓝牙": {
+      "label": "蓝牙",
+      "owner": "misc-radio",
+      "unavailable": true
+    },
+    "misc-radio/SDR": {
+      "label": "SDR",
+      "owner": "misc-radio",
+      "unavailable": true
+    },
+    "misc-radio/ZigBee": {
+      "label": "ZigBee",
+      "owner": "misc-radio",
+      "unavailable": true
+    },
+    "misc-iot/固件解包": {
+      "label": "固件解包",
+      "owner": "misc-iot",
+      "unavailable": true
+    },
+    "misc-iot/固件分析": {
+      "label": "固件分析",
+      "owner": "misc-iot",
+      "unavailable": true
+    },
+    "misc-iot/程序调试": {
+      "label": "程序调试",
+      "owner": "misc-iot",
+      "unavailable": true
+    },
+    "misc-iot/MQTT协议": {
+      "label": "MQTT协议",
+      "owner": "misc-iot",
+      "unavailable": true
+    },
+    "misc-iot/CoAP协议": {
+      "label": "CoAP协议",
+      "owner": "misc-iot",
+      "unavailable": true
+    },
+    "iot-mcu": {
+      "label": "单片机",
+      "page": "iot-mcu"
+    },
+    "iot-mcu/51单片机": {
+      "label": "51单片机",
+      "owner": "iot-mcu",
+      "unavailable": true
+    },
+    "iot-mcu/Arduino": {
+      "label": "Arduino",
+      "owner": "iot-mcu",
+      "unavailable": true
+    },
+    "misc-industrial/梯形图": {
+      "label": "梯形图",
+      "owner": "misc-industrial",
+      "unavailable": true
+    },
+    "misc-industrial/modbus": {
+      "label": "modbus",
+      "owner": "misc-industrial",
+      "unavailable": true
+    },
+    "misc-industrial/s7comm": {
+      "label": "s7comm",
+      "owner": "misc-industrial",
+      "unavailable": true
+    },
+    "misc-industrial/PLC固件": {
+      "label": "PLC固件",
+      "owner": "misc-industrial",
+      "unavailable": true
+    },
+    "misc-industrial/SCADA工程": {
+      "label": "SCADA工程",
+      "owner": "misc-industrial",
+      "unavailable": true
+    },
+    "misc-cards/RFID": {
+      "label": "RFID",
+      "owner": "misc-cards",
+      "unavailable": true
+    },
+    "misc-cards/接触式卡片": {
+      "label": "接触式卡片",
+      "owner": "misc-cards",
+      "unavailable": true
+    },
+    "misc-password/RAR密码破解": {
+      "label": "RAR密码破解",
+      "owner": "misc-password",
+      "unavailable": true
+    },
+    "misc-password/ZIP密码破解": {
+      "label": "ZIP密码破解",
+      "owner": "misc-password",
+      "unavailable": true
+    },
+    "misc-password/ZIP伪加密": {
+      "label": "ZIP伪加密",
+      "owner": "misc-password",
+      "unavailable": true
+    },
+    "misc-password/Wi-Fi密码破解": {
+      "label": "Wi-Fi密码破解",
+      "owner": "misc-password",
+      "unavailable": true
+    },
+    "misc-password/Office密码破解": {
+      "label": "Office密码破解",
+      "owner": "misc-password",
+      "unavailable": true
+    },
+    "misc-password/哈希破解": {
+      "label": "哈希破解",
+      "owner": "misc-password",
+      "unavailable": true
+    },
+    "eggs/首页": {
+      "label": "首页",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "eggs/公众号": {
+      "label": "公众号",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "eggs/题目入口": {
+      "label": "题目入口",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "eggs/Writeup": {
+      "label": "Writeup",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "eggs/工具": {
+      "label": "工具",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "eggs/赛事": {
+      "label": "赛事",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "eggs/真题": {
+      "label": "真题",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "eggs/投稿提交": {
+      "label": "投稿提交",
+      "owner": "eggs",
+      "unavailable": false
+    },
+    "blockchain/薅羊毛": {
+      "label": "薅羊毛",
+      "owner": "blockchain",
+      "unavailable": true
+    },
+    "blockchain/溢出攻击": {
+      "label": "溢出攻击",
+      "owner": "blockchain",
+      "unavailable": true
+    }
+  }
+}
