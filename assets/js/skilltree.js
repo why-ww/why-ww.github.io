@@ -37,7 +37,7 @@
       const def = data.nodes[id];
       const ids = def.page ? members(def.page) : new Set([id]);
       let done = 0;
-      for (const key of ids) if (articles.has(key)) done++;
+      for (const key of ids) if (articles.has(key) || data.nodes[key].completed_without_writeup === true) done++;
       return {done, total: ids.size, state: done === 0 ? 'unlearned' : done === ids.size ? 'mastered' : 'learning'};
     }
     function path(pageId) {
@@ -101,8 +101,9 @@
     const content = dialog.querySelector('[data-dialog-content]');
     content.replaceChildren();
     if (!matches.length) {
-      content.append(el('p','skill-empty-title','尚未发布'));
-      content.append(el('p','skill-muted','这道题的 writeup 还在路上。'));
+      const completed = def.completed_without_writeup === true;
+      content.append(el('p','skill-empty-title',completed ? '已掌握' : '尚未发布'));
+      content.append(el('p','skill-muted',completed ? '已完成签到，无需发布 writeup。' : '这道题的 writeup 还在路上。'));
     } else {
       const list = el('ul','skill-articles');
       for (const post of matches) { const li = el('li'); li.append(postLink(post)); list.append(li); }
@@ -206,7 +207,8 @@
       item.append(label);
       const detail=definition.page ? status.done+' / '+status.total : labels[status.state];
       item.append(el('span','skill-node-detail',detail));
-      item.setAttribute('aria-label',definition.label+'，'+labels[status.state]+(definition.page?'，'+detail+'，'+(isCurrent?'当前分类':'进入子树'):', '+(status.done?'阅读 writeup':'尚未发布')));
+      const action = model.articles.has(node.id) ? '阅读 writeup' : definition.completed_without_writeup === true ? '查看完成状态' : '尚未发布';
+      item.setAttribute('aria-label',definition.label+'，'+labels[status.state]+(definition.page?'，'+detail+'，'+(isCurrent?'当前分类':'进入子树'):', '+action));
       if(definition.unavailable) item.title='CTFHub 暂无环境';
       frame.append(item);
     }

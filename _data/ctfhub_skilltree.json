@@ -2053,6 +2053,7 @@
     "root/签到": {
       "label": "签到",
       "owner": "root",
+      "completed_without_writeup": true,
       "unavailable": false
     },
     "web": {
