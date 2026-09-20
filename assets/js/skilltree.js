@@ -100,10 +100,13 @@
     dialog.querySelector('[data-dialog-path]').textContent = model.path(def.owner).map(p => p.title).join(' / ');
     const content = dialog.querySelector('[data-dialog-content]');
     content.replaceChildren();
+    if (def.unavailable) {
+      content.append(el('p','skill-availability-note','暂无环境：根据整理时的 CTFHub 技能树标注，平台暂未提供该项练习环境。'));
+    }
     if (!matches.length) {
       const completed = def.completed_without_writeup === true;
       content.append(el('p','skill-empty-title',completed ? '已掌握' : '尚未发布'));
-      content.append(el('p','skill-muted',completed ? '已完成签到，无需发布 writeup。' : '这道题的 writeup 还在路上。'));
+      content.append(el('p','skill-muted',completed ? '已完成签到，无需发布 writeup。' : def.unavailable ? '该项暂未完成，尚未发布 writeup。' : '这道题的 writeup 还在路上。'));
     } else {
       const list = el('ul','skill-articles');
       for (const post of matches) { const li = el('li'); li.append(postLink(post)); list.append(li); }
@@ -119,7 +122,8 @@
   });
 
   function measure(raw) {
-    const width = Math.max(106, Math.ceil(context.measureText(data.nodes[raw.id].label).width) + 42);
+    const definition = data.nodes[raw.id];
+    const width = Math.max(definition.unavailable ? 150 : 106, Math.ceil(context.measureText(definition.label).width) + 42);
     const children = raw.children.map(measure);
     const branchWidth = children.reduce((sum,c) => sum + c.span,0) + Math.max(0,children.length-1)*22;
     return {id:raw.id,width,children,span:Math.max(width,branchWidth)};
@@ -206,9 +210,11 @@
       const label=el('span','skill-node-label',definition.label);
       item.append(label);
       const detail=definition.page ? status.done+' / '+status.total : labels[status.state];
-      item.append(el('span','skill-node-detail',detail));
+      const detailRow = el('span','skill-node-detail',detail);
+      if (definition.unavailable) detailRow.append(el('span','skill-unavailable-badge','暂无环境'));
+      item.append(detailRow);
       const action = model.articles.has(node.id) ? '阅读 writeup' : definition.completed_without_writeup === true ? '查看完成状态' : '尚未发布';
-      item.setAttribute('aria-label',definition.label+'，'+labels[status.state]+(definition.page?'，'+detail+'，'+(isCurrent?'当前分类':'进入子树'):', '+action));
+      item.setAttribute('aria-label',definition.label+'，'+labels[status.state]+(definition.unavailable?'，暂无环境':'')+(definition.page?'，'+detail+'，'+(isCurrent?'当前分类':'进入子树'):', '+action));
       if(definition.unavailable) item.title='CTFHub 暂无环境';
       frame.append(item);
     }

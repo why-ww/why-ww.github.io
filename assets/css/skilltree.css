@@ -33,7 +33,9 @@ body:has(.skilltree) .site-header > .wrapper::after { content:none; }
 .skill-edges path { fill:none; stroke:#3a4553; stroke-width:1; shape-rendering:geometricPrecision; }
 .skilltree .skill-node { position:absolute; height:58px; border:1px solid #394453; border-radius:8px; background:#212832; color:#c9d1d9; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:3px; padding:7px 12px; text-decoration:none; font:inherit; font-size:15px; line-height:1.35; cursor:pointer; box-shadow:0 3px 10px #0002; transition:border-color .15s,background-color .15s; }
 .skill-node-label { white-space:nowrap; }
-.skill-node-detail { font-size:10px; letter-spacing:.4px; color:#8794a6; }
+.skill-node-detail { display:flex; align-items:center; gap:7px; white-space:nowrap; font-size:10px; letter-spacing:.4px; color:#8794a6; }
+.skill-unavailable-badge { padding:1px 5px; border:1px solid #596575; border-radius:4px; color:#b8c3d1; background:#252d38; }
+.skill-availability-note { padding:12px; border:1px solid #596575; border-radius:8px; color:#b8c3d1; background:#252d38; font-size:14px; line-height:1.7; }
 .skilltree a.skill-node:hover, .skilltree button.skill-node:hover { border-color:#8ab4e8; background:#293747; color:#c8e0ff; text-decoration:none; }
 .skilltree .skill-node.is-current { border-color:#567da8; background:#203044; color:#b5d5fb; cursor:default; }
 .skilltree .skill-node.is-learning { background:#3b3020; border-color:#b18030; color:#efc779; }

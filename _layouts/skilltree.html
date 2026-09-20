@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<link rel="stylesheet" href="{{ '/assets/css/skilltree.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/css/skilltree.css' | relative_url }}?v={{ site.time | date: '%s' }}">
 {% include skilltree-panel.html %}
 {% assign hub_posts = site.posts | where_exp: 'post', "post.tags contains 'ctfhub'" %}
 <noscript>
