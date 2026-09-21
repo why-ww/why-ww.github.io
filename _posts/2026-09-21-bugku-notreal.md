@@ -1,7 +1,7 @@
 ---
 layout: writeup
 tags: [bugku]
-title: "BugKu CTF Writeup - 眼见非实"
+title: "BugKu CTF Writeup - notreal"
 date: 2026-9-21
 ---
 # BugKu CTF Writeup - 眼见非实
