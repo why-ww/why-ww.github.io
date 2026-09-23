@@ -2,7 +2,7 @@
 layout: writeup
 tags: [bugku]
 title: "BugKu CTF Writeup - thisispig"
-date: 2026-9-19
+date: 2026-09-19
 ---
 # BugKu CTF Writeup - thisispig
 ## 题目类型
