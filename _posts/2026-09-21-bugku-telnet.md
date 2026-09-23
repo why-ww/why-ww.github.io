@@ -2,7 +2,7 @@
 layout: writeup
 tags: [bugku]
 title: "BugKu CTF Writeup - telnet"
-date: 2026-9-21
+date: 2026-09-21
 ---
 # BugKu CTF Writeup - telnet
 ## 题目类型
