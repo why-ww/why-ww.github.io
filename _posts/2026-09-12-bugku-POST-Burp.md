@@ -2,7 +2,7 @@
 layout: writeup
 tags: [bugku]
 title: "BugKu CTF Writeup - POST - Burp"
-date: 2026-9-12
+date: 2026-09-12
 ---
 # BugKu CTF Writeup - POST - Burp
 ## 题目类型
