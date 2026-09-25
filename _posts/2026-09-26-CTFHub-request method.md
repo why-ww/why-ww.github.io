@@ -5,11 +5,7 @@ tags: [ctfhub]
 title: "CTFHub CTF Writeup - 请求方式"
 date: 2026-09-26
 
-skill:
-  - Web
-  - Web前置技能
-  - HTTP协议
-  - 请求方式
+skill: "Web/Web前置技能/HTTP协议/请求方式"
 ---
 # CTFHub CTF Writeup - HTTP 请求方法
 
