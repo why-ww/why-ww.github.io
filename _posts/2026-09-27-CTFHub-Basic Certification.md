@@ -3,9 +3,9 @@ layout: writeup
 tags: [ctfhub]
 
 title: "CTFHub CTF Writeup - 基础认证"
-date: 2026-09-28
+date: 2026-09-27
 
-skill: web-http/基础认证
+skill: "web-http/基础认证"
 completed: true
 ---
 
