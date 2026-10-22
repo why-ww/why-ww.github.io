@@ -5,7 +5,7 @@ tags: [ctfhub]
 title: "CTFHub CTF Writeup - .DS_Store"
 date: 2026-10-23
 
-skill: "web-backup/.DS_Store"
+skill: ".DS_Store"
 completed: true
 ---
 
