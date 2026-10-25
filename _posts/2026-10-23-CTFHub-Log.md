@@ -5,7 +5,7 @@ tags: [ctfhub]
 title: "CTFHub CTF Writeup - Log"
 date: 2026-10-24
 
-skill: "skill: "web-git/Log""
+skill: "web-git/Log"
 completed: true
 ---
 
