@@ -5,7 +5,7 @@ tags: [ctfhub]
 title: "CTFHub CTF Writeup - SVN泄露"
 date: 2026-10-25
 
-skill: "web-backup/SVN"
+skill: "web-backup/SVN泄露"
 completed: true
 ---
 
