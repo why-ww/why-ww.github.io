@@ -5,7 +5,7 @@ tags: [ctfhub]
 title: "CTFHub CTF Writeup - 反射型"
 date: 2026-10-27
 
-skill: "web-xss/反射型XSS"
+skill: "web-xss/反射型"
 completed: true
 ---
 
