@@ -16,10 +16,9 @@ completed: true
 Web
 
 ## 题目描述
-
-CTFHub 文件上传 - htaccess
-
-
+CTFHub 文件上传 - htaccess   
+Filename: [选择文件] 未选择文件    
+[Submit]           
 ## 解题过程
 
 <br>1. 首页只有上传表单，源码末尾直接给出服务端逻辑：先取文件名并用 \`pathinfo($name)\['extension'\]\` 获取扩展名，再与包含 php、phtml、jsp、asp 等后缀的黑名单比较；扩展名不在黑名单中时执行 \`move\_uploaded\_file\`。记录指出两点：这是黑名单而非白名单，且 \`.htaccess\` 不在名单中。
