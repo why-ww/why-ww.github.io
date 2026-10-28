@@ -5,7 +5,7 @@ tags: [ctfhub]
 title: "CTFHub CTF Writeup - 过滤空格"
 date: 2026-10-28
 
-skill: "web-rce/过滤空格"
+skill: "web-rce/no-filter-spaces"
 completed: true
 ---
 
