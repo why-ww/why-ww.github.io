@@ -18,8 +18,7 @@ Web
 ## 题目描述
 
 CTFHub 文件上传 - htaccess
-Filename: [选择文件] 未选择文件
-[Submit]          
+
 
 ## 解题过程
 
