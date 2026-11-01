@@ -1,6 +1,6 @@
 # 博客文章维护
 
-主页展示全部文章，顶部导航进入 CTFHub 或 bugku 专题。专题使用 `tags` 区分，不改变文章地址。
+主页展示全部文章，顶部导航进入 CTFHub、Pikachu 或 bugku 专题。专题使用 `tags` 区分，不改变文章地址。
 
 CTFHub 专题使用完整技能树，包含 60 个子树及 289 个可关联文章的节点。现有文章全部属于 bugku，不参与 CTFHub 学习状态计算。
 
@@ -36,3 +36,21 @@ CTFHub 的其他领域可使用 `tags: [ctfhub, misc]`、`tags: [ctfhub, pwn]` �
 技能树结构位于 `_data/ctfhub_skilltree.json`，按提供的官网截图记录；未来官网新增内容时需要同步更新。`pages` 保存子树和父分类，`nodes` 保存节点，`tree.children` 仅保存画面中的连接关系。
 
 本地逻辑检查（需要 Node.js，无额外依赖）：`node tests/skilltree.test.cjs`。
+
+## Pikachu 漏洞实验路线
+
+Pikachu 专题位于 `/pikachu/`，使用电路式横向学习路线。路线结构位于 `_data/pikachu_roadmap.json`，当前包含官方核心的 15 类漏洞和 42 个实验节点。
+
+新增 Pikachu Writeup 时，在文章头部加入平台标签和唯一节点值：
+
+```yaml
+---
+layout: writeup
+title: "Pikachu Writeup - 反射型 XSS（GET）"
+date: 2026-11-01
+tags: [pikachu, xss]
+pikachu_skill: "xss/reflected-get"
+---
+```
+
+发布后，对应实验节点、模块进度和总进度会自动更新，右侧按钮会链接到文章。可运行 `node tests/pikachu.test.cjs` 检查路线数据。
