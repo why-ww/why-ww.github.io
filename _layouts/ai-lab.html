@@ -7,7 +7,7 @@
   <title>{% if page.title %}{{ page.title | escape }} · {% endif %}AI 工程学习实验室</title>
   <style>{% include ai-lab-styles.html %}</style>
 </head>
-<body class="ai-page{% if page.ai_section == 'overview' %} reference-page{% endif %}">
+<body class="ai-page{% if page.ai_section == 'roadmap' %} reference-page{% endif %}">
   <svg class="ref-icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
 <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v16M12 5C8 2 4 3 1 5v15c4-2 7-2 11 1 4-3 7-3 11-1V5c-3-2-7-3-11 0Z"/></symbol>
 <symbol id="i-target" viewBox="0 0 24 24"><circle cx="11" cy="13" r="10"/><circle cx="11" cy="13" r="6"/><path d="m11 13 10-10M16 3h5v5"/></symbol>
@@ -21,12 +21,13 @@
     <div class="ai-shell ai-header-inner">
       <a class="ai-brand" href="{{ '/lab/' | relative_url }}">AI 工程学习实验室</a>
       <nav class="ai-site-nav" aria-label="AI 学习区导航">
+        <a href="{{ '/lab/' | relative_url }}">学习总览</a>
         <a href="{{ '/lab/roadmap/' | relative_url }}"{% if page.ai_section == 'overview' or page.ai_section == 'roadmap' %} aria-current="page"{% endif %}>学习路线</a>
-        <a href="{{ '/lab/#experiments' | relative_url }}">实验中心</a>
-        <a href="{{ '/lab/#knowledge' | relative_url }}">知识库</a>
-        <a href="{{ '/lab/#learning-log' | relative_url }}">学习日志</a>
-        <a href="{{ '/lab/#resources' | relative_url }}">资源导航</a>
-        <a href="{{ '/lab/#about' | relative_url }}">关于</a>
+        <a href="{{ '/lab/roadmap/#experiments' | relative_url }}">实验中心</a>
+        <a href="{{ '/lab/roadmap/#knowledge' | relative_url }}">知识库</a>
+        <a href="{{ '/lab/roadmap/#learning-log' | relative_url }}">学习日志</a>
+        <a href="{{ '/lab/roadmap/#resources' | relative_url }}">资源导航</a>
+        <a href="{{ '/lab/roadmap/#about' | relative_url }}">关于</a>
       </nav>
       <form class="ref-search" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="搜索课程、实验或概念" placeholder="搜索课程、实验或概念…" autocomplete="off"><output aria-live="polite"></output></form>
       <a class="ref-profile" href="{{ '/' | relative_url }}" aria-label="返回博客" title="返回博客"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22v-4a8 8 0 0 1 16 0v4z"/></svg></a>
