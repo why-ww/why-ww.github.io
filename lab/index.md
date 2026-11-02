@@ -5,47 +5,32 @@ ai_section: overview
 permalink: /lab/
 sitemap: false
 ---
-
 {% assign ai_posts = site.posts | where_exp: "post", "post.tags contains 'ai-learning'" %}
-<div class="ai-lab ai-dashboard" data-ui-version="dashboard-v2">
-  <section class="ai-overview ai-hero-row">
-    <div><p class="ai-kicker">PERSONAL LEARNING WORKSPACE</p><h1>AI 工程学习实验室<span class="ai-title-dot">.</span></h1><p>阅读、动手、记录。把学到的知识，变成能解释的实践。</p></div>
-    <a class="ai-button" href="{{ '/lab/roadmap/' | relative_url }}">继续学习 <span>↗</span></a>
-  </section>
-  <section class="ai-metrics" aria-label="学习概况">
-    <div><span>学习资料</span><strong>03<small> 份</small></strong><p>Agent · AI 协作开发 · Infra</p></div>
-    <div><span>计划学习单元</span><strong>12<small> 个</small></strong><p>每阶段 4 个主题，循序推进</p></div>
-    <div><span>已发布记录</span><strong>{{ ai_posts.size | prepend: '0' | slice: -2, 2 }}<small> 篇</small></strong><p>理解、实验与复盘</p></div>
-    <div><span>实践连接</span><strong>02<small> 个项目</small></strong><p>CTF Mentor · Aemeth Agent</p></div>
-  </section>
-  <section class="ai-focus-bar"><span class="ai-focus-label">当前任务 <i></i></span><div><strong>{{ site.data.ai_learning.next_task }}</strong><p>从第一份资料开始 · 先理解，再动手验证</p></div><a href="{{ '/lab/roadmap/' | relative_url }}#agent-unit-1">进入学习 →</a></section>
-  <section class="ai-section" id="courses">
-    <div class="ai-heading"><div><span class="ai-kicker">YOUR LEARNING PATH</span><h2>三条主线，一步步深入</h2></div><a href="{{ '/lab/roadmap/' | relative_url }}">完整学习路线 ↗</a></div>
-    <div class="ai-stage-grid">
-    {% for stage in site.data.ai_learning.stages %}
-      <article class="ai-stage{% if forloop.first %} is-active{% endif %}">
-        <div class="ai-stage-top"><span class="ai-stage-number">{{ stage.number }}<small> / STAGE</small></span><span class="ai-status{% if forloop.first %} is-active{% endif %}">{{ stage.status }}</span></div>
-        <h3>{{ stage.title }}</h3><p>{{ stage.description }}</p>
-        <div class="ai-unit-list">{% for unit in stage.modules %}<a href="{{ '/lab/roadmap/' | relative_url }}#{{ stage.id }}-unit-{{ forloop.index }}"><span class="ai-unit-circle"></span><span>{{ forloop.index | prepend: '0' }} · {{ unit.title }}</span><span>↗</span></a>{% endfor %}</div>
-        <div class="ai-stage-plan"><span>学习计划</span><strong>4 个单元</strong><div class="ai-plan-track"><span></span><span></span><span></span><span></span></div><small>完成后用学习记录留下成果</small></div>
-        <div class="ai-stage-footer"><a href="{{ '/lab/roadmap/' | relative_url }}#{{ stage.id }}">查看学习内容 →</a><a href="{{ stage.source_url }}" target="_blank" rel="noopener noreferrer">原始资料 ↗</a></div>
-      </article>
-    {% endfor %}
+{% assign board = site.data.ai_learning.dashboard %}
+<div class="ai-lab reference-board" data-ui-version="reference-v3">
+  <section class="ref-panel ref-module" aria-labelledby="module-title">
+    <a class="ref-back" href="{{ '/lab/roadmap/' | relative_url }}"><span>←</span> 返回学习路线</a>
+    <div class="ref-module-heading"><span class="ref-badge">当前学习模块</span><h1 id="module-title">深入理解 AI Agent</h1><p>{{ board.subtitle }}</p></div>
+    <div class="ref-feature-grid">
+      <article class="ref-feature"><h2><svg><use href="#i-book"/></svg>当前章节</h2><h3>{{ board.chapter }}</h3><p>{{ board.chapter_description }}</p></article>
+      <article class="ref-feature"><h2><svg><use href="#i-target"/></svg>学习目标</h2><ul>{% for goal in board.goals %}<li>{{ goal }}</li>{% endfor %}</ul></article>
+      <article class="ref-feature ref-next"><h2><svg><use href="#i-play"/></svg>下一个实验</h2><h3>实验 1.1 {{ board.experiments.first.title }}</h3><p>{{ board.experiments.first.description }}，用自己的话解释每个部分。</p><a class="ref-primary" href="#experiment-1">开始实验 →</a></article>
     </div>
+    <div class="ref-experiment-heading"><h2><svg><use href="#i-check"/></svg>实验清单 <small>（本章 5 个实验）</small></h2><div class="ref-progress"><span>0 / 5 完成</span><span class="ref-progress-track"><i style="width:0%"></i></span><span>0%</span></div></div>
+    <div class="ref-experiments" id="experiments">{% for experiment in board.experiments %}<details class="ref-experiment" id="experiment-{{ forloop.index }}" data-search="{{ experiment.title }} {{ experiment.description }}"><summary><span class="ref-checkbox" aria-label="未完成"></span><span class="ref-experiment-number">1.{{ forloop.index }}</span><strong>{{ experiment.title }}</strong><span class="ref-experiment-desc">{{ experiment.description }}</span><span class="ref-state">未开始</span><time>--</time></summary><div class="ref-experiment-body"><strong>动手任务</strong><p>{{ experiment.steps }}</p><a href="https://github.com/bojieli/ai-agent-book" target="_blank" rel="noopener noreferrer">打开教材 ↗</a><span>完成后将过程写入学习日志。</span></div></details>{% endfor %}</div>
   </section>
-  <div class="ai-workbench">
-    <section class="ai-section" id="learning-log">
-      <div class="ai-heading"><div><span class="ai-kicker">LEARNING JOURNAL</span><h2>最近学习记录</h2></div><span class="ai-caption">{{ ai_posts.size }} 篇已发布</span></div>
-      <div class="ai-journal">
-        <div class="ai-table-head"><span>日期 / 类型</span><span>学习主题</span><span>状态</span></div>
-        {% for post in ai_posts limit: 6 %}<a class="ai-log-row" href="{{ post.url | relative_url }}"><time>{{ post.date | date: "%m-%d" }}</time><strong>{{ post.title | escape }}</strong><span>阅读 ↗</span></a>{% endfor %}
-        {% if ai_posts.size == 0 %}<div class="ai-journal-intro"><span class="ai-outline-icon">↳</span><div><strong>从第一篇笔记开始</strong><p>记录一次理解的变化，比只记住结论更有价值。</p></div></div>{% endif %}
-        {% if ai_posts.size == 0 %}<div class="ai-draft-row"><span>待记录 · 概念</span><strong>Agent 与普通聊天机器人，有什么区别？</strong><a href="{{ '/lab/roadmap/' | relative_url }}#agent-unit-1">去学习 ↗</a></div><div class="ai-draft-row"><span>待记录 · 实验</span><strong>一次工具调用的输入、执行与反馈</strong><a href="{{ '/lab/roadmap/' | relative_url }}#agent-unit-3">查看计划 ↗</a></div><div class="ai-draft-row"><span>待记录 · 复盘</span><strong>把一个新概念连接到已有项目</strong><a href="{{ '/lab/roadmap/' | relative_url }}#agent-unit-4">查看计划 ↗</a></div>{% endif %}
-      </div>
-    </section>
-    <section class="ai-section" id="projects"><div class="ai-heading"><div><span class="ai-kicker">BUILD & EXPLORE</span><h2>项目实践</h2></div><span class="ai-caption">知识的落点</span></div>
-      <div class="ai-project-list ai-project-cards"><article><div class="ai-project-title"><span class="ai-project-symbol">⌘</span><h3>CTF Mentor</h3><span class="ai-status">实践方向</span></div><p>把分层提示、学习过程和复盘，连接到 Agent 的上下文与工具系统。</p><div class="ai-topics"><span>上下文管理</span><span>分层提示</span><span>工具调用</span></div><a href="{{ '/lab/roadmap/' | relative_url }}#practice">查看实践问题 →</a></article><article><div class="ai-project-title"><span class="ai-project-symbol">◈</span><h3>Aemeth Agent</h3><span class="ai-status">实践方向</span></div><p>围绕角色一致性和长期记忆，思考信息如何保留、检索与更新。</p><div class="ai-topics"><span>记忆系统</span><span>角色一致性</span><span>语音交互</span></div><a href="{{ '/lab/roadmap/' | relative_url }}#practice">查看实践问题 →</a></article></div>
-    </section>
-  </div>
-  <section class="ai-section ai-concept-board"><div class="ai-heading"><div><span class="ai-kicker">CONNECT THE DOTS</span><h2>串起 Agent 的核心概念</h2></div><span class="ai-caption">带着问题阅读</span></div><div class="ai-concept-flow"><div><small>01 / 输入</small><strong>Context <span>上下文</span></strong><p>这一次决策需要哪些信息？</p></div><div><small>02 / 保留</small><strong>Memory <span>记忆</span></strong><p>哪些经历值得跨轮次保存？</p></div><div><small>03 / 行动</small><strong>Tools <span>工具</span></strong><p>如何让模型可靠地采取行动？</p></div><div><small>04 / 决策</small><strong>Planning <span>规划</span></strong><p>怎样根据执行反馈调整下一步？</p></div></div></section>
+  <section class="ref-panel ref-roadmap" aria-labelledby="roadmap-title"><div class="ref-panel-heading"><div class="ref-heading-icon"><svg><use href="#i-map"/></svg><div><h2 id="roadmap-title">学习路线图</h2><p>三条主线，系统掌握 AI 工程能力</p></div></div><a href="{{ '/lab/roadmap/' | relative_url }}">查看完整路线 →</a></div><div class="ref-track-list">
+    {% for track in board.tracks %}<section class="ref-track"><div class="ref-track-heading"><span class="ref-track-number">{{ forloop.index }}</span><h3>{{ track.title }}</h3><div class="ref-progress"><span>0 / {{ track.units.size }} 单元</span><span class="ref-progress-track"><i style="width:0%"></i></span><span>0%</span></div></div><div class="ref-track-units">{% for unit in track.units %}<a class="ref-track-unit{% if track.id == 'agent' and forloop.first %} is-current{% endif %}" href="{{ '/lab/roadmap/' | relative_url }}#{{ track.id }}" data-search="{{ unit }}"><span class="ref-node"></span><span class="ref-unit-index">Unit {{ forloop.index }}</span><strong>{{ unit }}</strong><span class="ref-unit-status"><i></i>{% if track.id == 'agent' and forloop.first %}准备开始{% else %}未开始{% endif %}</span></a>{% endfor %}</div></section>{% endfor %}</div><p class="ref-plan-note">个人学习计划 · 原始章节安排以教材和课程为准</p></section>
+  <section class="ref-panel ref-journal" id="learning-log"><div class="ref-panel-heading"><div class="ref-heading-icon"><svg><use href="#i-file"/></svg><div><h2>学习日志</h2><p>记录学习过程，沉淀思考与收获</p></div></div><a href="https://github.com/why-ww/why-ww.github.io/tree/main/_posts" target="_blank" rel="noopener noreferrer">查看全部日志 →</a></div><div class="ref-table-wrap"><table class="ref-log-table"><thead><tr><th>日期</th><th>类型</th><th>标题</th><th>简要总结</th></tr></thead><tbody>{% for post in ai_posts limit:5 %}<tr data-search="{{ post.title | escape }}"><td>{{ post.date | date: "%Y-%m-%d" }}</td><td><span class="ref-state">学习</span></td><td><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></td><td>{{ post.excerpt | strip_html | truncate:65 }}</td></tr>{% endfor %}{% if ai_posts.size == 0 %}{% for experiment in board.experiments %}<tr class="ref-log-planned" data-search="{{ experiment.title }}"><td>--</td><td><span class="ref-state">待记录</span></td><td><a href="#experiment-{{ forloop.index }}">{{ experiment.title }}</a></td><td>{{ experiment.description }}</td></tr>{% endfor %}{% endif %}</tbody></table></div></section>
+  <section class="ref-panel ref-knowledge" id="projects"><div class="ref-panel-heading"><div class="ref-heading-icon"><svg><use href="#i-graph"/></svg><div><h2>知识关联</h2><p>连接核心概念与项目实践，形成系统化认知</p></div></div><a href="{{ '/lab/roadmap/' | relative_url }}#practice">查看实践问题 →</a></div><div id="knowledge" class="ref-knowledge-chart">
+    <svg viewBox="0 0 650 184" role="img" aria-label="上下文、记忆和工具关联到 CTF Mentor 和 Aemeth Agent 两个项目">
+      <g class="ref-edges"><path d="M242 29 C315 29 318 48 375 48"/><path d="M242 91 C316 91 312 48 375 48"/><path d="M242 151 C325 151 323 48 375 48"/><path d="M242 29 C327 29 306 138 375 138"/><path d="M242 91 C315 91 312 138 375 138"/><path d="M242 151 C317 151 313 138 375 138"/></g>
+      <g class="ref-chart-boxes"><rect x="0" y="5" width="94" height="45" rx="5"/><rect x="0" y="68" width="94" height="45" rx="5"/><rect x="0" y="128" width="94" height="45" rx="5"/><rect x="375" y="20" width="176" height="57" rx="6"/><rect x="375" y="110" width="176" height="57" rx="6"/></g>
+      <g class="ref-chart-notes"><rect x="96" y="5" width="146" height="45" rx="5"/><rect x="96" y="68" width="146" height="45" rx="5"/><rect x="96" y="128" width="146" height="45" rx="5"/></g>
+      <g class="ref-chart-titles" text-anchor="middle"><text x="47" y="24">Context</text><text x="47" y="87">Memory</text><text x="47" y="147">Tools</text><text x="463" y="44">CTF Mentor</text><text x="463" y="135">Aemeth Agent</text></g>
+      <g class="ref-chart-text"><text x="27" y="41">上下文</text><text x="32" y="104">记忆</text><text x="32" y="164">工具</text><text x="105" y="19">· 提示工程</text><text x="105" y="32">· RAG 检索</text><text x="105" y="45">· 任务与对话历史</text><text x="105" y="82">· 短期记忆</text><text x="105" y="95">· 长期记忆</text><text x="105" y="108">· 记忆压缩与遗忘</text><text x="105" y="142">· 函数调用</text><text x="105" y="155">· 外部 API</text><text x="105" y="168">· 代码执行 / 浏览器</text><text x="407" y="65">安全领域学习 Agent</text><text x="409" y="155">角色与语音交互 Agent</text><text x="564" y="30">· 学习辅导</text><text x="564" y="45">· 题目解析</text><text x="564" y="60">· 工具调用</text><text x="564" y="75">· 个性化反馈</text><text x="564" y="120">· 角色一致性</text><text x="564" y="135">· 长期记忆</text><text x="564" y="150">· 语音交互</text><text x="564" y="165">· 记忆检索</text></g><g fill="#f0cd75"><circle cx="242" cy="29" r="3"/><circle cx="242" cy="91" r="3"/><circle cx="242" cy="151" r="3"/><circle cx="375" cy="48" r="3"/><circle cx="375" cy="138" r="3"/></g>
+    </svg>
+  </div></section>
 </div>
+<details class="ref-resource-panel" id="resources"><summary>资源导航 · 教材与课程 ↗</summary><div>{% for stage in site.data.ai_learning.stages %}<a href="{{ stage.source_url }}" target="_blank" rel="noopener noreferrer">{{ stage.title }} ↗</a>{% endfor %}</div></details>
+<p class="ref-about" id="about">个人 AI 工程学习记录 · 理解原理，亲手验证，持续复盘。</p>
