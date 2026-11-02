@@ -13,6 +13,19 @@ stages:
       - 规划
     source_label: "教材仓库"
     source_url: "https://github.com/bojieli/ai-agent-book"
+    modules:
+      - title: "认识 Agent"
+        description: "区分聊天、工作流与 Agent，理解模型、环境和反馈。"
+        output: "用自己的话画出一次 Agent 执行流程"
+      - title: "上下文与记忆"
+        description: "理解上下文窗口、短期记忆与长期记忆的分工。"
+        output: "设计一份对话记忆结构，说明保留与遗忘规则"
+      - title: "工具调用与规划"
+        description: "理解工具描述、参数、执行结果和循环决策。"
+        output: "完成一个带工具调用的最小实验，记录失败情况"
+      - title: "整合与复盘"
+        description: "把概念连接到已有项目，比较实现方案。"
+        output: "写一篇实验复盘，整理一个可继续改进的问题"
   - id: cs146s
     number: "02"
     title: "Stanford CS146S"
@@ -24,6 +37,19 @@ stages:
       - 实践项目
     source_label: "课程主页"
     source_url: "https://themodernsoftware.dev/"
+    modules:
+      - title: "建立协作流程"
+        description: "阅读课程要求，明确任务拆解、上下文准备与验收方法。"
+        output: "为一个小功能写需求、执行步骤和验收清单"
+      - title: "实现与代码阅读"
+        description: "在小任务中练习生成、阅读、修改与解释代码。"
+        output: "完成一个能独立解释的功能改动"
+      - title: "测试与调试"
+        description: "观察失败现象，提出假设，再用实验缩小问题。"
+        output: "记录一次完整的定位、修复和验证过程"
+      - title: "项目交付"
+        description: "把实现、验证和文档整理成可复用成果。"
+        output: "提交一次包含说明与验证结果的项目更新"
   - id: infra
     number: "03"
     title: "深入理解 AI Infra"
@@ -36,3 +62,16 @@ stages:
       - 训练
     source_label: "教材仓库"
     source_url: "https://github.com/bojieli/ai-infra-book"
+    modules:
+      - title: "系统全景"
+        description: "梳理训练与推理链路，认识计算、存储和通信。"
+        output: "画出模型服务的基本组成与数据流"
+      - title: "计算与资源"
+        description: "理解 GPU、显存、批处理与资源约束。"
+        output: "记录本机资源，解释模型运行的主要限制"
+      - title: "推理与服务"
+        description: "观察延迟、吞吐和资源使用，认识部署取舍。"
+        output: "完成一个小型推理实验并记录测量条件"
+      - title: "训练与系统取舍"
+        description: "认识训练流程与分布式系统的基础问题。"
+        output: "整理一份问题清单，连接前面学过的系统概念"
