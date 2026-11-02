@@ -27,7 +27,7 @@ jobs:
                       home=r.read().decode()
                   with urllib.request.urlopen(base+"/lab/roadmap/?verify="+str(time.time()),timeout=15) as r:
                       route=r.read().decode()
-                  if 'overview-reference-v4' in home and 'route-reference-v4' in route and 'Shared header v5' in home and 'data-header-version="shared-v5"' in route:
+                  if 'overview-reference-v4' in home and 'route-reference-v4' in route and 'Shared gold palette v6' in home and 'data-header-version="shared-v5"' in route:
                       break
               except Exception as error:
                   print("WAIT",str(error))
@@ -44,7 +44,12 @@ jobs:
                   page.set_viewport_size({"width":1672,"height":941})
                   page.goto(base+path+"?ui=v4-"+str(time.time()),wait_until="networkidle")
                   assert page.locator(".ai-site-nav").evaluate("(el)=>getComputedStyle(el).display")=="flex"
+                  gold = page.locator(".ai-site-nav a[aria-current]").evaluate("(el)=>getComputedStyle(el).color")
+                  assert gold == "rgb(211, 182, 119)", gold
+                  print("GOLD",name,gold)
                   if name=="overview":
+                      assert page.locator(".ov-next").evaluate("(el)=>getComputedStyle(el).color") == gold
+                      assert page.locator(".ov-project-count").evaluate("(el)=>getComputedStyle(el).color") == gold
                       assert page.locator(".ov-course").count()==3
                       assert page.locator(".ov-project").count()==2
                       assert page.locator(".ov-project-count").inner_text().strip()=="0 / 5"
@@ -60,6 +65,8 @@ jobs:
                       page.locator(".ref-back").click()
                       assert page.locator(".ov-board").count()==1
                   else:
+                      assert page.locator(".ref-next h2").evaluate("(el)=>getComputedStyle(el).color") == gold
+                      assert page.locator(".ref-chart-titles").evaluate("(el)=>getComputedStyle(el).fill") == gold
                       assert page.locator(".ref-panel").count()==4
                       assert page.locator(".ref-track-unit").count()==20
                       assert page.locator(".ref-experiment").count()==5
