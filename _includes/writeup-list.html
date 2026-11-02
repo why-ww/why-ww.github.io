@@ -1,4 +1,4 @@
-{% assign visible_posts = site.posts %}
+{% assign visible_posts = site.posts | where_exp: 'post', "post.tags contains 'ai-learning' == false" %}
 {% if page.platform %}
   {% assign visible_posts = visible_posts | where_exp: 'post', 'post.tags contains page.platform' %}
 {% endif %}
