@@ -1,0 +1,17 @@
+<header class="ai-site-header" data-header-version="shared-v5">
+  <div class="ai-shell ai-header-inner">
+    <a class="ai-brand" href="{{ '/lab/' | relative_url }}">AI 工程学习实验室</a>
+    <nav class="ai-site-nav" aria-label="AI 学习区导航">
+      <a href="{{ '/lab/' | relative_url }}"{% if page.ai_section == 'overview' %} aria-current="page"{% endif %}>学习总览</a>
+      <a href="{{ '/lab/roadmap/' | relative_url }}"{% if page.ai_section == 'roadmap' %} aria-current="page"{% endif %}>学习路线</a>
+      <a href="{{ '/lab/#projects' | relative_url }}">项目实践</a>
+      <a href="{{ '/lab/#learning-log' | relative_url }}">知识笔记</a>
+      <a href="{{ '/lab/#resources' | relative_url }}">资源收藏</a>
+    </nav>
+    <form class="ref-search" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>
+      <input type="search" aria-label="搜索课程、笔记或主题" placeholder="搜索课程、笔记或主题…" autocomplete="off">
+      <output aria-live="polite"></output>
+    </form>
+  </div>
+</header>
