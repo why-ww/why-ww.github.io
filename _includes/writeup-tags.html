@@ -9,6 +9,13 @@
       {% if include.post.tags contains 'web' %}<a class="writeup-tag" href="{{ '/ctfhub/' | relative_url }}#web">web</a>{% endif %}
       {% if include.post.tags contains 'misc' %}<a class="writeup-tag" href="{{ '/ctfhub/' | relative_url }}#misc">misc</a>{% endif %}
     {% endif %}
+  {% elsif include.post.tags contains 'pikachu' %}
+    <a class="writeup-tag" href="{{ '/pikachu/' | relative_url }}">Pikachu</a>
+    {% assign pika_parts = include.post.pikachu_skill | split: '/' %}
+    {% assign pika_module_id = pika_parts | first %}
+    {% for pika_module in site.data.pikachu_roadmap.modules %}
+      {% if pika_module.id == pika_module_id %}<a class="writeup-tag" href="{{ '/pikachu/' | relative_url }}#{{ include.post.pikachu_skill | uri_escape }}">{{ pika_module.title | escape }}</a>{% endif %}
+    {% endfor %}
   {% elsif include.post.tags contains 'bugku' %}
     <a class="writeup-tag" href="{{ '/bugku/' | relative_url }}">bugku</a>
   {% endif %}

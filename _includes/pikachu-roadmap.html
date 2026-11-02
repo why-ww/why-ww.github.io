@@ -1,0 +1,70 @@
+<section class="pika-lab" data-pikachu-lab aria-label="Pikachu 漏洞实验路线">
+  <header class="pika-hero">
+    <div>
+      <span class="pika-eyebrow">LEARNING MAP</span>
+      <h1>漏洞实验路线</h1>
+      <p>按照由浅入深的顺序，系统学习常见 Web 安全漏洞原理与验证方法。完成实验后，用 Writeup 留下自己的判断、过程与复盘。</p>
+    </div>
+    <div class="pika-overall" aria-label="整体进度">
+      <div><span>整体进度</span><strong data-progress-count>0 / 0</strong></div>
+      <div class="pika-progress-track"><i data-progress-bar></i></div>
+      <small data-progress-percent>0%</small>
+    </div>
+  </header>
+
+  <div class="pika-layout">
+    <main class="pika-main">
+      <div class="pika-circuit" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="pika-scroll-hint">← 横向滑动，查看完整实验路线 →</p>
+      <div class="pika-roadmap" data-roadmap tabindex="0" role="region" aria-label="可横向滚动的漏洞实验路线">
+        <div class="pika-route-line" aria-hidden="true"></div>
+        <div class="pika-track" data-route></div>
+      </div>
+
+      <div class="pika-info-grid">
+        <section class="pika-info-card">
+          <h2><span aria-hidden="true">▥</span> 学习进度</h2>
+          <strong class="pika-big-progress" data-bottom-count>0 / 0</strong>
+          <p data-bottom-copy>完成 0 个实验</p>
+          <div class="pika-progress-track"><i data-bottom-bar></i></div>
+        </section>
+        <section class="pika-info-card">
+          <h2><span aria-hidden="true">◎</span> 学习建议</h2>
+          <ol>
+            <li>先观察页面与请求，再判断漏洞入口</li>
+            <li>亲手验证，并记录失败尝试</li>
+            <li>解释漏洞为何成立，而不只保存 Payload</li>
+            <li>完成后补充修复方法和核心复盘</li>
+          </ol>
+        </section>
+        <section class="pika-info-card">
+          <h2><span aria-hidden="true">▤</span> 相关资源</h2>
+          <ul class="pika-resources">
+            <li><a href="https://github.com/zhuifengshaonianhanlu/pikachu" target="_blank" rel="noopener">Pikachu 官方项目 <span>↗</span></a></li>
+            <li><a href="{{ '/ctfhub/' | relative_url }}">CTFHub 学习技能树 <span>→</span></a></li>
+            <li><a href="{{ '/bugku/' | relative_url }}">BugKu Writeup 档案 <span>→</span></a></li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <aside class="pika-sidebar">
+      <blockquote>漏洞不是目的，<br>理解 Web 安全才是起点。<cite>— Pikachu 漏洞实验室</cite></blockquote>
+      <section class="pika-current" aria-live="polite">
+        <h2><span aria-hidden="true">⌾</span> 当前实验</h2>
+        <div class="pika-current-title"><h3 data-current-title>反射型 XSS（GET）</h3><span data-current-status>学习中</span></div>
+        <p data-current-description>通过 URL 参数将恶意脚本注入页面，理解反射型 XSS 的触发条件与防御方法。</p>
+        <dl>
+          <div><dt>所属模块</dt><dd data-current-module>XSS</dd></div>
+          <div><dt>实验难度</dt><dd data-current-difficulty>入门</dd></div>
+          <div><dt>预计时长</dt><dd data-current-duration>20–30 分钟</dd></div>
+          <div><dt>实验环境</dt><dd>Pikachu 本地靶场</dd></div>
+        </dl>
+        <div class="pika-tools"><span>推荐工具</span><b data-current-tools>Browser · Burp Suite</b></div>
+        <a class="pika-continue" data-current-link href="#">尚未发布 Writeup <span>→</span></a>
+      </section>
+    </aside>
+  </div>
+  <p class="pika-sr-only" role="status" aria-live="polite" data-live></p>
+</section>
+
