@@ -440,3 +440,108 @@ body.ai-page { margin: 0; min-height: 100vh; }
  .ref-experiment-heading { margin:12px 0 9px; }
  .ref-track-unit { min-height:20px; }
 }
+
+/* Overview reference v4 — independent of the preserved learning route. */
+.overview-home { --ov-gold:#b49b65; --ov-line:#30373a; --ov-muted:#b0b6bb; background:radial-gradient(ellipse at 35% 15%,#111516 0%,#080c0e 65%); color:#dedfe2; }
+.overview-home .ai-site-header { background:#090d0f; border-bottom:1px solid #242b2e; }
+.overview-home .ai-header-inner { min-height:66px; padding:0 25px; gap:24px; }
+.overview-home .ai-brand { font-family:Georgia,"Noto Serif SC","SimSun",serif; font-size:30px; font-weight:500; letter-spacing:.06em; border:0; padding:0; }
+.overview-home .ai-brand::first-letter { color:#baa77e; }
+.ov-tagline { color:#8c9399; font-family:Georgia,"SimSun",serif; font-size:13px; letter-spacing:.08em; white-space:nowrap; }
+.overview-home .ai-site-nav { margin-left:auto; gap:34px; }
+.overview-home .ai-site-nav a { color:#b4bbc1; font-size:13px; padding:20px 0 13px; }
+.overview-home .ai-site-nav a[aria-current] { color:#d8bd80; border-color:#b49b65; }
+.overview-home .ref-search { width:300px; margin-left:17px; }
+.overview-home .ref-search input { height:37px; background:#101518; border-color:#343e43; color:#ddd; }
+.overview-home .ref-search > svg { left:auto; right:13px; width:19px; height:19px; }
+.overview-home .ref-search input { padding:0 40px 0 16px; }
+.overview-home .ref-profile,.overview-home .ai-footer { display:none; }
+.overview-home .ai-content { max-width:none; padding:13px 20px 0; }
+.ov-board h1,.ov-board h2,.ov-board h3 { font-family:Georgia,"Noto Serif SC","SimSun",serif; font-weight:550; letter-spacing:.015em; color:#e5e7e8; }
+.ov-panel { border:1px solid var(--ov-line); border-radius:8px; background:linear-gradient(115deg,#11161866,#0c101230); min-width:0; }
+.ov-status { display:grid; grid-template-columns:28% 24% 30% 18%; min-height:126px; padding:21px 26px; align-items:center; }
+.ov-status > div { min-width:0; padding:0 32px; border-left:1px solid #343b3d; }
+.ov-status > div:first-child { padding-left:0; border:0; }
+.ov-status > div:last-child { padding-right:0; }
+.ov-label { display:block; font-size:14px; color:#d9dce0; margin-bottom:6px; }
+.ov-board .ov-status h1 { font-size:29px; line-height:1.3; margin:0 0 5px; }
+.ov-status p { font-size:12px; color:var(--ov-muted); line-height:1.6; margin:5px 0 0; }
+.ov-next { font-family:Georgia,"SimSun",serif; font-size:23px; font-weight:550; color:#c6ad76 !important; line-height:1.5; }
+.ov-progress-row { display:flex; align-items:center; gap:20px; }
+.ov-progress-row > strong,.ov-project-count { font-family:Georgia,serif; font-size:30px; font-weight:500; color:#c6b18a; line-height:1.3; }
+.ov-progress-track { display:block; flex:1; height:17px; border:1px solid #414c51; background:#1c2327; border-radius:12px; overflow:hidden; box-shadow:inset 0 1px 5px #0008; }
+.ov-progress-track i { display:block; height:100%; border-radius:12px; background:linear-gradient(90deg,#927e50,#bca270); }
+.ov-courses { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; margin-top:13px; }
+.ov-course { padding:14px 20px 17px; min-height:290px; display:flex; flex-direction:column; }
+.ov-course.is-active { border-color:#c4a85f; }
+.ov-course-top { display:flex; justify-content:space-between; align-items:center; font-size:13px; color:#c1c7cd; }
+.ov-course.is-active .ov-course-top { color:#c9ac68; }
+.ov-course-state { display:inline-flex; gap:9px; align-items:center; white-space:nowrap; }
+.ov-course-state > i { height:10px; width:10px; border-radius:50%; background:#69717b; }
+.ov-course.is-active .ov-course-state > i { background:#b9a063; box-shadow:0 0 0 3px #b9a06318; }
+.ov-board .ov-course h2 { font-size:24px; line-height:1.4; margin:6px 0 4px; }
+.ov-course h2 a { color:inherit; }
+.ov-course h2 a:hover { color:#d6ba7d; }
+.ov-course-description { color:#bcc3ca; font-size:14px; line-height:1.8; margin:0 0 12px; min-height:50px; }
+.ov-course-meta { display:flex; gap:0; flex-wrap:wrap; align-items:center; margin-top:auto; margin-bottom:14px; font-size:12px; color:#c4cad0; }
+.ov-course-meta > span { display:inline-flex; align-items:center; gap:8px; padding:0 12px; border-right:1px solid #343a3f; line-height:1.3; }
+.ov-course-meta > span:first-child { padding-left:0; }
+.ov-course-meta > span:last-child { border:0; padding-right:0; }
+.ov-course-meta svg { width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:1.2; }
+.ov-board .ov-course h3 { font-size:13px; margin:0 0 7px; }
+.ov-tags { display:flex; gap:9px; flex-wrap:wrap; }
+.ov-tags a,.ov-tags > span { color:#bdc4cb; font-size:12px; border:1px solid #30383e; background:linear-gradient(#22292e,#171c20); border-radius:5px; padding:4px 10px; line-height:1.4; white-space:nowrap; }
+.ov-tags a:hover { border-color:#a28b58; color:#d1b574; }
+.ov-course-source { display:flex; align-items:center; gap:20px; font-size:13px; margin-top:19px; }
+.ov-course-source > span { color:#c7ccd1; white-space:nowrap; }
+.ov-course-source a { color:#bec6ce; overflow-wrap:anywhere; font-size:12px; }
+.ov-course-source a > span { margin-right:8px; font-size:18px; }
+.ov-course.is-active .ov-course-source a { color:#c6a45a; }
+.ov-concepts { display:grid; grid-template-columns:1fr 1.13fr 24px 1.13fr 24px 1.13fr; align-items:center; gap:12px; padding:12px 13px 12px 21px; margin-top:13px; min-height:95px; }
+.ov-concept-heading { border-left:7px solid #9e8b5c; border-radius:3px; padding-left:20px; }
+.ov-board .ov-concept-heading h2 { font-size:17px; margin:0 0 4px; }
+.ov-concept-heading p { font-size:12px; color:#b8c0c7; margin:0; line-height:1.7; }
+.ov-concept { display:flex; align-items:center; gap:18px; border:1px solid #394147; border-radius:8px; padding:10px 16px; min-height:69px; background:#0f1315; }
+.ov-concept > svg { width:29px; height:35px; flex-shrink:0; fill:none; stroke:#b59b61; stroke-width:1.3; }
+.ov-board .ov-concept h3 { font-size:16px; margin:0 0 3px; }
+.ov-concept h3 > span { font-family:inherit; font-size:12px; font-weight:400; margin-left:13px; color:#b6a27b; }
+.ov-concept p { font-size:11px; margin:0; color:#bac2c9; line-height:1.6; }
+.ov-flow-arrow { text-align:center; font-size:24px; font-weight:300; color:#bdc5cd; }
+.ov-bottom { display:grid; grid-template-columns:1.43fr 1fr; gap:14px; margin-top:13px; }
+.ov-logs,.ov-projects { padding:9px 9px 12px; }
+.ov-section-heading { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:0 14px 5px; }
+.ov-board .ov-section-heading h2 { font-size:20px; margin:0; line-height:1.5; }
+.ov-section-heading > a { font-size:12px; color:#b69b5b; }
+.ov-filter select { background:transparent; border:0; color:#bfc7ce; font-size:12px; cursor:pointer; padding:4px 0 4px 8px; }
+.ov-filter select option { background:#151c20; }
+.ov-log-scroll { overflow-x:auto; border:1px solid #2d353a; border-radius:4px; }
+.ov-log-table { border-collapse:collapse; width:100%; table-layout:fixed; font-size:12px; text-align:left; line-height:1.5; color:#c0c7cf; }
+.ov-log-table th { font-weight:400; background:#1e252a; color:#e4e7eb; }
+.ov-log-table td,.ov-log-table th { border-right:1px solid #2d3539; border-bottom:1px solid #293136; padding:5px 14px; }
+.ov-log-table tr:last-child td { border-bottom:0; }
+.ov-log-table td:last-child,.ov-log-table th:last-child { border-right:0; }
+.ov-log-table th:nth-child(1) { width:102px; }
+.ov-log-table th:nth-child(2) { width:84px; }
+.ov-log-table th:nth-child(3) { width:190px; }
+.ov-log-table a { color:#c5cdd5; }
+.ov-log-table a:hover { color:#cbb074; }
+.ov-log-type { display:inline-block; min-width:50px; border:1px solid #665b3e; border-radius:4px; padding:1px 8px; font-size:11px; color:#b8a26d; background:#362f1e66; text-align:center; }
+.ov-empty { padding:12px; color:#abb5bf; font-size:12px; }
+.ov-project-list { display:grid; gap:8px; }
+.ov-project { display:grid; grid-template-columns:74px minmax(0,1fr) 120px; gap:13px; padding:11px 10px 8px; border:1px solid #293136; border-radius:7px; background:#10151899; }
+.ov-project-state { display:inline-flex; align-items:center; justify-content:center; gap:8px; align-self:start; border-radius:4px; padding:4px 5px; background:#302b1c77; font-size:11px; color:#c4a459; white-space:nowrap; }
+.ov-project-state i { display:block; width:9px; height:9px; border-radius:50%; background:#b89b55; }
+.ov-board .ov-project h3 { font-size:16px; margin:0 0 5px; }
+.ov-project-copy p { font-size:11px; line-height:1.7; color:#b9c1c8; margin:0 0 8px; }
+.ov-project .ov-tags { gap:7px; }
+.ov-project .ov-tags span { font-size:10px; padding:3px 7px; }
+.ov-project-action { display:flex; flex-direction:column; align-items:flex-end; gap:7px; padding-top:6px; min-width:0; font-size:11px; color:#bdc6ce; }
+.ov-project-action strong { font-size:11px; font-weight:400; color:#b9a57d; white-space:nowrap; }
+.ov-project-action a { border-left:1px solid #374047; padding-left:28px; margin-top:auto; color:#cbd2d9; font-size:11px; }
+.ov-resources { color:#8f999f; font-size:11px; margin:10px 0; }
+.ov-resources summary { cursor:pointer; }
+.ov-resources > div { display:flex; gap:20px; padding:12px 0; flex-wrap:wrap; }
+@media(max-width:1500px) { .ov-tagline { display:none; } .overview-home .ai-site-nav { gap:26px; } .overview-home .ai-brand { font-size:27px; } .overview-home .ref-search { width:270px; } .ov-status > div { padding:0 22px; } .ov-board .ov-status h1 { font-size:25px; } .ov-status p { font-size:11px; } .ov-next { font-size:22px; } .ov-board .ov-course h2 { font-size:21px; } .ov-course { padding:15px; } .ov-course-description { font-size:13px; } .ov-course-meta { font-size:11px; } .ov-course-meta > span { padding:0 9px; gap:5px; } .ov-tags { gap:7px; } .ov-tags a { font-size:11px; padding:4px 8px; } .ov-concepts { grid-template-columns:.9fr 1fr 18px 1fr 18px 1fr; gap:10px; } .ov-concept { padding:10px 12px; gap:12px; } .ov-concept h3 > span { margin-left:7px; } .ov-concept p { font-size:10px; } .ov-project { grid-template-columns:65px minmax(0,1fr); gap:10px; } .ov-project-action { grid-column:2; flex-direction:row; align-items:center; padding:0; } .ov-project-action a { margin-left:auto; margin-top:0; } }
+@media(max-width:1100px) { .overview-home .ai-header-inner { gap:18px; padding:0 20px; } .overview-home .ai-brand { font-size:22px; } .overview-home .ai-site-nav { gap:20px; } .overview-home .ai-site-nav a { font-size:12px; } .overview-home .ref-search { width:200px; margin-left:0; } .ov-status { grid-template-columns:1.3fr 1.2fr 1.1fr .7fr; padding:19px; } .ov-status > div { padding:0 17px; } .ov-next { font-size:20px; } .ov-progress-row { gap:10px; } .ov-progress-track { height:12px; } .ov-progress-row > strong,.ov-project-count { font-size:26px; } .ov-course-description { min-height:95px; } .ov-course-meta { gap:10px; } .ov-course-meta > span { border:0; padding:0; } .ov-course-source { gap:10px; font-size:11px; } .ov-course-source a { font-size:10px; } .ov-concepts { grid-template-columns:1fr; } .ov-concept-heading { grid-column:1/-1; } .ov-flow-arrow { display:none; } .ov-concept { min-height:65px; } .ov-bottom { grid-template-columns:1.3fr 1fr; } .ov-log-table { min-width:650px; } }
+@media(max-width:900px) { .overview-home .ai-header-inner { padding-top:12px; gap:0 18px; } .overview-home .ai-site-nav { order:3; width:100%; } .overview-home .ai-site-nav a { padding:15px 0 12px; } .overview-home .ref-search { margin-left:auto; width:260px; } .ov-status { grid-template-columns:1fr 1fr; gap:20px 0; } .ov-status > div:nth-child(3) { border:0; padding-left:0; } .ov-courses { grid-template-columns:1fr; } .ov-course { min-height:0; } .ov-course-description { min-height:0; } .ov-course-meta { margin-top:5px; } .ov-board .ov-course h2 { font-size:24px; } .ov-concepts { grid-template-columns:1fr 1fr 1fr; } .ov-concept { min-height:110px; align-items:flex-start; } .ov-concept > svg { width:22px; } .ov-concept h3 > span { display:block; margin:0; } .ov-bottom { grid-template-columns:1fr; } .ov-project { grid-template-columns:80px minmax(0,1fr) 120px; } .ov-project-action { grid-column:auto; flex-direction:column; align-items:flex-end; } .ov-project-action a { margin-top:auto; } }
+@media(max-width:520px) { .overview-home .ai-content { padding:10px; } .overview-home .ai-header-inner { padding-left:15px; padding-right:15px; } .overview-home .ai-brand { font-size:23px; } .overview-home .ref-search { width:100%; margin:10px 0; order:2; } .overview-home .ai-site-nav { gap:22px; } .overview-home .ai-site-nav a { font-size:12px; padding:6px 0 10px; } .ov-status { padding:16px; gap:19px 0; } .ov-status > div { padding:0 12px; } .ov-board .ov-status h1 { font-size:20px; } .ov-label { font-size:12px; } .ov-next { font-size:18px; } .ov-status p { font-size:10px; } .ov-progress-row > strong,.ov-project-count { font-size:24px; } .ov-progress-track { height:10px; } .ov-concepts { grid-template-columns:1fr; padding:15px; } .ov-concept { min-height:70px; align-items:center; } .ov-concept h3 > span { display:inline; margin-left:10px; } .ov-project { grid-template-columns:1fr; } .ov-project-state { justify-self:start; } .ov-project-action { flex-direction:row; align-items:center; } .ov-project-action a { margin:0 0 0 auto; } .ov-board .ov-course h2 { font-size:22px; } .ov-section-heading { padding-left:5px; padding-right:5px; } .ov-board .ov-section-heading h2 { font-size:18px; } }
