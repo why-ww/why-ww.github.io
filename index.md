@@ -5,7 +5,7 @@ section: home
 
 <div class="hero">
 
-  <h1>WHY-WW'S BLOG</h1>
+  <h1><a class="hero-secret-entry" href="{{ '/lab/' | relative_url }}">WHY-WW'S BLOG</a></h1>
 
   <div class="hero-line"></div>
 
