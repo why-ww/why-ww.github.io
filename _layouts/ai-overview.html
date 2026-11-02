@@ -17,20 +17,7 @@
 <symbol id="i-file" viewBox="0 0 24 24"><path d="M4 1h11l5 5v17H4V1Zm11 0v6h5M8 11h8M8 15h8M8 19h8"/></symbol>
 <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="12" cy="3" r="3"/><circle cx="3" cy="20" r="3"/><circle cx="21" cy="20" r="3"/><path d="m10 6-5 11m9-11 5 11M6 20h12"/></symbol>
 <symbol id="i-memory" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="4"/><path d="M3 5v14c0 5 18 5 18 0V5M3 12c0 5 18 5 18 0"/></symbol><symbol id="i-tools" viewBox="0 0 24 24"><path d="m14 3 4-2-1 5 3 3 4-1-2 4-5 1L7 23l-4-4 11-10-1-6ZM2 2l4 1 4 5-2 2-5-4-1-4Zm10 14 6 7 4-4-6-6"/></symbol></defs></svg>
-  <header class="ai-site-header">
-    <div class="ai-shell ai-header-inner">
-      <a class="ai-brand" href="{{ '/lab/' | relative_url }}">AI 工程学习实验室</a><span class="ov-tagline">从原理到实践，构建自己的 AI 能力体系</span>
-      <nav class="ai-site-nav" aria-label="AI 学习区导航">
-        <a href="{{ '/lab/' | relative_url }}" aria-current="page">学习总览</a>
-        <a href="{{ '/lab/roadmap/' | relative_url }}">学习路线</a>
-        <a href="#projects">项目实践</a>
-        <a href="#learning-log">知识笔记</a>
-        <a href="#resources">资源收藏</a>
-      </nav>
-      <form class="ref-search" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="搜索课程、实验或概念" placeholder="搜索课程、笔记或主题…" autocomplete="off"><output aria-live="polite"></output></form>
-      <a class="ref-profile" href="{{ '/' | relative_url }}" aria-label="返回博客" title="返回博客"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22v-4a8 8 0 0 1 16 0v4z"/></svg></a>
-    </div>
-  </header>
+  {% include ai-lab-header.html %}
   <main class="ai-shell ai-content" id="main-content">{{ content }}</main>
   <footer class="ai-shell ai-footer">AI ENGINEERING JOURNEY <span>理解 · 实验 · 复盘</span></footer>
 <script>
