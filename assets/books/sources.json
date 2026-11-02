@@ -1,0 +1,12 @@
+[
+  {
+    "id": "agent",
+    "source": "https://github.com/bojieli/ai-agent-book/releases/download/latest/AI-Agents-in-Depth-zh-CN.pdf",
+    "bytes": 11084397
+  },
+  {
+    "id": "infra",
+    "source": "https://github.com/bojieli/ai-infra-book/releases/latest/download/AI-Infra-Book.pdf",
+    "bytes": 8314055
+  }
+]
