@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>{% if page.title %}{{ page.title | escape }} · {% endif %}AI 工程学习实验室</title>
+  <style>{% include ai-lab-styles.html %}</style>
+</head>
+<body class="ai-page overview-home">
+  <svg class="ref-icon-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="i-book" viewBox="0 0 24 24"><path d="M12 5v16M12 5C8 2 4 3 1 5v15c4-2 7-2 11 1 4-3 7-3 11-1V5c-3-2-7-3-11 0Z"/></symbol>
+<symbol id="i-target" viewBox="0 0 24 24"><circle cx="11" cy="13" r="10"/><circle cx="11" cy="13" r="6"/><path d="m11 13 10-10M16 3h5v5"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="currentColor" stroke="none"/><path d="m10 7 7 5-7 5Z" fill="#242320" stroke="none"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M20 13v8H2V3h12M7 8l5 5L23 2"/></symbol>
+<symbol id="i-map" viewBox="0 0 24 24"><path d="m1 5 7-3 8 3 7-3v17l-7 3-8-3-7 3V5Zm7-3v17m8-14v17"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M4 1h11l5 5v17H4V1Zm11 0v6h5M8 11h8M8 15h8M8 19h8"/></symbol>
+<symbol id="i-graph" viewBox="0 0 24 24"><circle cx="12" cy="3" r="3"/><circle cx="3" cy="20" r="3"/><circle cx="21" cy="20" r="3"/><path d="m10 6-5 11m9-11 5 11M6 20h12"/></symbol>
+<symbol id="i-memory" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="4"/><path d="M3 5v14c0 5 18 5 18 0V5M3 12c0 5 18 5 18 0"/></symbol><symbol id="i-tools" viewBox="0 0 24 24"><path d="m14 3 4-2-1 5 3 3 4-1-2 4-5 1L7 23l-4-4 11-10-1-6ZM2 2l4 1 4 5-2 2-5-4-1-4Zm10 14 6 7 4-4-6-6"/></symbol></defs></svg>
+  <header class="ai-site-header">
+    <div class="ai-shell ai-header-inner">
+      <a class="ai-brand" href="{{ '/lab/' | relative_url }}">AI 工程学习实验室</a><span class="ov-tagline">从原理到实践，构建自己的 AI 能力体系</span>
+      <nav class="ai-site-nav" aria-label="AI 学习区导航">
+        <a href="{{ '/lab/' | relative_url }}" aria-current="page">学习总览</a>
+        <a href="{{ '/lab/roadmap/' | relative_url }}">学习路线</a>
+        <a href="#projects">项目实践</a>
+        <a href="#learning-log">知识笔记</a>
+        <a href="#resources">资源收藏</a>
+      </nav>
+      <form class="ref-search" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input type="search" aria-label="搜索课程、实验或概念" placeholder="搜索课程、笔记或主题…" autocomplete="off"><output aria-live="polite"></output></form>
+      <a class="ref-profile" href="{{ '/' | relative_url }}" aria-label="返回博客" title="返回博客"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 22v-4a8 8 0 0 1 16 0v4z"/></svg></a>
+    </div>
+  </header>
+  <main class="ai-shell ai-content" id="main-content">{{ content }}</main>
+  <footer class="ai-shell ai-footer">AI ENGINEERING JOURNEY <span>理解 · 实验 · 复盘</span></footer>
+<script>
+(function () {
+  function revealUnit() {
+    if (!location.hash) return;
+    var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!target) return;
+    var detail = target.closest('details');
+    if (detail) { detail.open = true; requestAnimationFrame(function () { target.scrollIntoView({block: 'start'}); }); }
+  }
+  window.addEventListener('hashchange', revealUnit);
+  revealUnit();
+  var dateFilter = document.querySelector('#ov-log-filter');
+  if (dateFilter) dateFilter.addEventListener('change', function () {
+    var days = Number(dateFilter.value), cutoff = Date.now() - days * 86400000, visible = 0;
+    document.querySelectorAll('[data-log-date]').forEach(function (row) {
+      var show = !days || Date.parse(row.dataset.logDate) >= cutoff;
+      row.hidden = !show;
+      if (show) visible++;
+    });
+    var empty = document.getElementById('ov-log-empty');
+    if (empty) empty.hidden = visible > 0;
+  });
+  var form = document.querySelector('.ref-search');
+  if (form) {
+    var input = form.querySelector('input'), output = form.querySelector('output');
+    function search() {
+      var query = input.value.trim().toLocaleLowerCase(), items = document.querySelectorAll('[data-search]'), matches = 0;
+      items.forEach(function(el) {
+        var found = !query || el.dataset.search.toLocaleLowerCase().indexOf(query) !== -1;
+        el.hidden = !found;
+        if (found) matches++;
+      });
+      output.textContent = query ? (items.length ? matches + ' 项匹配' : '请到学习总览搜索') : '';
+    }
+    form.addEventListener('submit', function(e) { e.preventDefault(); search(); });
+    input.addEventListener('input', search);
+  }
+})();
+</script>
+</body>
+</html>
