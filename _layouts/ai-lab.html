@@ -22,5 +22,18 @@
   </header>
   <main class="ai-shell ai-content" id="main-content">{{ content }}</main>
   <footer class="ai-shell ai-footer">AI ENGINEERING JOURNEY <span>理解 · 实验 · 复盘</span></footer>
+<script>
+(function () {
+  function revealUnit() {
+    if (!location.hash) return;
+    var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (!target) return;
+    var detail = target.closest('details');
+    if (detail) { detail.open = true; requestAnimationFrame(function () { target.scrollIntoView({block: 'start'}); }); }
+  }
+  window.addEventListener('hashchange', revealUnit);
+  revealUnit();
+})();
+</script>
 </body>
 </html>
