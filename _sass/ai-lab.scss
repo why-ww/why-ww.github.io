@@ -1,364 +1,136 @@
-/*
- * AI 学习区独立样式模块
- *
- * 日后调整 UI 时，优先修改下面的设计变量；
- * 页面结构位于 lab/index.md，本文件不会影响 Pikachu 与 Writeup 页面。
- */
+/* AI 区域设计变量：以后调整黑金配色、间距和圆角从这里开始。 */
+$lab-bg: #0b0d10;
+$lab-surface: #15181c;
+$lab-surface-hover: #1c2025;
+$lab-line: #30343a;
+$lab-text: #e9e8e3;
+$lab-muted: #a7a9aa;
+$lab-gold: #b99a59;
+$lab-gold-light: #dac18c;
+$lab-radius: 12px;
+$lab-gap: 20px;
 
-$ai-panel: #161b22;
-$ai-panel-deep: #0f151d;
-$ai-panel-muted: #21262d;
-$ai-panel-hover: #19212b;
-$ai-border: #30363d;
-$ai-border-dashed: #3b434d;
-$ai-border-current: #416b9a;
-$ai-border-active: #4f81bd;
-$ai-blue-panel: #1c2b40;
-$ai-blue: #58a6ff;
-$ai-blue-soft: #8ab4e8;
-$ai-blue-light: #9fc5f8;
-$ai-text: #c9d1d9;
-$ai-muted: #8b949e;
-$ai-heading: #e6edf3;
-$ai-title: #f0f6fc;
-$ai-radius-large: 16px;
-$ai-radius-card: 14px;
-$ai-space-section: 42px;
-
-/* =========================
-   隐藏入口：主页标题
-========================= */
-
+/* 博客首页的隐藏入口沿用原来的蓝色标题。 */
 .hero-secret-entry {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.18s ease, text-shadow 0.18s ease;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .18s ease, text-shadow .18s ease;
+  &:visited { color: inherit; }
+  &:hover { color: #9fc5f8; text-decoration: none; text-shadow: 0 0 16px rgba(88,166,255,.18); }
+  &:focus-visible { outline: 2px solid #9fc5f8; outline-offset: 6px; border-radius: 4px; }
 }
 
-.hero-secret-entry:visited {
-    color: inherit;
+/* 独立布局仅作用于 /lab/ 页面。 */
+.ai-page {
+  background: $lab-bg;
+  color: $lab-text;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  line-height: 1.65;
 }
-
-.hero-secret-entry:hover {
-    color: $ai-blue-light;
-    text-decoration: none;
-    text-shadow: 0 0 16px rgba($ai-blue, 0.18);
+.ai-page * { box-sizing: border-box; }
+.ai-shell { max-width: 1260px; margin: 0 auto; padding-left: 26px; padding-right: 26px; }
+.ai-page a { color: $lab-gold-light; text-decoration: none; }
+.ai-page a:hover { color: $lab-text; text-decoration: none; }
+.ai-page a:focus-visible { outline: 2px solid $lab-gold-light; outline-offset: 4px; border-radius: 2px; }
+.ai-site-header { border-bottom: 1px solid $lab-line; background: $lab-bg; }
+.ai-header-inner { display: flex; align-items: center; gap: 26px; min-height: 74px; }
+.ai-brand { color: $lab-text !important; font-size: 19px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
+.ai-site-nav { display: flex; align-items: center; gap: 25px; margin-left: auto; }
+.ai-site-nav a { color: $lab-muted; font-size: 14px; white-space: nowrap; padding: 24px 0 21px; border-bottom: 2px solid transparent; }
+.ai-site-nav a:hover, .ai-site-nav a[aria-current] { color: $lab-gold-light; border-color: $lab-gold; }
+.ai-header-back { color: $lab-muted !important; font-size: 13px; white-space: nowrap; margin-left: 12px; }
+.ai-content { padding-top: 36px; padding-bottom: 56px; }
+.ai-footer { display: flex; justify-content: space-between; border-top: 1px solid $lab-line; padding-top: 24px; padding-bottom: 32px; color: $lab-muted; font-size: 12px; letter-spacing: .08em; }
+.ai-lab h1, .ai-lab h2, .ai-lab h3, .ai-lab p { margin-top: 0; }
+.ai-kicker { display: block; color: $lab-gold; font-size: 11px; letter-spacing: .16em; font-weight: 600; margin: 0 0 8px; }
+.ai-overview { margin-bottom: 30px; }
+.ai-overview h1, .ai-page-heading h1 { color: $lab-text; font-size: clamp(30px, 4vw, 46px); line-height: 1.2; margin-bottom: 8px; font-weight: 600; }
+.ai-overview > p:last-child, .ai-page-heading > p:last-child { color: $lab-muted; font-size: 16px; margin: 0; }
+.ai-status-panel { display: grid; grid-template-columns: 1fr 1.5fr .75fr; border: 1px solid $lab-line; border-radius: $lab-radius; background: $lab-surface; overflow: hidden; }
+.ai-status-panel > div { min-width: 0; padding: 20px 23px; }
+.ai-status-panel > div + div { border-left: 1px solid $lab-line; }
+.ai-status-panel span, .ai-route-next span { display: block; color: $lab-muted; font-size: 12px; margin-bottom: 6px; }
+.ai-status-panel strong, .ai-route-next strong { display: block; font-size: 16px; font-weight: 600; color: $lab-text; line-height: 1.45; }
+.ai-status-panel small { display: block; font-size: 12px; color: $lab-gold-light; margin-top: 5px; }
+.ai-section { margin-top: 38px; }
+.ai-heading { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 15px; }
+.ai-heading h2, .ai-concepts h2 { color: $lab-text; font-size: 22px; line-height: 1.35; font-weight: 600; margin: 0; }
+.ai-heading a { font-size: 13px; white-space: nowrap; }
+.ai-stage-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: $lab-gap; }
+.ai-stage { display: flex; flex-direction: column; min-width: 0; border: 1px solid $lab-line; border-radius: $lab-radius; background: $lab-surface; padding: 22px; }
+.ai-stage.is-active { border-color: $lab-gold; }
+.ai-stage-top, .ai-stage-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.ai-stage-number { color: $lab-gold-light; font: 600 26px/1 "Segoe UI", sans-serif; }
+.ai-status { color: $lab-muted; font-size: 12px; border: 1px solid $lab-line; border-radius: 99px; padding: 2px 9px; white-space: nowrap; }
+.ai-status.is-active { color: $lab-gold-light; border-color: $lab-gold; }
+.ai-stage h3 { color: $lab-text; font-size: 19px; margin: 26px 0 8px; font-weight: 600; }
+.ai-stage p { color: $lab-muted; font-size: 14px; margin-bottom: 18px; }
+.ai-topics { display: flex; flex-wrap: wrap; gap: 7px; margin-top: auto; }
+.ai-topics span { font-size: 12px; color: $lab-muted; border: 1px solid $lab-line; border-radius: 5px; padding: 2px 8px; }
+.ai-stage-footer { border-top: 1px solid $lab-line; padding-top: 16px; margin-top: 22px; font-size: 13px; }
+.ai-concepts { display: grid; grid-template-columns: 190px 1fr; gap: 12px 25px; border: 1px solid $lab-line; border-radius: $lab-radius; padding: 21px 23px; }
+.ai-concept-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; align-items: center; }
+.ai-concept-row span { display: flex; flex-wrap: wrap; gap: 6px; border: 1px solid $lab-line; border-radius: 7px; padding: 12px; color: $lab-muted; font-size: 13px; }
+.ai-concept-row b { color: $lab-gold-light; font-weight: 600; }
+.ai-concepts p { grid-column: 2; color: $lab-muted; font-size: 13px; margin: 0; }
+.ai-bottom-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: $lab-gap; align-items: start; }
+.ai-log-list, .ai-project-list, .ai-empty { border: 1px solid $lab-line; border-radius: $lab-radius; background: $lab-surface; overflow: hidden; }
+.ai-log-row { display: grid; grid-template-columns: 92px 1fr auto; gap: 10px; align-items: center; padding: 15px 17px; font-size: 13px; }
+.ai-log-row + .ai-log-row, .ai-project-list article + article { border-top: 1px solid $lab-line; }
+.ai-log-row:hover { background: $lab-surface-hover; }
+.ai-log-row time, .ai-log-row span { color: $lab-muted; }
+.ai-log-row strong { color: $lab-text; font-weight: 500; }
+.ai-project-list article { padding: 16px 18px; }
+.ai-project-list h3 { color: $lab-text; font-size: 16px; font-weight: 600; margin: 0 0 4px; }
+.ai-project-list p { color: $lab-muted; font-size: 13px; margin-bottom: 7px; }
+.ai-project-list span { color: $lab-gold-light; font-size: 12px; }
+.ai-empty { padding: 23px; }
+.ai-empty strong { color: $lab-text; }
+.ai-empty p { color: $lab-muted; font-size: 13px; margin: 5px 0 0; }
+.ai-empty code { color: $lab-gold-light; background: $lab-bg; padding: 2px 5px; border-radius: 3px; }
+.ai-page-heading { margin-bottom: 30px; }
+.ai-route-list { position: relative; display: grid; gap: 16px; }
+.ai-route-stage { display: grid; grid-template-columns: 68px 1fr; gap: 14px; min-width: 0; }
+.ai-route-number { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid $lab-line; border-radius: 50%; color: $lab-muted; font-size: 16px; position: relative; }
+.ai-route-stage:not(:last-child) .ai-route-number:after { content:""; position: absolute; top: 45px; left: 21px; height: calc(100% + 104px); border-left: 1px solid $lab-line; }
+.ai-route-stage.is-active .ai-route-number { color: $lab-gold-light; border-color: $lab-gold; }
+.ai-route-content { min-width: 0; background: $lab-surface; border: 1px solid $lab-line; border-radius: $lab-radius; padding: 23px; }
+.ai-route-stage.is-active .ai-route-content { border-color: $lab-gold; }
+.ai-route-top { display: flex; justify-content: space-between; gap: 15px; align-items: center; }
+.ai-route-top h2 { color: $lab-text; font-size: 20px; font-weight: 600; margin: 0; }
+.ai-route-content p { color: $lab-muted; font-size: 14px; margin: 8px 0 15px; }
+.ai-route-content .ai-topics { margin-bottom: 16px; }
+.ai-route-next { border-top: 1px solid $lab-line; padding-top: 14px; margin-bottom: 14px; }
+.ai-inline-link { font-size: 13px; }
+.ai-method-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 15px; }
+.ai-method-grid div { background: $lab-surface; border: 1px solid $lab-line; border-radius: $lab-radius; padding: 18px; }
+.ai-method-grid span { display: block; color: $lab-gold; font-size: 13px; margin-bottom: 16px; }
+.ai-method-grid strong { color: $lab-text; font-size: 15px; }
+.ai-method-grid p { color: $lab-muted; font-size: 13px; margin: 7px 0 0; }
+@media (max-width: 900px) {
+  .ai-header-inner { flex-wrap: wrap; gap: 0 18px; padding-top: 14px; }
+  .ai-site-nav { order: 3; width: 100%; margin-left: 0; gap: 24px; overflow-x: auto; }
+  .ai-header-back { margin-left: auto; }
+  .ai-stage-grid { gap: 12px; }
+  .ai-stage { padding: 18px; }
+  .ai-concepts { grid-template-columns: 1fr; }
+  .ai-concepts p { grid-column: 1; }
 }
-
-.hero-secret-entry:focus-visible {
-    outline: 2px solid $ai-blue-light;
-    outline-offset: 6px;
-    border-radius: 4px;
+@media (max-width: 680px) {
+  .ai-shell { padding-left: 17px; padding-right: 17px; }
+  .ai-content { padding-top: 28px; }
+  .ai-brand { font-size: 17px; }
+  .ai-site-nav { gap: 20px; }
+  .ai-site-nav a { padding: 14px 0 12px; }
+  .ai-status-panel, .ai-stage-grid, .ai-bottom-grid, .ai-method-grid { grid-template-columns: 1fr; }
+  .ai-status-panel > div + div { border-left: 0; border-top: 1px solid $lab-line; }
+  .ai-stage { min-height: 0; }
+  .ai-stage h3 { margin-top: 18px; }
+  .ai-concept-row { grid-template-columns: 1fr; }
+  .ai-footer { gap: 12px; flex-wrap: wrap; }
 }
-
-
-/* =========================
-   AI 工程学习实验室
-========================= */
-
-.ai-lab {
-    margin: 30px 0 70px;
-}
-
-.ai-lab-back {
-    display: inline-block;
-    color: $ai-muted;
-    margin-bottom: 24px;
-    text-decoration: none;
-}
-
-.ai-lab-back:hover {
-    color: $ai-blue-light;
-    text-decoration: none;
-}
-
-.ai-lab-hero {
-    background:
-        radial-gradient(circle at 85% 15%, rgba($ai-blue, 0.08), transparent 34%),
-        $ai-panel;
-    border: 1px solid $ai-border;
-    border-radius: $ai-radius-large;
-    padding: 46px 42px;
-    margin-bottom: $ai-space-section;
-}
-
-.ai-lab-eyebrow,
-.ai-lab-section-heading p {
-    color: $ai-blue;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    margin: 0 0 8px;
-}
-
-.ai-lab-hero h1 {
-    color: $ai-title;
-    font-size: 42px;
-    font-weight: 600;
-    line-height: 1.25;
-    margin: 0 0 14px;
-}
-
-.ai-lab-intro {
-    color: $ai-muted;
-    font-size: 17px;
-    line-height: 1.75;
-    max-width: 760px;
-    margin: 0;
-}
-
-.ai-lab-status {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
-    gap: 1px;
-    background: $ai-border;
-    border: 1px solid $ai-border;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-top: 30px;
-}
-
-.ai-lab-status > div {
-    background: $ai-panel-deep;
-    padding: 18px 20px;
-}
-
-.ai-lab-status span {
-    display: block;
-    color: $ai-muted;
-    font-size: 12px;
-    margin-bottom: 5px;
-}
-
-.ai-lab-status strong {
-    display: block;
-    color: $ai-heading;
-    font-size: 15px;
-    font-weight: 600;
-}
-
-.ai-lab-next strong {
-    color: $ai-blue-light;
-}
-
-.ai-lab-section {
-    margin-top: $ai-space-section;
-}
-
-.ai-lab-section-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 18px;
-}
-
-.ai-lab-section-heading h2 {
-    color: $ai-heading;
-    font-size: 28px;
-    font-weight: 600;
-    margin: 0;
-}
-
-.ai-lab-section-heading > span {
-    color: $ai-muted;
-    font-size: 13px;
-}
-
-.ai-lab-roadmap {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 16px;
-}
-
-.ai-lab-book {
-    display: flex;
-    flex-direction: column;
-    min-height: 245px;
-    background: $ai-panel;
-    border: 1px solid $ai-border;
-    border-radius: $ai-radius-card;
-    padding: 22px;
-    transition: transform 0.18s ease, border-color 0.18s ease;
-}
-
-.ai-lab-book:hover {
-    border-color: $ai-border-active;
-    transform: translateY(-2px);
-}
-
-.ai-lab-book.is-current {
-    border-color: $ai-border-current;
-    background:
-        linear-gradient(145deg, rgba($ai-blue, 0.06), transparent 56%),
-        $ai-panel;
-}
-
-.ai-lab-book-top,
-.ai-lab-book-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-}
-
-.ai-lab-step {
-    color: $ai-blue;
-    font-family: "Courier New", monospace;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.ai-lab-badge {
-    color: $ai-muted;
-    background: $ai-panel-muted;
-    border-radius: 999px;
-    padding: 3px 9px;
-    font-size: 12px;
-}
-
-.ai-lab-book.is-current .ai-lab-badge {
-    color: $ai-blue-light;
-    background: $ai-blue-panel;
-}
-
-.ai-lab-book h3 {
-    color: $ai-title;
-    font-size: 20px;
-    line-height: 1.45;
-    margin: 24px 0 10px;
-}
-
-.ai-lab-book p {
-    color: $ai-muted;
-    font-size: 14px;
-    line-height: 1.7;
-    margin: 0 0 24px;
-}
-
-.ai-lab-book-footer {
-    margin-top: auto;
-    color: $ai-muted;
-    font-size: 12px;
-}
-
-.ai-lab-book-footer a {
-    color: $ai-blue-soft;
-    text-decoration: none;
-}
-
-.ai-lab-book-footer a:hover {
-    color: $ai-blue-light;
-}
-
-.ai-lab-log {
-    background: $ai-border;
-    border: 1px solid $ai-border;
-    border-radius: $ai-radius-card;
-    overflow: hidden;
-}
-
-.ai-lab-log-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 22px;
-    background: $ai-panel;
-    color: $ai-text;
-    padding: 18px 20px;
-    text-decoration: none;
-}
-
-.ai-lab-log-item + .ai-lab-log-item {
-    border-top: 1px solid $ai-border;
-}
-
-.ai-lab-log-item:hover {
-    background: $ai-panel-hover;
-    color: $ai-text;
-    text-decoration: none;
-}
-
-.ai-lab-log-item strong,
-.ai-lab-log-item span {
-    display: block;
-}
-
-.ai-lab-log-item strong {
-    color: $ai-heading;
-    margin-bottom: 4px;
-}
-
-.ai-lab-log-item span {
-    color: $ai-muted;
-    font-size: 12px;
-}
-
-.ai-lab-log-item > span {
-    color: $ai-blue-soft;
-    white-space: nowrap;
-}
-
-.ai-lab-empty {
-    background: $ai-panel;
-    border: 1px dashed $ai-border-dashed;
-    border-radius: $ai-radius-card;
-    padding: 28px 30px;
-}
-
-.ai-lab-empty strong {
-    color: $ai-heading;
-}
-
-.ai-lab-empty p {
-    color: $ai-muted;
-    margin: 8px 0 0;
-}
-
-.ai-lab-empty code {
-    color: $ai-blue-light;
-    background: $ai-panel-muted;
-    border-radius: 4px;
-    padding: 2px 6px;
-}
-
-@media screen and (max-width: 760px) {
-    .ai-lab-hero {
-        padding: 34px 24px;
-    }
-
-    .ai-lab-hero h1 {
-        font-size: 32px;
-    }
-
-    .ai-lab-status,
-    .ai-lab-roadmap {
-        grid-template-columns: 1fr;
-    }
-
-    .ai-lab-section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .ai-lab-book {
-        min-height: 220px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .ai-lab-status > div,
-    .ai-lab-book,
-    .ai-lab-empty {
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-
-    .ai-lab-log-item {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 8px;
-    }
+@media (max-width: 390px) {
+  .ai-log-row { grid-template-columns: 1fr auto; }
+  .ai-log-row time { grid-column: 1 / -1; }
 }
