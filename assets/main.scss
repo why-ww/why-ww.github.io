@@ -2,7 +2,6 @@
 ---
 
 @import "minima";
-@import "ai-lab";
 
 /* 专题导航与标签沿用深色卡片、浅蓝色强调色。 */
 .site-header > .wrapper {
@@ -646,3 +645,9 @@ body {
     }
 
 }
+
+/* 博客首页的 AI 学习区隐藏入口。 */
+.hero-secret-entry { color: inherit; text-decoration: none; cursor: pointer; transition: color .18s ease, text-shadow .18s ease; }
+.hero-secret-entry:visited { color: inherit; }
+.hero-secret-entry:hover { color: #9fc5f8; text-decoration: none; text-shadow: 0 0 16px rgba(88,166,255,.18); }
+.hero-secret-entry:focus-visible { outline: 2px solid #9fc5f8; outline-offset: 6px; border-radius: 4px; }
