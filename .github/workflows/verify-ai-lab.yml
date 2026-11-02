@@ -25,7 +25,7 @@ jobs:
               try:
                   with urllib.request.urlopen(base + "/lab/?version=v2-" + str(time.time()), timeout=15) as response:
                       html = response.read().decode()
-                  if 'data-ui-version="dashboard-v2"' in html and 'Dashboard v2' in html:
+                  if 'data-ui-version="dashboard-v2"' in html and 'Dashboard v2' in html and 'function revealUnit()' in html:
                       break
               except Exception as error:
                   print("WAIT", str(error))
@@ -47,7 +47,7 @@ jobs:
                   else:
                       assert page.locator(".ai-module").count() == 12
                       page.locator('.ai-directory a[href="#infra-unit-3"]').click()
-                      assert page.locator("#infra-unit-3").evaluate("(el) => el.open")
+                      page.wait_for_function("document.getElementById(\'infra-unit-3\').open")
                   for width in (1440, 1024, 768, 390):
                       page.set_viewport_size({"width":width,"height":1000})
                       page.wait_for_timeout(200)
