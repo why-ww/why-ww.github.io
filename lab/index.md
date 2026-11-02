@@ -1,107 +1,84 @@
 ---
-layout: default
+layout: ai-lab
+title: 学习总览
+ai_section: overview
 permalink: /lab/
 sitemap: false
 ---
 
 <div class="ai-lab">
-  <a class="ai-lab-back" href="{{ '/' | relative_url }}">← 返回博客</a>
+  <section class="ai-overview">
+    <p class="ai-kicker">AI ENGINEERING JOURNEY</p>
+    <h1>从原理走向实践</h1>
+    <p>沿着三份资料学习 AI 工程，留下每一次理解、实验和复盘。</p>
+  </section>
 
-  <section class="ai-lab-hero">
-    <p class="ai-lab-eyebrow">AI ENGINEERING JOURNEY</p>
-    <h1>AI 工程学习实验室</h1>
-    <p class="ai-lab-intro">记录从理解 AI Agent、掌握 AI 时代的软件开发，到看懂模型基础设施的完整学习过程。</p>
-
-    <div class="ai-lab-status">
-      <div>
-        <span>当前阶段</span>
-        <strong>准备学习《深入理解 AI Agent》</strong>
-      </div>
-      <div class="ai-lab-next">
-        <span>下一步</span>
-        <strong>完成第一章第 1 级：建立 Agent 的基本认识</strong>
-      </div>
+  <section class="ai-status-panel" aria-label="当前学习状态">
+    <div><span>当前阶段</span><strong>深入理解 AI Agent</strong><small>准备开始</small></div>
+    <div><span>下一步</span><strong>{{ site.data.ai_learning.next_task }}</strong></div>
+    <div><span>学习记录</span>
+      {% assign ai_posts = site.posts | where_exp: "post", "post.tags contains 'ai-learning'" %}
+      <strong>{{ ai_posts.size }} 篇</strong><small>仅统计已发布的学习记录</small>
     </div>
   </section>
 
-  <section class="ai-lab-section">
-    <div class="ai-lab-section-heading">
-      <div>
-        <p>LEARNING ROADMAP</p>
-        <h2>三阶段学习路线</h2>
-      </div>
-      <span>理论 → 实验 → 项目 → 复盘</span>
+  <section class="ai-section" id="courses">
+    <div class="ai-heading">
+      <div><span class="ai-kicker">THREE STAGES</span><h2>学习路线</h2></div>
+      <a href="{{ '/lab/roadmap/' | relative_url }}">查看完整路线 →</a>
     </div>
-
-    <div class="ai-lab-roadmap">
-      <article class="ai-lab-book is-current">
-        <div class="ai-lab-book-top">
-          <span class="ai-lab-step">01</span>
-          <span class="ai-lab-badge">准备开始</span>
-        </div>
-        <h3>深入理解 AI Agent</h3>
-        <p>从上下文、记忆、工具调用和规划开始，逐步理解并实现真正可运行的 Agent。</p>
-        <div class="ai-lab-book-footer">
-          <span>第一阶段</span>
-          <a href="https://github.com/bojieli/ai-agent-book" target="_blank" rel="noopener noreferrer">教材仓库 ↗</a>
+    <div class="ai-stage-grid">
+      {% for stage in site.data.ai_learning.stages %}
+      <article class="ai-stage{% if forloop.first %} is-active{% endif %}">
+        <div class="ai-stage-top"><span class="ai-stage-number">{{ stage.number }}</span><span class="ai-status{% if forloop.first %} is-active{% endif %}">{{ stage.status }}</span></div>
+        <h3>{{ stage.title }}</h3>
+        <p>{{ stage.description }}</p>
+        <div class="ai-topics" aria-label="学习主题">{% for topic in stage.topics %}<span>{{ topic }}</span>{% endfor %}</div>
+        <div class="ai-stage-footer">
+          <a href="{{ '/lab/roadmap/' | relative_url }}#{{ stage.id }}">学习内容 →</a>
+          <a href="{{ stage.source_url }}" target="_blank" rel="noopener noreferrer">{{ stage.source_label }} ↗</a>
         </div>
       </article>
-
-      <article class="ai-lab-book">
-        <div class="ai-lab-book-top">
-          <span class="ai-lab-step">02</span>
-          <span class="ai-lab-badge">待开始</span>
-        </div>
-        <h3>Stanford CS146S</h3>
-        <p>学习 AI 时代的软件开发方式，通过课程练习把 Agent 能力真正用到项目中。</p>
-        <div class="ai-lab-book-footer">
-          <span>第二阶段</span>
-          <a href="https://themodernsoftware.dev/" target="_blank" rel="noopener noreferrer">课程主页 ↗</a>
-        </div>
-      </article>
-
-      <article class="ai-lab-book">
-        <div class="ai-lab-book-top">
-          <span class="ai-lab-step">03</span>
-          <span class="ai-lab-badge">待开始</span>
-        </div>
-        <h3>深入理解 AI Infra</h3>
-        <p>理解算力、显存、推理与训练系统，建立 AI 工程所需的底层系统认识。</p>
-        <div class="ai-lab-book-footer">
-          <span>第三阶段</span>
-          <a href="https://github.com/bojieli/ai-infra-book" target="_blank" rel="noopener noreferrer">教材仓库 ↗</a>
-        </div>
-      </article>
+      {% endfor %}
     </div>
   </section>
 
-  <section class="ai-lab-section">
-    <div class="ai-lab-section-heading">
-      <div>
-        <p>LEARNING LOG</p>
-        <h2>最近学习记录</h2>
-      </div>
-      <span>理解 · 实验 · 失败 · 复盘</span>
+  <section class="ai-section ai-concepts" aria-label="知识脉络">
+    <div><span class="ai-kicker">CORE CONCEPTS</span><h2>从概念到实践</h2></div>
+    <div class="ai-concept-row">
+      <span><b>Context</b> 上下文</span>
+      <span><b>Memory</b> 记忆</span>
+      <span><b>Tools</b> 工具</span>
     </div>
+    <p>学到概念后，再对照已有项目思考：它解决什么问题？怎样通过实验验证？</p>
+  </section>
 
-    {% assign ai_posts = site.posts | where_exp: "post", "post.tags contains 'ai-learning'" %}
-    {% if ai_posts.size > 0 %}
-      <div class="ai-lab-log">
+  <div class="ai-bottom-grid">
+    <section class="ai-section" id="learning-log">
+      <div class="ai-heading">
+        <div><span class="ai-kicker">LEARNING LOG</span><h2>最近学习记录</h2></div>
+      </div>
+      {% if ai_posts.size > 0 %}
+      <div class="ai-log-list">
         {% for post in ai_posts limit: 6 %}
-          <a class="ai-lab-log-item" href="{{ post.url | relative_url }}">
-            <div>
-              <strong>{{ post.title | escape }}</strong>
-              <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-            </div>
-            <span>查看记录 →</span>
-          </a>
+        <a class="ai-log-row" href="{{ post.url | relative_url }}">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+          <strong>{{ post.title | escape }}</strong>
+          <span>阅读 →</span>
+        </a>
         {% endfor %}
       </div>
-    {% else %}
-      <div class="ai-lab-empty">
-        <strong>第一条学习记录将在这里出现。</strong>
-        <p>每完成一个知识层级或实验，就用 <code>ai-learning</code> 标签保存理解、过程和复盘。</p>
+      {% else %}
+      <div class="ai-empty"><strong>还没有学习记录</strong><p>发布带有 <code>ai-learning</code> 标签的笔记后，记录会自动出现在这里。</p></div>
+      {% endif %}
+    </section>
+
+    <section class="ai-section" id="projects">
+      <div class="ai-heading"><div><span class="ai-kicker">PROJECT PRACTICE</span><h2>已有项目中的实践场景</h2></div></div>
+      <div class="ai-project-list">
+        <article><h3>CTF Mentor</h3><p>结合学习记录与分层提示，思考怎样让 Agent 引导解题和复盘。</p><span>可探索：上下文 · 工具调用</span></article>
+        <article><h3>Aemeth Agent</h3><p>对照现有的角色、记忆与工具系统，理解 Agent 的设计取舍。</p><span>可探索：记忆 · 工具系统</span></article>
       </div>
-    {% endif %}
-  </section>
+    </section>
+  </div>
 </div>
