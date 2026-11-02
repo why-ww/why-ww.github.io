@@ -1,0 +1,55 @@
+name: Verify published AI lab
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/verify-ai-lab.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Install browser
+        run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Inspect published pages in Chromium
+        run: |
+          python - <<'PY'
+          import json, time
+          from pathlib import Path
+          from playwright.sync_api import sync_playwright
+          with sync_playwright() as p:
+              browser = p.chromium.launch()
+              page = browser.new_page(viewport={"width": 1440, "height": 1000})
+              page.on("console", lambda msg: print("BROWSER", msg.type, msg.text))
+              page.on("pageerror", lambda err: print("PAGE_ERROR", str(err)))
+              for suffix in ("", "?verify=" + str(int(time.time()))):
+                  response = page.goto("https://why-ww.github.io/lab/" + suffix, wait_until="networkidle")
+                  print("RESPONSE", response.status, json.dumps(response.headers))
+                  print("HTML_HEAD", page.content()[:1400])
+                  print("RENDER", json.dumps(page.evaluate("""() => ({
+                    url: location.href,
+                    bodyClass: document.body.className,
+                    styleCount: document.querySelectorAll('style').length,
+                    styles: [...document.styleSheets].map(s => ({href:s.href, disabled:s.disabled})),
+                    nav: document.querySelector('.ai-site-nav') && getComputedStyle(document.querySelector('.ai-site-nav')).display,
+                    grid: document.querySelector('.ai-stage-grid') && getComputedStyle(document.querySelector('.ai-stage-grid')).gridTemplateColumns,
+                    background: getComputedStyle(document.body).backgroundColor,
+                    gold: getComputedStyle(document.documentElement).getPropertyValue('--lab-gold'),
+                    shell: document.querySelector('.ai-shell') && document.querySelector('.ai-shell').getBoundingClientRect().toJSON()
+                  })"""), ensure_ascii=False))
+              page.screenshot(path="lab-desktop.png", full_page=True)
+              assert page.locator('.ai-site-nav').evaluate("(el) => getComputedStyle(el).display") == "flex", "Published navigation CSS is not applied"
+              page.set_viewport_size({"width":390,"height":844})
+              page.screenshot(path="lab-mobile.png", full_page=True)
+              browser.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: published-lab-screenshots
+          path: lab-*.png
+          retention-days: 3
