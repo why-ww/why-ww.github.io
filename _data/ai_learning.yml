@@ -1,5 +1,5 @@
 # AI 学习路线的内容集中维护在这里。状态只根据真实学习记录更新。
-next_task: "阅读《深入理解 AI Agent》第一章，写下 Agent 与普通聊天机器人的区别"
+# 实验状态：not_started / in_progress / completed。关联笔记的 learning_status 优先于这里的状态。
 stages:
   - id: agent
     number: "01"
@@ -13,6 +13,10 @@ stages:
       - 规划
     source_label: "教材仓库"
     source_url: "https://github.com/bojieli/ai-agent-book"
+    reading_url: "/lab/read/agent/"
+    pdf_url: "/assets/books/agent.pdf"
+    official_pdf_url: "https://github.com/bojieli/ai-agent-book/releases/download/latest/AI-Agents-in-Depth-zh-CN.pdf"
+    web_url: "https://bojieli.github.io/ai-agent-book/astro/"
     modules:
       - title: "认识 Agent"
         description: "区分聊天、工作流与 Agent，理解模型、环境和反馈。"
@@ -37,6 +41,8 @@ stages:
       - 实践项目
     source_label: "课程主页"
     source_url: "https://themodernsoftware.dev/"
+    reading_url: "https://themodernsoftware.dev/"
+    web_url: "https://themodernsoftware.dev/"
     modules:
       - title: "建立协作流程"
         description: "阅读课程要求，明确任务拆解、上下文准备与验收方法。"
@@ -62,6 +68,10 @@ stages:
       - 训练
     source_label: "教材仓库"
     source_url: "https://github.com/bojieli/ai-infra-book"
+    reading_url: "/lab/read/infra/"
+    pdf_url: "/assets/books/infra.pdf"
+    official_pdf_url: "https://github.com/bojieli/ai-infra-book/releases/latest/download/AI-Infra-Book.pdf"
+    web_url: "https://bojieli.github.io/ai-infra-book/"
     modules:
       - title: "系统全景"
         description: "梳理训练与推理链路，认识计算、存储和通信。"
@@ -87,19 +97,54 @@ dashboard:
     - "描述一次行动、观察与反馈的循环"
     - "把基本概念连接到自己的项目"
   experiments:
-    - title: "画出 Agent 的基本组成"
+    - id: "agent-ch01-e01"
+      anchor: "experiment-1"
+      stage_id: "agent"
+      unit_id: "agent-unit-1"
+      status: "not_started"
+      completed_at: ""
+      note_url: ""
+      title: "画出 Agent 的基本组成"
       description: "明确模型、工具、上下文与环境的关系"
       steps: "阅读第一章后，画出 Agent 的组成图，并为每个部分写一句作用说明。"
-    - title: "拆解一次 Agent 执行过程"
+    - id: "agent-ch01-e02"
+      anchor: "experiment-2"
+      stage_id: "agent"
+      unit_id: "agent-unit-1"
+      status: "not_started"
+      completed_at: ""
+      note_url: ""
+      title: "拆解一次 Agent 执行过程"
       description: "按输入、决策、行动、观察整理流程"
       steps: "选一个查资料的小任务，写出每一步的输入、决策、行动与观察结果，圈出需要再次决策的位置。"
-    - title: "比较聊天机器人与 Agent"
+    - id: "agent-ch01-e03"
+      anchor: "experiment-3"
+      stage_id: "agent"
+      unit_id: "agent-unit-1"
+      status: "not_started"
+      completed_at: ""
+      note_url: ""
+      title: "比较聊天机器人与 Agent"
       description: "用同一个任务比较两种工作方式"
       steps: "让聊天机器人和具备工具的 Agent 处理同一个任务，比较各自能够执行的动作和信息来源。"
-    - title: "连接已有项目的设计"
+    - id: "agent-ch01-e04"
+      anchor: "experiment-4"
+      stage_id: "agent"
+      unit_id: "agent-unit-1"
+      status: "not_started"
+      completed_at: ""
+      note_url: ""
+      title: "连接已有项目的设计"
       description: "在自己的项目里寻找对应的组成部分"
       steps: "在 CTF Mentor 或 Aemeth Agent 中，标出模型、上下文、记忆与工具，并记录一个暂时不确定的地方。"
-    - title: "整理第一章学习复盘"
+    - id: "agent-ch01-e05"
+      anchor: "experiment-5"
+      stage_id: "agent"
+      unit_id: "agent-unit-1"
+      status: "not_started"
+      completed_at: ""
+      note_url: ""
+      title: "整理第一章学习复盘"
       description: "记录理解、实验结果与下一步问题"
       steps: "整理本章的概念图、实验现象、仍未解决的问题，发布一篇带 ai-learning 标签的学习记录。"
   tracks:
@@ -112,3 +157,6 @@ dashboard:
     - title: "Infra 基础设施"
       id: infra
       units: ["算力与硬件基础", "模型训练与通信", "数据与存储系统", "模型服务与工程化", "监控、评估与可观测性", "成本与规模化实践"]
+
+# 其他主题的状态可按稳定编号记录；第一个 Agent 单元由本章实验自动汇总。
+unit_states: {}

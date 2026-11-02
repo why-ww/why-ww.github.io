@@ -579,3 +579,28 @@ body.ai-page { margin: 0; min-height: 100vh; }
 .ov-progress-row > strong,.ov-project-count,.ref-progress,.ref-track-number,.ref-experiment-number,.ref-experiment time,.ov-log-table td:first-child,.ref-log-table td:first-child {
   font-family:"Cascadia Code",Consolas,"Liberation Mono",monospace;
 }
+
+/* Linked learning records and same-origin PDF reader. */
+.ai-experiment-actions { display:flex; gap:12px 18px; flex-wrap:wrap; margin:12px 0; }
+.ref-experiment-body small { color:var(--lab-muted); font-size:10px; }
+.ref-checkbox.is-completed { display:grid; place-items:center; color:#161811; background:var(--ai-gold); border-color:var(--ai-gold); font-size:13px; font-weight:700; }
+.ref-experiment.completed .ref-state,.ref-experiment.in_progress .ref-state { color:var(--ai-gold); }
+.ai-reader { max-width:1400px; margin:0 auto; }
+.ai-reader > header { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; padding:10px 0 18px; }
+.ai-reader h1 { color:#eee; font-size:25px; margin:8px 0; }
+.ai-reader p,.ai-reader footer { color:var(--lab-muted); font-size:12px; }
+.ai-reader nav { display:flex; flex-wrap:wrap; gap:10px; }
+.ai-reader nav a { display:block; border:1px solid var(--lab-line); border-radius:5px; padding:8px 11px; font-size:12px; }
+.ai-reader object { width:100%; height:calc(100vh - 220px); min-height:500px; display:block; border:1px solid var(--lab-line); border-radius:5px; background:#252525; }
+.ai-reader footer { padding:15px 0; line-height:1.8; }
+.ai-reader-fallback { padding:30px; text-align:center; }
+.ai-note-page { max-width:900px; margin:20px auto 50px; padding:24px; border:1px solid var(--lab-line); border-radius:8px; background:var(--lab-surface); overflow-wrap:anywhere; }
+.ai-note-page > a { font-size:13px; }
+.ai-note-page header { padding:25px 0; border-bottom:1px solid var(--lab-line); }
+.ai-note-page h1 { font-size:30px; line-height:1.4; color:#eee; }
+.ai-note-page header p { color:var(--lab-muted); font-size:12px; }
+.ai-note-content h2 { margin-top:30px; font-size:21px; color:var(--lab-text); }
+.ai-note-content img { max-width:100%; height:auto; }
+.ai-note-content pre { overflow:auto; padding:15px; background:var(--lab-bg); }
+.ai-note-content code { font-family:Consolas,monospace; }
+@media(max-width:600px) { .ai-reader h1 { font-size:21px; } .ai-reader object { min-height:450px; } .ai-note-page { padding:17px; } }

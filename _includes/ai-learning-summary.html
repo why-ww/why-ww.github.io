@@ -1,0 +1,25 @@
+{%- assign board = site.data.ai_learning.dashboard -%}
+{%- assign ai_posts = site.posts | where_exp: 'post', "post.tags contains 'ai-learning'" -%}
+{%- assign experiments_total = board.experiments.size -%}
+{%- assign experiments_completed = 0 -%}
+{%- assign experiments_active = 0 -%}
+{%- assign next_experiment = nil -%}
+{%- for item in board.experiments -%}
+  {%- include ai-experiment-state.html experiment=item -%}
+  {%- if exp_state == 'completed' -%}
+    {%- assign experiments_completed = experiments_completed | plus: 1 -%}
+  {%- elsif exp_state == 'in_progress' -%}
+    {%- assign experiments_active = experiments_active | plus: 1 -%}
+    {%- unless next_experiment -%}{%- assign next_experiment = item -%}{%- endunless -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- unless next_experiment -%}
+  {%- for item in board.experiments -%}
+    {%- include ai-experiment-state.html experiment=item -%}
+    {%- if exp_state == 'not_started' -%}{%- assign next_experiment = item -%}{%- break -%}{%- endif -%}
+  {%- endfor -%}
+{%- endunless -%}
+{%- assign experiments_pending = experiments_total | minus: experiments_completed | minus: experiments_active -%}
+{%- assign experiments_percent = 0 -%}
+{%- if experiments_total > 0 -%}{%- assign experiments_percent = experiments_completed | times: 100 | divided_by: experiments_total -%}{%- endif -%}
+{%- assign agent_stage = site.data.ai_learning.stages | where: 'id', 'agent' | first -%}

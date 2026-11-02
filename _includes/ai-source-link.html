@@ -1,0 +1,5 @@
+{%- if include.stage.pdf_url -%}
+<a href="{{ include.stage.reading_url | relative_url }}" target="_blank" rel="noopener noreferrer">{{ include.stage.title }} · PDF 阅读 ↗</a>
+{%- else -%}
+<a href="{{ include.stage.reading_url }}" target="_blank" rel="noopener noreferrer">{{ include.stage.title }} · 课程网页版 ↗</a>
+{%- endif -%}

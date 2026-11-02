@@ -1,0 +1,10 @@
+{%- assign unit_state = site.data.ai_learning.unit_states[include.unit_id] | default: 'not_started' -%}
+{%- if include.unit_id == 'agent-unit-1' -%}
+  {%- if experiments_total > 0 and experiments_completed == experiments_total -%}
+    {%- assign unit_state = 'completed' -%}
+  {%- elsif experiments_completed > 0 or experiments_active > 0 -%}
+    {%- assign unit_state = 'in_progress' -%}
+  {%- endif -%}
+{%- endif -%}
+{%- assign unit_label = '未开始' -%}
+{%- if unit_state == 'completed' -%}{%- assign unit_label = '已完成' -%}{%- elsif unit_state == 'in_progress' -%}{%- assign unit_label = '进行中' -%}{%- endif -%}

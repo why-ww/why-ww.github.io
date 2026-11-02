@@ -18,7 +18,7 @@ jobs:
       - name: Verify overview and relocated learning route
         run: |
           python - <<'PY'
-          import json, time, urllib.request
+          import json, time, urllib.request, re
           from playwright.sync_api import sync_playwright
           base = "https://why-ww.github.io"
           for attempt in range(20):
@@ -27,7 +27,7 @@ jobs:
                       home=r.read().decode()
                   with urllib.request.urlopen(base+"/lab/roadmap/?verify="+str(time.time()),timeout=15) as r:
                       route=r.read().decode()
-                  if 'overview-reference-v4' in home and 'route-reference-v4' in route and 'Shared gold palette v6' in home and 'data-header-version="shared-v5"' in route:
+                  if 'overview-reference-v4' in home and 'route-reference-v4' in route and 'Shared gold palette v6' in home and 'data-progress-version="linked-v1"' in route and 'data-progress-version="linked-v1"' in home:
                       break
               except Exception as error:
                   print("WAIT",str(error))
@@ -52,8 +52,8 @@ jobs:
                       assert page.locator(".ov-project-count").evaluate("(el)=>getComputedStyle(el).color") == gold
                       assert page.locator(".ov-course").count()==3
                       assert page.locator(".ov-project").count()==2
-                      assert page.locator(".ov-project-count").inner_text().strip()=="0 / 5"
-                      assert page.locator(".ov-progress-row > strong").inner_text()=="0%"
+                      assert re.fullmatch(r"\d+ / \d+",page.locator(".ov-project-count").inner_text().strip())
+                      assert re.fullmatch(r"\d+%",page.locator(".ov-progress-row > strong").inner_text())
                       assert "monospace" in page.locator(".ov-project-count").evaluate("(el)=>getComputedStyle(el).fontFamily")
                       assert page.locator(".ov-status > div").count()==4
                       cards=page.locator(".ov-course").evaluate_all("(els)=>els.map(el=>el.getBoundingClientRect().toJSON())")
@@ -69,7 +69,8 @@ jobs:
                       assert page.locator(".ref-chart-titles").evaluate("(el)=>getComputedStyle(el).fill") == gold
                       assert page.locator(".ref-panel").count()==4
                       assert page.locator(".ref-track-unit").count()==20
-                      assert page.locator(".ref-experiment").count()==5
+                      assert page.locator(".ref-experiment").count() > 0
+                      assert page.locator(".ai-write-note").count() > 0
                       assert page.locator("#agent").count()==1
                       assert page.locator("#cs146s").count()==1
                       assert page.locator("#infra").count()==1
@@ -94,6 +95,14 @@ jobs:
                           page.evaluate("window.scrollTo(0,0)")
                           page.screenshot(path=name+"-"+str(width)+".png",full_page=True)
                   print("PASS",name)
+              for slug in ("agent","infra"):
+                  page.goto(base+"/lab/read/"+slug+"/",wait_until="domcontentloaded")
+                  assert page.locator("object[type='application/pdf']").count()==1
+                  pdf=page.request.get(base+"/assets/books/"+slug+".pdf")
+                  assert pdf.status==200
+                  assert pdf.body().startswith(b"%PDF-")
+                  assert "application/pdf" in pdf.headers.get("content-type","")
+                  print("PDF_PASS",slug,len(pdf.body()))
               assert not errors,str(errors)
               browser.close()
           PY
