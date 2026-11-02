@@ -1,14 +1,21 @@
-{% assign visible_posts = site.posts | where_exp: 'post', "post.tags contains 'ai-learning' == false" %}
+{% assign visible_posts = site.posts %}
 {% if page.platform %}
   {% assign visible_posts = visible_posts | where_exp: 'post', 'post.tags contains page.platform' %}
 {% endif %}
 {% if page.direction %}
   {% assign visible_posts = visible_posts | where_exp: 'post', 'post.tags contains page.direction' %}
 {% endif %}
-<h2 class="post-list-heading">{{ page.list_title | default: '最新文章' }} <span class="post-count">{{ visible_posts.size }} 篇</span></h2>
-{% if visible_posts.size > 0 %}
+{% assign visible_count = 0 %}
+{% for post in visible_posts %}
+  {% unless post.tags contains 'ai-learning' %}
+    {% assign visible_count = visible_count | plus: 1 %}
+  {% endunless %}
+{% endfor %}
+<h2 class="post-list-heading">{{ page.list_title | default: '最新文章' }} <span class="post-count">{{ visible_count }} 篇</span></h2>
+{% if visible_count > 0 %}
   <ul class="post-list">
     {% for post in visible_posts %}
+      {% unless post.tags contains 'ai-learning' %}
       <li>
         <div class="writeup-meta">
           <time class="post-meta" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y-%m-%d' }}</time>
@@ -17,6 +24,7 @@
         <h3><a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
         {% if site.show_excerpts %}{{ post.excerpt }}{% endif %}
       </li>
+      {% endunless %}
     {% endfor %}
   </ul>
 {% else %}
