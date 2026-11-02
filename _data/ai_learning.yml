@@ -1,0 +1,38 @@
+# AI 学习路线的内容集中维护在这里。状态只根据真实学习记录更新。
+next_task: "阅读《深入理解 AI Agent》第一章，写下 Agent 与普通聊天机器人的区别"
+stages:
+  - id: agent
+    number: "01"
+    title: "深入理解 AI Agent"
+    status: "准备开始"
+    description: "从上下文、记忆、工具调用和规划出发，理解 Agent 的组成与工程实现。"
+    topics:
+      - 上下文
+      - 记忆
+      - 工具调用
+      - 规划
+    source_label: "教材仓库"
+    source_url: "https://github.com/bojieli/ai-agent-book"
+  - id: cs146s
+    number: "02"
+    title: "Stanford CS146S"
+    status: "待开始"
+    description: "通过课程与练习，学习如何在真实软件开发中与 AI 协作。"
+    topics:
+      - AI 辅助开发
+      - 软件工程
+      - 实践项目
+    source_label: "课程主页"
+    source_url: "https://themodernsoftware.dev/"
+  - id: infra
+    number: "03"
+    title: "深入理解 AI Infra"
+    status: "待开始"
+    description: "理解模型训练、推理、计算、存储与系统设计的基础。"
+    topics:
+      - 计算
+      - 存储
+      - 推理
+      - 训练
+    source_label: "教材仓库"
+    source_url: "https://github.com/bojieli/ai-infra-book"
