@@ -7,6 +7,11 @@ root = pathlib.Path(__file__).resolve().parents[1]
 work = pathlib.Path(tempfile.mkdtemp(prefix="ai-learning-fixtures-"))
 source = work / "source"
 shutil.copytree(root, source, ignore=shutil.ignore_patterns(".git", "_site", "node_modules"))
+config_path = source / "_config.yml"
+config = yaml.safe_load(config_path.read_text(encoding="utf-8"))
+config["plugins"] = ["jekyll-seo-tag", "jekyll-feed"]
+config["whitelist"] = ["jekyll-seo-tag", "jekyll-feed"]
+config_path.write_text(yaml.safe_dump(config, allow_unicode=True), encoding="utf-8")
 data_path = source / "_data/ai_learning.yml"
 data = yaml.safe_load(data_path.read_text(encoding="utf-8"))
 experiments = data["dashboard"]["experiments"]
