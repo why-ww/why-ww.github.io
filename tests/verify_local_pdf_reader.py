@@ -46,11 +46,13 @@ async def main():
           return (await (await doc.getPage(1)).getAnnotations()).map(a=>a.contentsObj?.str||a.contents||"");
         }""")
         assert MARKER in annotations, annotations
+        print("PASS: annotated PDF saved locally and reopened with annotation intact")
         await page.locator('[data-action="fullscreen"]').click()
         await page.wait_for_function("document.fullscreenElement?.id === 'pdf-workspace'")
         await page.screenshot(path="local-reader-fullscreen.png")
         await page.locator('[data-action="fullscreen"]').click()
         await page.wait_for_function("document.fullscreenElement === null")
+        print("PASS: entering and leaving full-screen")
         # Make a second annotation, simulate a write failure and confirm dirty state remains.
         await pdf_frame.locator('#editorFreeTextButton').click()
         await pdf_frame.locator('.page[data-page-number="1"] .annotationEditorLayer').click(position={"x":180,"y":250})
@@ -63,7 +65,7 @@ async def main():
         await page.wait_for_function("document.querySelector('.ai-pdf-status').dataset.kind === 'error'")
         assert await page.locator('.ai-local-reader').get_attribute("data-dirty") == "true"
         assert "尚未保存" in await page.locator(".ai-pdf-status").inner_text()
-        await page.evaluate("FileSystemFileHandle.prototype.createWritable=window.__realWrite")
+        await page.evaluate("() => { FileSystemFileHandle.prototype.createWritable=window.__realWrite; }")
         # A change made by another application must not be overwritten silently.
         await page.evaluate("""async () => {
           const record=await new Promise((resolve,reject)=>{
