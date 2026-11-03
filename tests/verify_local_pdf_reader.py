@@ -113,10 +113,11 @@ async def main():
               const lib=await import('/assets/pdfjs/build/pdf.mjs');
               lib.GlobalWorkerOptions.workerSrc='/assets/pdfjs/build/pdf.worker.mjs';
               const f=await window.__autoHandle.getFile();
-              const d=await lib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;
+              const task=lib.getDocument({data:new Uint8Array(await f.arrayBuffer())});
+              const d=await task.promise;
               const a=await (await d.getPage(1)).getAnnotations();
               const values=a.map(x=>x.contentsObj?.str||x.contents||'');
-              await d.destroy();return values;
+              await task.destroy();return values;
             }""")
         assert "AUTO_SAVE_TEST_MORE" in await contents()
         before=int(await auto.locator(".ai-local-reader").get_attribute("data-save-count"))
