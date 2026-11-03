@@ -46,8 +46,14 @@ jobs:
               page.on("pageerror",lambda e:errors.append(str(e)))
               page.goto(base+"/pikachu/?sync="+str(time.time())+"#brute-force/form",wait_until="networkidle")
               page.wait_for_selector('[data-module="brute-force"]')
+              expected=page.evaluate("""() => {
+                const roadmap=JSON.parse(document.getElementById('pikachu-roadmap-data').textContent);
+                const posts=JSON.parse(document.getElementById('pikachu-posts').textContent);
+                const result=PikachuProgress.buildProgress(roadmap,posts);
+                return [...result.completedSkills].filter(key=>key.startsWith('brute-force/')).length;
+              }""")
               assert page.locator('[data-skill="brute-force/form"]').get_attribute("class").find("is-done")>=0
-              assert page.locator('[data-module="brute-force"] .pika-module-count').inner_text()=="1 / 4"
+              assert page.locator('[data-module="brute-force"] .pika-module-count').inner_text()==str(expected)+" / 4"
               assert page.locator('[data-current-status]').inner_text()=="已完成"
               article=page.locator('[data-current-link]').get_attribute("href")
               assert article and article!="#"
@@ -59,7 +65,7 @@ jobs:
                   page.set_viewport_size({"width":width,"height":1000})
                   page.screenshot(path="pikachu-sync-"+str(width)+".png",full_page=True)
               assert not errors,errors
-              print("PASS",json.dumps({"module":"1 / 4","total":page.locator("[data-progress-count]").inner_text(),"article":article},ensure_ascii=False))
+              print("PASS",json.dumps({"module":page.locator('[data-module="brute-force"] .pika-module-count').inner_text(),"total":page.locator("[data-progress-count]").inner_text(),"article":article},ensure_ascii=False))
               browser.close()
           PY
       - uses: actions/upload-artifact@v4
