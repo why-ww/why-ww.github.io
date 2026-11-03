@@ -28,7 +28,7 @@ jobs:
               try:
                   with urllib.request.urlopen("https://why-ww.github.io/lab/read/agent/?check="+str(time.time()),timeout=20) as r:
                       html=r.read().decode()
-                  if 'ai-local-reader' in html and 'ai-pdf-reader.js' in html: break
+                  if 'data-reader-version="autosave-v2"' in html: break
               except Exception: pass
               time.sleep(10)
           else: raise AssertionError("Reader deployment did not arrive")

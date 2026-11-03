@@ -1,10 +1,13 @@
-<section class="ai-reader ai-local-reader" data-book="{{ book.id }}" data-pdf="{{ book.pdf_url | relative_url }}" data-viewer="{{ '/assets/pdfjs/web/viewer.html' | relative_url }}" data-source="official">
+<section class="ai-reader ai-local-reader" data-book="{{ book.id }}" data-pdf="{{ book.pdf_url | relative_url }}" data-viewer="{{ '/assets/pdfjs/web/viewer.html' | relative_url }}" data-source="official" data-reader-version="autosave-v2">
   <header class="ai-reader-heading"><div><a href="{{ '/lab/roadmap/' | relative_url }}">← 返回学习路线</a><h1>{{ book.title }}</h1><p>全屏阅读 · 高亮与文字批注 · 保存到你选择的本地 PDF</p></div><nav aria-label="教材阅读方式"><a href="{{ book.web_url }}" target="_blank" rel="noopener noreferrer">官方网页版 ↗</a><a href="{{ book.pdf_url | relative_url }}" download>下载教材 PDF ↓</a></nav></header>
   <div class="ai-pdf-workspace" id="pdf-workspace">
     <div class="ai-pdf-toolbar" role="toolbar" aria-label="PDF 本地阅读工具">
       <button type="button" data-action="open">选择本地 PDF</button>
       <button type="button" data-action="resume" disabled>继续上次本地文件</button>
       <button type="button" data-action="save" disabled>保存到原文件 <kbd>Ctrl+S</kbd></button>
+      <button type="button" data-action="undo" disabled title="撤销上一项批注操作（Ctrl+Z）">↶ 撤销</button>
+      <button type="button" data-action="redo" disabled title="重做已撤销的批注操作（Ctrl+Y / Ctrl+Shift+Z）">↷ 重做</button>
+      <label class="ai-pdf-autosave" title="选择并授权本地 PDF 后，停止编辑约 2 秒自动保存"><input type="checkbox" checked disabled> 自动保存</label>
       <button type="button" data-action="export" disabled>另存批注副本</button>
       <button type="button" data-action="official" disabled>切回在线教材</button>
       <button type="button" data-action="fullscreen" aria-pressed="false">全屏阅读 ⛶</button>
@@ -13,10 +16,10 @@
     <iframe class="ai-pdf-frame" title="{{ book.title }} PDF 阅读和批注" allow="fullscreen" allowfullscreen></iframe>
   </div>
   <input class="ai-pdf-file-input" type="file" accept="application/pdf,.pdf" hidden>
-  <p class="ai-local-file-help">第一次点击“选择本地 PDF”，选中桌面上的文件并授权。完成批注后点击“保存到原文件”或按 Ctrl+S；下次继续打开这份文件即可保留批注。本地 PDF 和批注仅在浏览器中处理，不会上传。</p>
+  <p class="ai-local-file-help">第一次点击“选择本地 PDF”，选中桌面上的文件并授权。默认开启自动保存，停止编辑约 2 秒后写回已授权的本地 PDF；也可点击“保存到原文件”或按 Ctrl+S。撤销用 Ctrl+Z，重做用 Ctrl+Y 或 Ctrl+Shift+Z；下次继续打开这份文件即可保留批注。本地 PDF 和批注仅在浏览器中处理，不会上传。</p>
   <p class="ai-pdf-compat">Edge / Chrome 桌面版支持保存回原文件。其他浏览器可使用“另存批注副本”，下次打开保存后的副本。</p>
   <noscript><p>阅读与本地批注需要启用 JavaScript。<a href="{{ book.pdf_url | relative_url }}">直接打开 PDF</a> · <a href="{{ book.web_url }}">官方网页版</a></p></noscript>
   <footer>教材来自 <a href="{{ book.source_url }}" target="_blank" rel="noopener noreferrer">作者原始仓库</a>。<a href="{{ '/assets/books/LICENSE-' | append: book.id | append: '.txt' | relative_url }}" target="_blank" rel="noopener noreferrer">原始许可证</a> · 阅读器使用 <a href="https://github.com/mozilla/pdf.js" target="_blank" rel="noopener noreferrer">Mozilla PDF.js</a>。</footer>
 </section>
-<link rel="stylesheet" href="{{ '/assets/css/ai-pdf-reader.css' | relative_url }}">
-<script type="module" src="{{ '/assets/js/ai-pdf-reader.js' | relative_url }}"></script>
+<link rel="stylesheet" href="{{ '/assets/css/ai-pdf-reader.css' | relative_url }}?v=autosave-v2">
+<script type="module" src="{{ '/assets/js/ai-pdf-reader.js' | relative_url }}?v=autosave-v2"></script>

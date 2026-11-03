@@ -7,6 +7,15 @@ if (root) {
   const input = root.querySelector(".ai-pdf-file-input");
   const buttons = Object.fromEntries([...root.querySelectorAll("[data-action]")].map(el => [el.dataset.action, el]));
   const book = root.dataset.book;
+  const autoControl = root.querySelector(".ai-pdf-autosave input");
+  const patchedManagers = new WeakSet();
+  let uiManager = null, canUndo = false, canRedo = false;
+  let autoEnabled = true, autoTimer = null, autoBlocked = false;
+  let composing = false, pointerDown = false, editRevision = 0, savedCount = 0;
+  try { autoEnabled = localStorage.getItem("ai-pdf-auto-save") !== "off"; } catch {}
+  autoControl.checked = autoEnabled;
+  root.dataset.autosave = String(autoEnabled);
+  root.dataset.saveCount = "0";
   let app, handle = null, remembered = null, fileName = "", version = null;
   let dirty = false, saving = false, loading = false, sequence = 0, hasDocument = false;
   const defaultName = book === "agent" ? "AI-Agents-in-Depth-zh-CN.pdf" : "AI-Infra-Book.pdf";
@@ -14,7 +23,66 @@ if (root) {
   function setDirty(value) {
     dirty = value;
     root.dataset.dirty = String(value);
-    if (value) setStatus(fileName + " · 有未保存的批注，请按 Ctrl+S 或点击保存。");
+    if (!value) { clearTimeout(autoTimer); autoTimer = null; }
+    if (value && !autoBlocked) setStatus(fileName + (handle && autoEnabled
+      ? " · 有批注修改，暂停编辑后将自动保存…"
+      : " · 有未保存的批注，请按 Ctrl+S 或点击保存。"));
+  }
+  function scheduleAutoSave() {
+    clearTimeout(autoTimer); autoTimer = null;
+    if (!autoEnabled || !handle || !dirty || loading || saving || autoBlocked || composing || pointerDown) return;
+    autoTimer = setTimeout(() => { autoTimer = null; void save(false, true); }, 2000);
+  }
+  function markChanged() {
+    if (loading || !hasDocument) return;
+    editRevision++;
+    setDirty(true);
+    scheduleAutoSave();
+  }
+  function installHistory(manager) {
+    uiManager = manager;
+    if (patchedManagers.has(manager)) return;
+    patchedManagers.add(manager);
+    for (const action of ["addCommands", "undo", "redo"]) {
+      const original = manager[action];
+      manager[action] = function (...args) {
+        const changed = action === "addCommands" || (action === "undo" ? canUndo : canRedo);
+        const result = original.apply(this, args);
+        if (changed) markChanged();
+        return result;
+      };
+    }
+  }
+  function history(action) {
+    if (!hasDocument || loading || saving || !uiManager) return;
+    uiManager.endCurrentEditing();
+    frame.contentWindow.document.activeElement?.blur?.();
+    if (action === "undo" ? canUndo : canRedo) uiManager[action]();
+    updateButtons();
+  }
+  function commitForSave(automatic) {
+    const doc = frame.contentWindow.document, active = doc.activeElement;
+    const element = active?.closest?.(".freeTextEditor");
+    if (automatic && element && active.isContentEditable) {
+      // Commit a snapshot while preserving the user's text editor and caret.
+      const editor = uiManager?.getEditor(element.id);
+      if (editor) {
+        const selection = frame.contentWindow.getSelection();
+        const ranges = Array.from({ length: selection.rangeCount }, (_, i) => selection.getRangeAt(i).cloneRange());
+        editor.commit();
+        if (active.isConnected && active.textContent.trim()) {
+          editor.enableEditMode();
+          active.focus({ preventScroll: true });
+          try {
+            selection.removeAllRanges();
+            for (const range of ranges) selection.addRange(range);
+          } catch { selection.selectAllChildren(active); selection.collapseToEnd(); }
+        }
+        return;
+      }
+    }
+    uiManager?.endCurrentEditing();
+    active?.blur?.();
   }
   function updateButtons() {
     buttons.save.disabled = !hasDocument || saving || loading;
@@ -22,6 +90,9 @@ if (root) {
     buttons.official.disabled = !hasDocument || loading;
     buttons.open.disabled = loading || saving;
     buttons.resume.disabled = !remembered || loading || saving;
+    buttons.undo.disabled = !hasDocument || !canUndo || loading || saving;
+    buttons.redo.disabled = !hasDocument || !canRedo || loading || saving;
+    autoControl.disabled = !handle || loading;
     buttons.save.firstChild.textContent = handle ? "保存到原文件 " : "保存批注到本地 ";
   }
   function database() {
@@ -82,6 +153,13 @@ if (root) {
       win.PDFViewerApplication.initializedPromise.then(() => {
         clearTimeout(timer);
         app = win.PDFViewerApplication;
+        app.eventBus.on("annotationeditoruimanager", ({ uiManager: manager }) => installHistory(manager));
+        app.eventBus.on("editingstateschanged", ({ source, details }) => {
+          if (source !== uiManager) return;
+          canUndo = details.hasSomethingToUndo;
+          canRedo = details.hasSomethingToRedo;
+          updateButtons();
+        });
         // The built-in download/Save buttons and Ctrl+S share our local saving.
         app.save = () => save(false);
         app.download = () => save(false);
@@ -106,8 +184,18 @@ if (root) {
         }, true);
         win.addEventListener("keydown", keySave, true);
         win.document.addEventListener("input", event => {
-          if (event.target.closest?.(".freeTextEditor, .commentManager")) setDirty(true);
+          if (event.target.closest?.(".freeTextEditor, .commentManager")) markChanged();
         }, true);
+        win.document.addEventListener("compositionstart", () => { composing = true; clearTimeout(autoTimer); }, true);
+        win.document.addEventListener("compositionend", () => { composing = false; markChanged(); }, true);
+        win.document.addEventListener("pointerdown", () => { pointerDown = true; clearTimeout(autoTimer); }, true);
+        const pointerEnded = () => { pointerDown = false; scheduleAutoSave(); };
+        win.document.addEventListener("pointerup", pointerEnded, true);
+        win.document.addEventListener("pointercancel", pointerEnded, true);
+        win.addEventListener("blur", pointerEnded);
+        document.addEventListener("pointerup", pointerEnded, true);
+        document.addEventListener("pointercancel", pointerEnded, true);
+        win.document.addEventListener("focusout", scheduleAutoSave, true);
         resolve(app);
       }, error => { clearTimeout(timer); reject(error); });
     });
@@ -115,6 +203,9 @@ if (root) {
   async function openDocument(source, nextHandle = null, localFile = null) {
     const ticket = ++sequence;
     loading = true;
+    clearTimeout(autoTimer); autoTimer = null;
+    canUndo = canRedo = false; autoBlocked = false; editRevision = 0; savedCount = 0;
+    root.dataset.saveCount = "0";
     updateButtons();
     setStatus("正在打开 PDF…");
     try {
@@ -140,9 +231,9 @@ if (root) {
       setDirty(false);
       const storage = app.pdfDocument.annotationStorage;
       const previousModified = storage.onSetModified;
-      storage.onSetModified = () => { previousModified?.(); setDirty(true); };
+      storage.onSetModified = () => { previousModified?.(); markChanged(); };
       setStatus(localFile
-        ? fileName + (handle ? " · 本地文件；批注后按 Ctrl+S 保存回原文件。" : " · 本地预览；请另存批注副本保留修改。")
+        ? fileName + (handle ? " · 本地文件；自动保存可用，也可按 Ctrl+S 保存。" : " · 本地预览；请另存批注副本保留修改。")
         : "当前为在线教材；要长期保留批注，请先选择桌面上的本地 PDF。");
       // Let even previously-bound native Save commands route through our implementation.
       app.save = () => save(false);
@@ -181,15 +272,18 @@ if (root) {
     try { await openDocument(null, null, file); }
     catch (error) { report(error, "打开 PDF 失败"); }
   });
-  async function save(copy = false) {
+  async function save(copy = false, automatic = false) {
     if (!hasDocument || saving || loading) return;
+    if (automatic && (!autoEnabled || !handle || !dirty || autoBlocked || composing || pointerDown)) return;
+    clearTimeout(autoTimer); autoTimer = null;
     saving = true;
+    root.dataset.saving = "true";
     updateButtons();
     let target = copy ? null : handle;
     let writable = null;
     try {
       // Request permission while the Save click/Ctrl+S still has user activation.
-      if (target && !await permission(target)) throw new Error("未获得写入权限，批注尚未保存。");
+      if (target && !await permission(target, !automatic)) throw new Error("未获得写入权限，批注尚未保存。");
       if (!target && "showSaveFilePicker" in window) {
         target = await window.showSaveFilePicker({
           id: "ai-textbook-save-" + book,
@@ -197,11 +291,11 @@ if (root) {
           types: [{ description: "带批注的 PDF", accept: { "application/pdf": [".pdf"] } }]
         });
       }
-      app.pdfViewer._layerProperties?.annotationEditorUIManager?.endCurrentEditing();
-      // Commit an active text editor before serializing the annotation storage.
-      frame.contentWindow.document.activeElement?.blur?.();
-      await new Promise(resolve => requestAnimationFrame(resolve));
+      commitForSave(automatic);
+      await new Promise(resolve => automatic ? setTimeout(resolve, 0) : requestAnimationFrame(resolve));
       const doc = app.pdfDocument;
+      const savingRevision = editRevision;
+      setStatus(automatic ? "正在自动保存批注…" : "正在保存批注…");
       const data = doc.annotationStorage.size ? await doc.saveDocument() : await doc.getData();
       if (target) {
         // Never overwrite changes made in another PDF application since we opened/saved it.
@@ -222,10 +316,14 @@ if (root) {
         fileName = saved.name;
         root.dataset.source = "local";
         root.dataset.fileName = saved.name;
-        doc.annotationStorage.resetModified();
-        setDirty(false);
+        autoBlocked = false;
+        savedCount++;
+        root.dataset.saveCount = String(savedCount);
+        if (savingRevision === editRevision) { doc.annotationStorage.resetModified(); setDirty(false); }
+        else setDirty(true);
         try { await remember(target); } catch { /* File itself is already saved successfully. */ }
-        setStatus("已保存到本地原文件：" + saved.name + "。下次打开这份 PDF，批注仍会保留。", "success");
+        if (!dirty) setStatus((automatic ? "已自动保存 " : "已保存 ") +
+          new Date().toLocaleTimeString("zh-CN", { hour12: false }) + " · " + saved.name, "success");
       } else {
         // Browsers without the File System Access API can export a portable annotated PDF.
         const blobUrl = URL.createObjectURL(new Blob([data], { type: "application/pdf" }));
@@ -239,10 +337,23 @@ if (root) {
       }
     } catch (error) {
       if (writable) { try { await writable.abort(); } catch {} }
-      report(error, "批注尚未保存");
-    } finally { saving = false; updateButtons(); }
+      if (automatic) autoBlocked = true;
+      report(error, automatic ? "自动保存暂停，批注尚未保存，请手动保存重试" : "批注尚未保存");
+    } finally {
+      saving = false; root.dataset.saving = "false"; updateButtons();
+      if (dirty) scheduleAutoSave();
+    }
   }
   function keySave(event) {
+    if ((event.ctrlKey || event.metaKey) && !event.altKey) {
+      const key = event.key.toLowerCase();
+      const target = event.target;
+      const typing = target?.isContentEditable || /^(INPUT|TEXTAREA)$/.test(target?.tagName || "");
+      if (!typing && (key === "z" || key === "y")) {
+        event.preventDefault(); event.stopImmediatePropagation();
+        history(key === "y" || event.shiftKey ? "redo" : "undo"); return;
+      }
+    }
     if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "o") {
       event.preventDefault(); event.stopImmediatePropagation(); openLocal(); return;
     }
@@ -250,6 +361,22 @@ if (root) {
       event.preventDefault(); event.stopImmediatePropagation(); save(false);
     }
   }
+  buttons.undo.addEventListener("pointerdown", event => event.preventDefault());
+  buttons.redo.addEventListener("pointerdown", event => event.preventDefault());
+  buttons.undo.addEventListener("click", () => history("undo"));
+  buttons.redo.addEventListener("click", () => history("redo"));
+  autoControl.addEventListener("change", () => {
+    autoEnabled = autoControl.checked; autoBlocked = false;
+    root.dataset.autosave = String(autoEnabled);
+    try { localStorage.setItem("ai-pdf-auto-save", autoEnabled ? "on" : "off"); } catch {}
+    if (dirty) { setDirty(true); scheduleAutoSave(); }
+    else setStatus(autoEnabled ? "自动保存已开启，停止编辑约 2 秒后保存到已授权的本地 PDF。" : "自动保存已关闭，请按 Ctrl+S 手动保存。");
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden" && dirty && autoEnabled && handle && !autoBlocked) {
+      clearTimeout(autoTimer); void save(false, true);
+    }
+  });
   buttons.open.addEventListener("click", openLocal);
   buttons.resume.addEventListener("click", async () => {
     if (!remembered || !allowSwitch()) return;

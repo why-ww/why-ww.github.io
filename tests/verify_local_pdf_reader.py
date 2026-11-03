@@ -25,6 +25,7 @@ async def main():
         await page.locator('[data-action="open"]').click()
         await page.wait_for_selector('.ai-local-reader[data-source="local"][data-ready="true"]')
         await page.wait_for_function("document.querySelector('.ai-local-reader').dataset.fileName === 'test-ai-local-reader.pdf'")
+        await page.locator(".ai-pdf-autosave input").uncheck()
         pdf_frame = page.frame_locator(".ai-pdf-frame")
         await pdf_frame.locator('#editorFreeTextButton').click()
         layer = pdf_frame.locator('.page[data-page-number="1"] .annotationEditorLayer')
@@ -82,6 +83,71 @@ async def main():
         # This context contains only disposable files, so dismiss the unsaved-changes dialog.
         page.on("dialog", lambda dialog: dialog.accept())
         await page.close(run_before_unload=False)
+        auto = await context.new_page()
+        auto.on("pageerror", lambda e: errors.append(str(e)))
+        await auto.goto(BASE+"/lab/read/agent/?reader=autosave-v2",wait_until="domcontentloaded")
+        await auto.wait_for_selector('.ai-local-reader[data-source="local"][data-ready="true"]',timeout=120000)
+        await auto.evaluate("""async () => {
+          const dir=await navigator.storage.getDirectory();
+          const h=await dir.getFileHandle('test-ai-autosave.pdf',{create:true});
+          const w=await h.createWritable();await w.write(await (await fetch('/assets/books/agent.pdf')).arrayBuffer());await w.close();
+          window.__autoHandle=h;
+          window.showOpenFilePicker=async()=>[h];
+        }""")
+        await auto.locator('[data-action="open"]').click()
+        await auto.wait_for_function("document.querySelector('.ai-local-reader').dataset.fileName==='test-ai-autosave.pdf'")
+        await auto.locator(".ai-pdf-autosave input").check()
+        af=auto.frame_locator(".ai-pdf-frame")
+        await af.locator("#editorFreeTextButton").click()
+        await af.locator('.page[data-page-number="1"] .annotationEditorLayer').click(position={"x":160,"y":190})
+        text=af.locator('.freeTextEditor [contenteditable="true"]').last
+        await text.fill("AUTO_SAVE_TEST")
+        await auto.wait_for_function("Number(document.querySelector('.ai-local-reader').dataset.saveCount)>0 && document.querySelector('.ai-local-reader').dataset.dirty==='false'",timeout=30000)
+        assert "已自动保存" in await auto.locator(".ai-pdf-status").inner_text()
+        assert await auto.evaluate("document.querySelector('iframe').contentDocument.activeElement.isContentEditable")
+        await text.press("End")
+        await text.press_sequentially("_MORE")
+        await auto.wait_for_function("Number(document.querySelector('.ai-local-reader').dataset.saveCount)>1 && document.querySelector('.ai-local-reader').dataset.dirty==='false'",timeout=30000)
+        async def contents():
+            return await auto.evaluate("""async () => {
+              const lib=await import('/assets/pdfjs/build/pdf.mjs');
+              lib.GlobalWorkerOptions.workerSrc='/assets/pdfjs/build/pdf.worker.mjs';
+              const f=await window.__autoHandle.getFile();
+              const d=await lib.getDocument({data:new Uint8Array(await f.arrayBuffer())}).promise;
+              const a=await (await d.getPage(1)).getAnnotations();
+              const values=a.map(x=>x.contentsObj?.str||x.contents||'');
+              await d.destroy();return values;
+            }""")
+        assert "AUTO_SAVE_TEST_MORE" in await contents()
+        before=int(await auto.locator(".ai-local-reader").get_attribute("data-save-count"))
+        await auto.locator('[data-action="undo"]').click()
+        await auto.wait_for_function("(n)=>Number(document.querySelector('.ai-local-reader').dataset.saveCount)>n && document.querySelector('.ai-local-reader').dataset.dirty==='false'",arg=before,timeout=30000)
+        values=await contents()
+        assert "AUTO_SAVE_TEST_MORE" not in values and "AUTO_SAVE_TEST" in values,values
+        before=int(await auto.locator(".ai-local-reader").get_attribute("data-save-count"))
+        await auto.locator('[data-action="redo"]').click()
+        await auto.wait_for_function("(n)=>Number(document.querySelector('.ai-local-reader').dataset.saveCount)>n && document.querySelector('.ai-local-reader').dataset.dirty==='false'",arg=before,timeout=30000)
+        assert "AUTO_SAVE_TEST_MORE" in await contents()
+        await auto.locator('[data-action="fullscreen"]').focus()
+        before=int(await auto.locator(".ai-local-reader").get_attribute("data-save-count"))
+        await auto.keyboard.press("Control+z")
+        await auto.wait_for_function("(n)=>Number(document.querySelector('.ai-local-reader').dataset.saveCount)>n && document.querySelector('.ai-local-reader').dataset.dirty==='false'",arg=before,timeout=30000)
+        assert "AUTO_SAVE_TEST_MORE" not in await contents()
+        before=int(await auto.locator(".ai-local-reader").get_attribute("data-save-count"))
+        await auto.keyboard.press("Control+Shift+z")
+        await auto.wait_for_function("(n)=>Number(document.querySelector('.ai-local-reader').dataset.saveCount)>n && document.querySelector('.ai-local-reader').dataset.dirty==='false'",arg=before,timeout=30000)
+        assert "AUTO_SAVE_TEST_MORE" in await contents()
+        await auto.locator(".ai-pdf-autosave input").uncheck()
+        before=int(await auto.locator(".ai-local-reader").get_attribute("data-save-count"))
+        await auto.locator('[data-action="undo"]').click()
+        await auto.wait_for_timeout(3000)
+        assert int(await auto.locator(".ai-local-reader").get_attribute("data-save-count"))==before
+        assert await auto.locator(".ai-local-reader").get_attribute("data-dirty")=="true"
+        await auto.locator('[data-action="save"]').click()
+        await auto.wait_for_function("document.querySelector('.ai-local-reader').dataset.dirty==='false'")
+        await auto.screenshot(path="local-reader-autosave-undo.png")
+        await auto.close()
+        print("PASS: autosave, uninterrupted text editing, persisted undo/redo, keyboard shortcuts, disable switch and manual save")
         assert not errors, errors
         await browser.close()
         print("PASS: local open, PDF text annotation saved into original handle, retained after reload, full-screen, failed-write protection and external-change protection")

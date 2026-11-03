@@ -17,3 +17,6 @@
 .ai-local-reader .ai-local-file-help { font-size:12px; line-height:1.9; margin:12px 0 5px; }
 .ai-local-reader .ai-pdf-compat { font-size:11px; color:#919da4; margin:0 0 12px; }
 @media(max-width:600px) { .ai-pdf-toolbar { gap:6px; padding:8px; } .ai-pdf-toolbar button { font-size:11px; padding:7px 8px; } .ai-pdf-toolbar kbd { display:none; } .ai-pdf-toolbar [data-action="fullscreen"] { margin-left:0; } .ai-pdf-frame { min-height:450px; } }
+
+.ai-pdf-autosave { display:inline-flex; align-items:center; gap:6px; color:#cbd2d5; font-size:12px; padding:0 5px; white-space:nowrap; }
+.ai-pdf-autosave input { accent-color:var(--ai-gold,#D3B677); width:14px; height:14px; }
