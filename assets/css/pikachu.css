@@ -186,3 +186,6 @@ body:has(.pika-lab) .topic-nav a[aria-current] { color: #e5c14f; background: #2d
   .pika-progress-track i, .pika-module-card { transition: none; }
 }
 
+
+.pika-lesson .pika-lesson-writeup { display:inline-flex; margin-left:6px; color:var(--pika-yellow); font-size:12px; text-decoration:none; }
+.pika-lesson .pika-lesson-writeup:focus-visible { outline:2px solid #ffe17a; outline-offset:3px; border-radius:2px; }

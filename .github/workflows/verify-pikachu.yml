@@ -1,0 +1,70 @@
+name: Verify Pikachu Writeup sync
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '_posts/**'
+      - '_data/pikachu_roadmap.json'
+      - '_layouts/pikachu.html'
+      - 'assets/js/pikachu*.js'
+      - 'assets/css/pikachu.css'
+      - 'tests/pikachu.test.cjs'
+      - '.github/workflows/verify-pikachu.yml'
+permissions:
+  contents: read
+jobs:
+  matching:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: node tests/pikachu.test.cjs
+  published:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - run: |
+          python -m pip install playwright
+          python -m playwright install --with-deps chromium
+      - name: Verify route counts and article link in the published page
+        run: |
+          python - <<'PY'
+          import time, urllib.request, json
+          from playwright.sync_api import sync_playwright
+          base="https://why-ww.github.io"
+          for attempt in range(24):
+              try:
+                  with urllib.request.urlopen(base+"/pikachu/?sync="+str(time.time()),timeout=20) as response:
+                      html=response.read().decode()
+                  if "pikachu-progress.js" in html: break
+              except Exception: pass
+              time.sleep(10)
+          else: raise AssertionError("New Pikachu route not yet published")
+          with sync_playwright() as p:
+              browser=p.chromium.launch()
+              page=browser.new_page(viewport={"width":1440,"height":1000})
+              errors=[]
+              page.on("pageerror",lambda e:errors.append(str(e)))
+              page.goto(base+"/pikachu/?sync="+str(time.time())+"#brute-force/form",wait_until="networkidle")
+              page.wait_for_selector('[data-module="brute-force"]')
+              assert page.locator('[data-skill="brute-force/form"]').get_attribute("class").find("is-done")>=0
+              assert page.locator('[data-module="brute-force"] .pika-module-count').inner_text()=="1 / 4"
+              assert page.locator('[data-current-status]').inner_text()=="已完成"
+              article=page.locator('[data-current-link]').get_attribute("href")
+              assert article and article!="#"
+              assert page.locator('[data-skill="brute-force/form"] .pika-lesson-writeup').get_attribute("href")==article
+              response=page.request.get(base+article)
+              assert response.status==200
+              assert "基于表单的暴力破解" in response.text()
+              for width in (1440,390):
+                  page.set_viewport_size({"width":width,"height":1000})
+                  page.screenshot(path="pikachu-sync-"+str(width)+".png",full_page=True)
+              assert not errors,errors
+              print("PASS",json.dumps({"module":"1 / 4","total":page.locator("[data-progress-count]").inner_text(),"article":article},ensure_ascii=False))
+              browser.close()
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pikachu-sync-preview
+          path: pikachu-sync-*.png
+          retention-days: 3

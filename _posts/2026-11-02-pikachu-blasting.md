@@ -7,6 +7,7 @@ date: 2026-11-04
 
 skill: ""
 completed: true
+pikachu_skill: "brute-force/form"
 module: "暴力破解"
 deployment: "docker"
 environment_status: "unchecked"

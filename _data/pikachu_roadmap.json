@@ -7,10 +7,56 @@
       "title": "暴力破解",
       "icon": "▣",
       "lessons": [
-        {"id": "form", "title": "表单暴力破解", "description": "观察登录请求，理解弱口令与无限制重试带来的风险。", "difficulty": "入门", "duration": "20–30 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "captcha-server", "title": "验证码绕过（服务端）", "description": "分析服务端验证码校验流程与可重复利用的请求。", "difficulty": "入门", "duration": "20–30 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "captcha-client", "title": "验证码绕过（客户端）", "description": "理解只在客户端执行的安全校验为什么可以被绕过。", "difficulty": "入门", "duration": "15–25 分钟", "tools": "Browser · DevTools"},
-        {"id": "token", "title": "Token 防爆破", "description": "分析动态 Token 对自动化请求的限制及正确使用方式。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · Burp Suite"}
+        {
+          "id": "form",
+          "title": "表单暴力破解",
+          "description": "观察登录请求，理解弱口令与无限制重试带来的风险。",
+          "difficulty": "入门",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "基于表单的暴力破解",
+            "表单的暴力破解"
+          ]
+        },
+        {
+          "id": "captcha-server",
+          "title": "验证码绕过（服务端）",
+          "description": "分析服务端验证码校验流程与可重复利用的请求。",
+          "difficulty": "入门",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "验证码绕过(on server)",
+            "验证码绕过服务端",
+            "基于服务端验证码的暴力破解"
+          ]
+        },
+        {
+          "id": "captcha-client",
+          "title": "验证码绕过（客户端）",
+          "description": "理解只在客户端执行的安全校验为什么可以被绕过。",
+          "difficulty": "入门",
+          "duration": "15–25 分钟",
+          "tools": "Browser · DevTools",
+          "aliases": [
+            "验证码绕过(on client)",
+            "验证码绕过客户端",
+            "基于客户端验证码的暴力破解"
+          ]
+        },
+        {
+          "id": "token",
+          "title": "Token 防爆破",
+          "description": "分析动态 Token 对自动化请求的限制及正确使用方式。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "Token防爆破",
+            "Token防暴力破解"
+          ]
+        }
       ]
     },
     {
@@ -19,16 +65,102 @@
       "title": "XSS",
       "icon": "</>",
       "lessons": [
-        {"id": "reflected-get", "title": "反射型 XSS（GET）", "description": "通过 URL 参数将恶意脚本注入页面，理解反射型 XSS 的触发条件与防御方法。", "difficulty": "入门", "duration": "20–30 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "reflected-post", "title": "反射型 XSS（POST）", "description": "通过表单提交观察输入如何进入响应并触发脚本。", "difficulty": "入门", "duration": "20–30 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "stored", "title": "存储型 XSS", "description": "观察恶意输入被持久化后影响其他访问者的过程。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "dom", "title": "DOM 型 XSS", "description": "从前端脚本的数据流理解 DOM 型 XSS。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · DevTools"},
-        {"id": "dom-x", "title": "DOM 型 XSS-X", "description": "继续分析 DOM 操作造成的客户端注入。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · DevTools"},
-        {"id": "blind", "title": "XSS 盲打", "description": "理解无直接回显场景中的 XSS 触发与验证。", "difficulty": "进阶", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "filter", "title": "XSS 过滤", "description": "观察过滤规则并理解上下文相关的编码策略。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · DevTools"},
-        {"id": "htmlspecialchars", "title": "htmlspecialchars", "description": "理解 HTML 实体编码的作用与适用边界。", "difficulty": "基础", "duration": "20–30 分钟", "tools": "Browser · Source"},
-        {"id": "href", "title": "href 输出", "description": "分析 URL 属性上下文中的输入处理。", "difficulty": "基础", "duration": "20–30 分钟", "tools": "Browser · DevTools"},
-        {"id": "javascript", "title": "JavaScript 输出", "description": "分析 JavaScript 上下文中的数据拼接与安全编码。", "difficulty": "进阶", "duration": "30–40 分钟", "tools": "Browser · DevTools"}
+        {
+          "id": "reflected-get",
+          "title": "反射型 XSS（GET）",
+          "description": "通过 URL 参数将恶意脚本注入页面，理解反射型 XSS 的触发条件与防御方法。",
+          "difficulty": "入门",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "reflected-post",
+          "title": "反射型 XSS（POST）",
+          "description": "通过表单提交观察输入如何进入响应并触发脚本。",
+          "difficulty": "入门",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "stored",
+          "title": "存储型 XSS",
+          "description": "观察恶意输入被持久化后影响其他访问者的过程。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "dom",
+          "title": "DOM 型 XSS",
+          "description": "从前端脚本的数据流理解 DOM 型 XSS。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · DevTools"
+        },
+        {
+          "id": "dom-x",
+          "title": "DOM 型 XSS-X",
+          "description": "继续分析 DOM 操作造成的客户端注入。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · DevTools"
+        },
+        {
+          "id": "blind",
+          "title": "XSS 盲打",
+          "description": "理解无直接回显场景中的 XSS 触发与验证。",
+          "difficulty": "进阶",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "XSS之盲打"
+          ]
+        },
+        {
+          "id": "filter",
+          "title": "XSS 过滤",
+          "description": "观察过滤规则并理解上下文相关的编码策略。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · DevTools",
+          "aliases": [
+            "XSS之过滤"
+          ]
+        },
+        {
+          "id": "htmlspecialchars",
+          "title": "htmlspecialchars",
+          "description": "理解 HTML 实体编码的作用与适用边界。",
+          "difficulty": "基础",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Source",
+          "aliases": [
+            "XSS之htmlspecialchars"
+          ]
+        },
+        {
+          "id": "href",
+          "title": "href 输出",
+          "description": "分析 URL 属性上下文中的输入处理。",
+          "difficulty": "基础",
+          "duration": "20–30 分钟",
+          "tools": "Browser · DevTools",
+          "aliases": [
+            "XSS之href输出"
+          ]
+        },
+        {
+          "id": "javascript",
+          "title": "JavaScript 输出",
+          "description": "分析 JavaScript 上下文中的数据拼接与安全编码。",
+          "difficulty": "进阶",
+          "duration": "30–40 分钟",
+          "tools": "Browser · DevTools",
+          "aliases": [
+            "XSS之js输出",
+            "XSS之JavaScript输出"
+          ]
+        }
       ]
     },
     {
@@ -37,9 +169,36 @@
       "title": "CSRF",
       "icon": "◇",
       "lessons": [
-        {"id": "get", "title": "CSRF（GET）", "description": "理解通过跨站请求触发状态变更的过程。", "difficulty": "入门", "duration": "20–30 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "post", "title": "CSRF（POST）", "description": "构造跨站表单并分析浏览器自动携带身份信息的行为。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "token", "title": "CSRF Token", "description": "对比加入不可预测 Token 前后的请求校验差异。", "difficulty": "基础", "duration": "20–30 分钟", "tools": "Browser · Burp Suite"}
+        {
+          "id": "get",
+          "title": "CSRF（GET）",
+          "description": "理解通过跨站请求触发状态变更的过程。",
+          "difficulty": "入门",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "CSRF(GET)"
+          ]
+        },
+        {
+          "id": "post",
+          "title": "CSRF（POST）",
+          "description": "构造跨站表单并分析浏览器自动携带身份信息的行为。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "CSRF(POST)"
+          ]
+        },
+        {
+          "id": "token",
+          "title": "CSRF Token",
+          "description": "对比加入不可预测 Token 前后的请求校验差异。",
+          "difficulty": "基础",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Burp Suite"
+        }
       ]
     },
     {
@@ -48,16 +207,98 @@
       "title": "SQL 注入",
       "icon": "▤",
       "lessons": [
-        {"id": "numeric", "title": "数字型注入（POST）", "description": "识别数字参数进入 SQL 语句后的注入条件。", "difficulty": "基础", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "string", "title": "字符型注入（GET）", "description": "通过引号与回显判断字符型注入上下文。", "difficulty": "基础", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "search", "title": "搜索型注入", "description": "分析模糊搜索语句中的输入拼接。", "difficulty": "基础", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "xx", "title": "xx 型注入", "description": "练习识别不同参数位置和语句结构。", "difficulty": "基础", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "insert-update", "title": "Insert / Update 注入", "description": "观察写入类 SQL 语句中的注入影响。", "difficulty": "进阶", "duration": "35–45 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "delete", "title": "Delete 注入", "description": "分析删除语句中的参数拼接与风险。", "difficulty": "进阶", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "header", "title": "HTTP Header 注入", "description": "分析请求头内容进入数据库查询的场景。", "difficulty": "进阶", "duration": "35–45 分钟", "tools": "Burp Suite"},
-        {"id": "boolean-blind", "title": "布尔盲注", "description": "根据页面真假差异逐步判断数据。", "difficulty": "进阶", "duration": "40–60 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "time-blind", "title": "时间盲注", "description": "使用响应延迟判断无回显条件是否成立。", "difficulty": "进阶", "duration": "40–60 分钟", "tools": "Burp Suite"},
-        {"id": "wide-byte", "title": "宽字节注入", "description": "理解字符编码与转义组合造成的边界问题。", "difficulty": "进阶", "duration": "40–60 分钟", "tools": "Browser · Burp Suite"}
+        {
+          "id": "numeric",
+          "title": "数字型注入（POST）",
+          "description": "识别数字参数进入 SQL 语句后的注入条件。",
+          "difficulty": "基础",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "数字型注入(post)"
+          ]
+        },
+        {
+          "id": "string",
+          "title": "字符型注入（GET）",
+          "description": "通过引号与回显判断字符型注入上下文。",
+          "difficulty": "基础",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "字符型注入(get)"
+          ]
+        },
+        {
+          "id": "search",
+          "title": "搜索型注入",
+          "description": "分析模糊搜索语句中的输入拼接。",
+          "difficulty": "基础",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "xx",
+          "title": "xx 型注入",
+          "description": "练习识别不同参数位置和语句结构。",
+          "difficulty": "基础",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "insert-update",
+          "title": "Insert / Update 注入",
+          "description": "观察写入类 SQL 语句中的注入影响。",
+          "difficulty": "进阶",
+          "duration": "35–45 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "insert/update注入"
+          ]
+        },
+        {
+          "id": "delete",
+          "title": "Delete 注入",
+          "description": "分析删除语句中的参数拼接与风险。",
+          "difficulty": "进阶",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "delete注入"
+          ]
+        },
+        {
+          "id": "header",
+          "title": "HTTP Header 注入",
+          "description": "分析请求头内容进入数据库查询的场景。",
+          "difficulty": "进阶",
+          "duration": "35–45 分钟",
+          "tools": "Burp Suite"
+        },
+        {
+          "id": "boolean-blind",
+          "title": "布尔盲注",
+          "description": "根据页面真假差异逐步判断数据。",
+          "difficulty": "进阶",
+          "duration": "40–60 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "time-blind",
+          "title": "时间盲注",
+          "description": "使用响应延迟判断无回显条件是否成立。",
+          "difficulty": "进阶",
+          "duration": "40–60 分钟",
+          "tools": "Burp Suite"
+        },
+        {
+          "id": "wide-byte",
+          "title": "宽字节注入",
+          "description": "理解字符编码与转义组合造成的边界问题。",
+          "difficulty": "进阶",
+          "duration": "40–60 分钟",
+          "tools": "Browser · Burp Suite"
+        }
       ]
     },
     {
@@ -66,8 +307,30 @@
       "title": "RCE",
       "icon": ">_",
       "lessons": [
-        {"id": "command", "title": "命令执行", "description": "理解系统命令拼接导致的远程命令执行。", "difficulty": "基础", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "code", "title": "代码执行", "description": "观察动态代码执行函数处理用户输入的风险。", "difficulty": "基础", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"}
+        {
+          "id": "command",
+          "title": "命令执行",
+          "description": "理解系统命令拼接导致的远程命令执行。",
+          "difficulty": "基础",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "exec ping",
+            "RCE(exec ping)"
+          ]
+        },
+        {
+          "id": "code",
+          "title": "代码执行",
+          "description": "观察动态代码执行函数处理用户输入的风险。",
+          "difficulty": "基础",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite",
+          "aliases": [
+            "exec eval",
+            "RCE(exec eval)"
+          ]
+        }
       ]
     },
     {
@@ -76,8 +339,22 @@
       "title": "文件包含",
       "icon": "▱",
       "lessons": [
-        {"id": "local", "title": "本地文件包含", "description": "理解文件路径参数造成的本地文件包含。", "difficulty": "基础", "duration": "30–40 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "remote", "title": "远程文件包含", "description": "理解远程资源被包含执行时的配置与风险。", "difficulty": "进阶", "duration": "35–45 分钟", "tools": "Browser · Burp Suite"}
+        {
+          "id": "local",
+          "title": "本地文件包含",
+          "description": "理解文件路径参数造成的本地文件包含。",
+          "difficulty": "基础",
+          "duration": "30–40 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "remote",
+          "title": "远程文件包含",
+          "description": "理解远程资源被包含执行时的配置与风险。",
+          "difficulty": "进阶",
+          "duration": "35–45 分钟",
+          "tools": "Browser · Burp Suite"
+        }
       ]
     },
     {
@@ -85,14 +362,32 @@
       "number": "07",
       "title": "不安全下载",
       "icon": "↓",
-      "lessons": [{"id": "download", "title": "任意文件下载", "description": "分析下载接口未限制路径时产生的越界读取风险。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · Burp Suite"}]
+      "lessons": [
+        {
+          "id": "download",
+          "title": "任意文件下载",
+          "description": "分析下载接口未限制路径时产生的越界读取风险。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · Burp Suite"
+        }
+      ]
     },
     {
       "id": "unsafe-upload",
       "number": "08",
       "title": "文件上传",
       "icon": "↑",
-      "lessons": [{"id": "upload", "title": "不安全文件上传", "description": "观察上传校验、保存路径与服务器解析行为。", "difficulty": "基础", "duration": "30–45 分钟", "tools": "Browser · Burp Suite"}]
+      "lessons": [
+        {
+          "id": "upload",
+          "title": "不安全文件上传",
+          "description": "观察上传校验、保存路径与服务器解析行为。",
+          "difficulty": "基础",
+          "duration": "30–45 分钟",
+          "tools": "Browser · Burp Suite"
+        }
+      ]
     },
     {
       "id": "over-permission",
@@ -100,8 +395,22 @@
       "title": "越权",
       "icon": "♙",
       "lessons": [
-        {"id": "horizontal", "title": "水平越权", "description": "修改对象标识，判断同级用户之间是否缺少授权校验。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "vertical", "title": "垂直越权", "description": "验证普通用户能否访问高权限功能。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · Burp Suite"}
+        {
+          "id": "horizontal",
+          "title": "水平越权",
+          "description": "修改对象标识，判断同级用户之间是否缺少授权校验。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "vertical",
+          "title": "垂直越权",
+          "description": "验证普通用户能否访问高权限功能。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · Burp Suite"
+        }
       ]
     },
     {
@@ -109,35 +418,80 @@
       "number": "10",
       "title": "目录遍历",
       "icon": "../",
-      "lessons": [{"id": "directory", "title": "目录遍历", "description": "理解路径拼接与规范化不足造成的目录越界访问。", "difficulty": "基础", "duration": "25–35 分钟", "tools": "Browser · Burp Suite"}]
+      "lessons": [
+        {
+          "id": "directory",
+          "title": "目录遍历",
+          "description": "理解路径拼接与规范化不足造成的目录越界访问。",
+          "difficulty": "基础",
+          "duration": "25–35 分钟",
+          "tools": "Browser · Burp Suite"
+        }
+      ]
     },
     {
       "id": "information-disclosure",
       "number": "11",
       "title": "敏感信息泄露",
       "icon": "!",
-      "lessons": [{"id": "abc", "title": "I can see your ABC", "description": "从页面、源码和响应中识别不应暴露的敏感信息。", "difficulty": "入门", "duration": "15–25 分钟", "tools": "Browser · DevTools"}]
+      "lessons": [
+        {
+          "id": "abc",
+          "title": "I can see your ABC",
+          "description": "从页面、源码和响应中识别不应暴露的敏感信息。",
+          "difficulty": "入门",
+          "duration": "15–25 分钟",
+          "tools": "Browser · DevTools"
+        }
+      ]
     },
     {
       "id": "deserialization",
       "number": "12",
       "title": "PHP 反序列化",
       "icon": "{}",
-      "lessons": [{"id": "php", "title": "PHP 反序列化", "description": "理解不可信序列化数据进入对象恢复流程时的风险。", "difficulty": "进阶", "duration": "40–60 分钟", "tools": "Browser · Source"}]
+      "lessons": [
+        {
+          "id": "php",
+          "title": "PHP 反序列化",
+          "description": "理解不可信序列化数据进入对象恢复流程时的风险。",
+          "difficulty": "进阶",
+          "duration": "40–60 分钟",
+          "tools": "Browser · Source"
+        }
+      ]
     },
     {
       "id": "xxe",
       "number": "13",
       "title": "XXE",
       "icon": "XML",
-      "lessons": [{"id": "xxe", "title": "XML 外部实体", "description": "分析 XML 解析器处理外部实体时的安全边界。", "difficulty": "进阶", "duration": "35–50 分钟", "tools": "Burp Suite"}]
+      "lessons": [
+        {
+          "id": "xxe",
+          "title": "XML 外部实体",
+          "description": "分析 XML 解析器处理外部实体时的安全边界。",
+          "difficulty": "进阶",
+          "duration": "35–50 分钟",
+          "tools": "Burp Suite"
+        }
+      ]
     },
     {
       "id": "url-redirect",
       "number": "14",
       "title": "URL 重定向",
       "icon": "↗",
-      "lessons": [{"id": "redirect", "title": "不安全 URL 重定向", "description": "理解跳转目标缺少限制时产生的安全风险。", "difficulty": "入门", "duration": "20–30 分钟", "tools": "Browser · Burp Suite"}]
+      "lessons": [
+        {
+          "id": "redirect",
+          "title": "不安全 URL 重定向",
+          "description": "理解跳转目标缺少限制时产生的安全风险。",
+          "difficulty": "入门",
+          "duration": "20–30 分钟",
+          "tools": "Browser · Burp Suite"
+        }
+      ]
     },
     {
       "id": "ssrf",
@@ -145,10 +499,23 @@
       "title": "SSRF",
       "icon": "◎",
       "lessons": [
-        {"id": "curl", "title": "SSRF（cURL）", "description": "理解服务端代替用户发起网络请求时的边界。", "difficulty": "进阶", "duration": "35–50 分钟", "tools": "Browser · Burp Suite"},
-        {"id": "file-get-contents", "title": "SSRF（file_get_contents）", "description": "观察不同请求函数与协议支持带来的差异。", "difficulty": "进阶", "duration": "35–50 分钟", "tools": "Browser · Burp Suite"}
+        {
+          "id": "curl",
+          "title": "SSRF（cURL）",
+          "description": "理解服务端代替用户发起网络请求时的边界。",
+          "difficulty": "进阶",
+          "duration": "35–50 分钟",
+          "tools": "Browser · Burp Suite"
+        },
+        {
+          "id": "file-get-contents",
+          "title": "SSRF（file_get_contents）",
+          "description": "观察不同请求函数与协议支持带来的差异。",
+          "difficulty": "进阶",
+          "duration": "35–50 分钟",
+          "tools": "Browser · Burp Suite"
+        }
       ]
     }
   ]
 }
-

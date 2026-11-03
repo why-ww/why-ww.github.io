@@ -18,12 +18,8 @@
 
   const route = lab.querySelector('[data-route]');
   const live = lab.querySelector('[data-live]');
-  const postMap = new Map();
-  posts.forEach((post) => {
-    if (!post.skill) return;
-    if (!postMap.has(post.skill)) postMap.set(post.skill, []);
-    postMap.get(post.skill).push(post);
-  });
+  const { postMap, completedSkills, unmatched } = window.PikachuProgress.buildProgress(roadmap, posts);
+  if (unmatched.length) console.warn('Pikachu Writeups need an unambiguous lesson ID:', unmatched.map(post => post.title));
 
   const skills = new Map();
   roadmap.modules.forEach((module) => {
@@ -37,7 +33,7 @@
   const displayModules = [...roadmap.modules].sort((a, b) => displayOrder.indexOf(a.id) - displayOrder.indexOf(b.id));
 
   const total = skills.size;
-  const completed = Array.from(skills.keys()).filter((key) => postMap.has(key)).length;
+  const completed = Array.from(skills.keys()).filter((key) => completedSkills.has(key)).length;
   const percent = total ? Math.round((completed / total) * 100) : 0;
   const setText = (selector, value) => { const element = lab.querySelector(selector); if (element) element.textContent = value; };
   const setWidth = (selector, value) => { const element = lab.querySelector(selector); if (element) element.style.width = value; };
@@ -53,7 +49,7 @@
   if (!skills.has(selectedSkill)) selectedSkill = roadmap.defaultSkill;
 
   function lessonStatus(key) {
-    if (postMap.has(key)) return 'is-done';
+    if (completedSkills.has(key)) return 'is-done';
     if (key === selectedSkill) return 'is-current';
     return '';
   }
@@ -61,7 +57,7 @@
   function renderRoute() {
     route.replaceChildren();
     displayModules.forEach((module, moduleIndex) => {
-      const done = module.lessons.filter((lesson) => postMap.has(`${module.id}/${lesson.id}`)).length;
+      const done = module.lessons.filter((lesson) => completedSkills.has(`${module.id}/${lesson.id}`)).length;
       const modulePercent = Math.round((done / module.lessons.length) * 100);
       const article = document.createElement('article');
       article.className = `pika-module${selectedSkill.startsWith(`${module.id}/`) ? ' is-selected' : ''}`;
@@ -84,11 +80,21 @@
         </ol>`;
 
       article.querySelector('.pika-module-card').addEventListener('click', () => {
-        const next = module.lessons.find((lesson) => !postMap.has(`${module.id}/${lesson.id}`)) || module.lessons[0];
+        const next = module.lessons.find((lesson) => !completedSkills.has(`${module.id}/${lesson.id}`)) || module.lessons[0];
         selectSkill(`${module.id}/${next.id}`, true);
       });
       article.querySelectorAll('[data-skill]').forEach((item) => {
         item.querySelector('button').addEventListener('click', () => selectSkill(item.dataset.skill, true));
+        const writeup = (postMap.get(item.dataset.skill) || [])[0];
+        if (writeup) {
+          const articleLink = document.createElement('a');
+          articleLink.className = 'pika-lesson-writeup';
+          articleLink.href = writeup.url;
+          articleLink.textContent = '↗';
+          articleLink.setAttribute('aria-label', '阅读 ' + writeup.title);
+          articleLink.title = '直接阅读 Writeup';
+          item.appendChild(articleLink);
+        }
       });
       route.appendChild(article);
     });
@@ -105,7 +111,7 @@
     setText('[data-current-difficulty]', lesson.difficulty);
     setText('[data-current-duration]', lesson.duration);
     setText('[data-current-tools]', lesson.tools);
-    setText('[data-current-status]', article ? '已完成' : '学习中');
+    setText('[data-current-status]', completedSkills.has(selectedSkill) ? '已完成' : '学习中');
 
     const link = lab.querySelector('[data-current-link]');
     if (article) {

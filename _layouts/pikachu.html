@@ -15,8 +15,9 @@ layout: default
 <script type="application/json" id="pikachu-roadmap-data">{{ site.data.pikachu_roadmap | jsonify | replace: '<', json_lt }}</script>
 <script type="application/json" id="pikachu-posts">[
 {% for post in pikachu_posts %}
-  {"skill":{{ post.pikachu_skill | jsonify | replace: '<', json_lt }},"title":{{ post.title | jsonify | replace: '<', json_lt }},"url":{{ post.url | relative_url | jsonify | replace: '<', json_lt }},"date":{{ post.date | date: '%Y-%m-%d' | jsonify }}}{% unless forloop.last %},{% endunless %}
+  {"module":{{ post.module | jsonify | replace: '<', json_lt }},"completed":{{ post.completed | jsonify }},"challenge":{{ post.challenge | default: post.challenge_name | default: post.lesson | jsonify | replace: '<', json_lt }},"skill":{{ post.pikachu_skill | default: post.skill | jsonify | replace: '<', json_lt }},"title":{{ post.title | jsonify | replace: '<', json_lt }},"url":{{ post.url | relative_url | jsonify | replace: '<', json_lt }},"date":{{ post.date | date: '%Y-%m-%d' | jsonify }}}{% unless forloop.last %},{% endunless %}
 {% endfor %}
 ]</script>
+<script src="{{ '/assets/js/pikachu-progress.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 <script src="{{ '/assets/js/pikachu.js' | relative_url }}?v={{ site.time | date: '%s' }}" defer></script>
 
