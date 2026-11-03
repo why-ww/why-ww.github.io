@@ -604,3 +604,8 @@ body.ai-page { margin: 0; min-height: 100vh; }
 .ai-note-content pre { overflow:auto; padding:15px; background:var(--lab-bg); }
 .ai-note-content code { font-family:Consolas,monospace; }
 @media(max-width:600px) { .ai-reader h1 { font-size:21px; } .ai-reader object { min-height:450px; } .ai-note-page { padding:17px; } }
+
+/* Shared blog-home button stays visible above the scrollable mobile navigation. */
+.ai-page .ai-blog-home { display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; white-space:nowrap; margin:0; padding:7px 11px; border:1px solid var(--ai-gold-border); border-radius:4px; color:var(--ai-gold); font-size:12px; line-height:1.5; }
+.ai-page .ai-blog-home:hover { background:var(--ai-gold-tint); color:var(--ai-gold); }
+@media(max-width:900px) { .ai-page .ai-blog-home { order:0; margin-left:auto; } }
