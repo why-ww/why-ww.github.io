@@ -1,0 +1,86 @@
+"""Browser check using a disposable OPFS PDF copy, never the user's desktop file."""
+import asyncio, json, os, re
+from playwright.async_api import async_playwright
+
+BASE = "https://why-ww.github.io"
+MARKER = "LOCAL_PDF_NOTE_TEST_20261103"
+async def main():
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        context = await browser.new_context(viewport={"width":1440,"height":1000}, accept_downloads=True)
+        page = await context.new_page()
+        errors = []
+        page.on("pageerror", lambda e: errors.append(str(e)))
+        await page.goto(BASE+"/lab/read/agent/?reader=local-v1", wait_until="domcontentloaded")
+        await page.wait_for_selector('.ai-local-reader[data-ready="true"]',timeout=120000)
+        await page.wait_for_function("document.querySelector('iframe').contentWindow.PDFViewerApplication.pdfDocument?.numPages > 0")
+        await page.evaluate("""async () => {
+            const bytes=await (await fetch('/assets/books/agent.pdf')).arrayBuffer();
+            const dir=await navigator.storage.getDirectory();
+            const h=await dir.getFileHandle('test-ai-local-reader.pdf',{create:true});
+            const w=await h.createWritable(); await w.write(bytes); await w.close();
+            window.__testHandle=h;
+            window.showOpenFilePicker=async()=>[h];
+        }""")
+        await page.locator('[data-action="open"]').click()
+        await page.wait_for_selector('.ai-local-reader[data-source="local"][data-ready="true"]')
+        await page.wait_for_function("document.querySelector('.ai-local-reader').dataset.fileName === 'test-ai-local-reader.pdf'")
+        pdf_frame = page.frame_locator(".ai-pdf-frame")
+        await pdf_frame.locator('#editorFreeTextButton').click()
+        layer = pdf_frame.locator('.page[data-page-number="1"] .annotationEditorLayer')
+        await layer.wait_for(state="visible")
+        await layer.click(position={"x":150,"y":180})
+        editor = pdf_frame.locator('.freeTextEditor [contenteditable="true"]').last
+        await editor.fill(MARKER)
+        # Save via the real integration into the real disposable FileSystemFileHandle.
+        await page.locator('[data-action="save"]').click()
+        await page.wait_for_function("document.querySelector('.ai-pdf-status').dataset.kind === 'success'",timeout=60000)
+        assert "已保存" in await page.locator(".ai-pdf-status").inner_text()
+        assert await page.locator('.ai-local-reader').get_attribute("data-dirty") == "false"
+        assert await page.evaluate("(async()=>{const h=window.__testHandle; return (await h.getFile()).size;})()") > 0
+        # Reload the page and verify persisted handle plus annotation in the saved PDF.
+        await page.reload(wait_until="domcontentloaded")
+        await page.wait_for_selector('.ai-local-reader[data-source="local"][data-ready="true"]',timeout=120000)
+        annotations = await page.evaluate("""async () => {
+          const doc=document.querySelector('iframe').contentWindow.PDFViewerApplication.pdfDocument;
+          return (await (await doc.getPage(1)).getAnnotations()).map(a=>a.contentsObj?.str||a.contents||"");
+        }""")
+        assert MARKER in annotations, annotations
+        await page.locator('[data-action="fullscreen"]').click()
+        await page.wait_for_function("document.fullscreenElement?.id === 'pdf-workspace'")
+        await page.screenshot(path="local-reader-fullscreen.png")
+        await page.locator('[data-action="fullscreen"]').click()
+        await page.wait_for_function("document.fullscreenElement === null")
+        # Make a second annotation, simulate a write failure and confirm dirty state remains.
+        await pdf_frame.locator('#editorFreeTextButton').click()
+        await pdf_frame.locator('.page[data-page-number="1"] .annotationEditorLayer').click(position={"x":180,"y":250})
+        await pdf_frame.locator('.freeTextEditor [contenteditable="true"]').last.fill("WRITE_FAILURE_TEST")
+        await page.evaluate("""() => {
+          window.__realWrite=FileSystemFileHandle.prototype.createWritable;
+          FileSystemFileHandle.prototype.createWritable=async function(){throw new DOMException('模拟写入失败','NotAllowedError');};
+        }""")
+        await page.locator('[data-action="save"]').click()
+        await page.wait_for_function("document.querySelector('.ai-pdf-status').dataset.kind === 'error'")
+        assert await page.locator('.ai-local-reader').get_attribute("data-dirty") == "true"
+        assert "尚未保存" in await page.locator(".ai-pdf-status").inner_text()
+        await page.evaluate("FileSystemFileHandle.prototype.createWritable=window.__realWrite")
+        # A change made by another application must not be overwritten silently.
+        await page.evaluate("""async () => {
+          const record=await new Promise((resolve,reject)=>{
+            const r=indexedDB.open('ai-learning-local-pdfs',1);
+            r.onsuccess=()=>{const db=r.result; const q=db.transaction('files').objectStore('files').get('agent');q.onsuccess=()=>{resolve(q.result);db.close();};};
+            r.onerror=()=>reject(r.error);
+          });
+          const f=await record.handle.getFile(); const w=await record.handle.createWritable();
+          await w.write(await f.arrayBuffer()); await w.write(new TextEncoder().encode('\\n% external modification\\n')); await w.close();
+        }""")
+        await page.locator('[data-action="save"]').click()
+        await page.wait_for_function("document.querySelector('.ai-pdf-status').textContent.includes('其他程序')")
+        assert await page.locator('.ai-local-reader').get_attribute("data-dirty") == "true"
+        # This context contains only disposable files, so dismiss the unsaved-changes dialog.
+        page.on("dialog", lambda dialog: dialog.accept())
+        await page.close(run_before_unload=False)
+        assert not errors, errors
+        await browser.close()
+        print("PASS: local open, PDF text annotation saved into original handle, retained after reload, full-screen, failed-write protection and external-change protection")
+asyncio.run(main())

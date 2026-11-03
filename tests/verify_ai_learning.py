@@ -70,7 +70,7 @@ assert "learning_status: in_progress" in query["value"][0]
 assert "## 疑问与下一步" in query["value"][0]
 for slug in ("agent", "infra"):
     reader = BeautifulSoup((dest / "lab/read" / slug / "index.html").read_text(), "html.parser")
-    assert reader.select_one("object")["data"].startswith("/assets/books/"+slug+".pdf")
+    assert reader.select_one(".ai-local-reader")["data-pdf"].startswith("/assets/books/"+slug+".pdf")
 note("plain-note", ids[0])  # A note alone must not imply completion.
 dest, home, route = build("plain-note")
 progress(home, route, 0, 0, ids[0])

@@ -6,8 +6,4 @@ permalink: /lab/read/agent/
 sitemap: false
 ---
 {% assign book = site.data.ai_learning.stages | where: 'id', 'agent' | first %}
-<section class="ai-reader" data-book="agent">
-<header><div><a href="{{ '/lab/roadmap/' | relative_url }}">← 返回学习路线</a><h1>{{ book.title }}</h1><p>作者发布的中文 PDF · 支持浏览器内阅读、搜索与缩放</p></div><nav aria-label="教材阅读方式"><a href="{{ book.pdf_url | relative_url }}" target="_blank" rel="noopener noreferrer">打开 PDF ↗</a><a href="{{ book.pdf_url | relative_url }}" download>下载 PDF ↓</a><a href="{{ book.web_url }}" target="_blank" rel="noopener noreferrer">官方网页版 ↗</a><a href="{{ book.official_pdf_url }}" target="_blank" rel="noopener noreferrer">作者最新 PDF ↗</a></nav></header>
-<object data="{{ book.pdf_url | relative_url }}#view=FitH" type="application/pdf" aria-label="{{ book.title }} PDF 正文"><div class="ai-reader-fallback"><p>当前浏览器不支持内嵌 PDF。</p><a href="{{ book.pdf_url | relative_url }}">打开 PDF 文件</a> · <a href="{{ book.web_url }}">使用官方网页版</a></div></object>
-<footer>资料来自 <a href="{{ book.source_url }}" target="_blank" rel="noopener noreferrer">作者原始仓库</a>，保留作者署名及原文。<a href="{{ '/assets/books/LICENSE-agent.txt' | relative_url }}" target="_blank" rel="noopener noreferrer">原始许可证</a> · PDF 快照可通过 GitHub 的 Sync official AI textbooks 工作流更新。</footer>
-</section>
+{% include ai-pdf-reader.html %}

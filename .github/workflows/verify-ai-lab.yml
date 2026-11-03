@@ -97,7 +97,8 @@ jobs:
                   print("PASS",name)
               for slug in ("agent","infra"):
                   page.goto(base+"/lab/read/"+slug+"/",wait_until="domcontentloaded")
-                  assert page.locator("object[type='application/pdf']").count()==1
+                  assert page.locator(".ai-local-reader").count()==1
+                  assert page.locator(".ai-pdf-frame").count()==1
                   pdf=page.request.get(base+"/assets/books/"+slug+".pdf")
                   assert pdf.status==200
                   assert pdf.body().startswith(b"%PDF-")
