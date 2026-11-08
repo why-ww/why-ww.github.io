@@ -5,9 +5,9 @@ tags: [pikachu]
 title: "Pikachu Lab Report - 反射型xss(get)"
 date: 2026-11-08
 
-skill: ""
+skill: "xss/reflected-get"
 completed: true
-module: "暴力破解"
+module: "XSS"
 deployment: "docker"
 environment_status: "unchecked"
 ---
