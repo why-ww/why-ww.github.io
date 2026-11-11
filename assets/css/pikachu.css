@@ -189,3 +189,69 @@ body:has(.pika-lab) .topic-nav a[aria-current] { color: #e5c14f; background: #2d
 
 .pika-lesson .pika-lesson-writeup { display:inline-flex; margin-left:6px; color:var(--pika-yellow); font-size:12px; text-decoration:none; }
 .pika-lesson .pika-lesson-writeup:focus-visible { outline:2px solid #ffe17a; outline-offset:3px; border-radius:2px; }
+
+
+/* Visible horizontal navigation for the complete 15-module route. */
+.pika-roadmap-tools {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin: 0 0 10px;
+}
+.pika-scroll-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #a5b0bd;
+  font-size: 12px;
+  margin: 0;
+}
+.pika-scroll-hint span { color: var(--pika-yellow); font-size: 18px; }
+.pika-scroll-buttons { display: flex; gap: 8px; }
+.pika-scroll-buttons button {
+  border: 1px solid #5d6876;
+  border-radius: 7px;
+  padding: 7px 12px;
+  color: #d7dee7;
+  background: #151d27;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+.pika-scroll-buttons button:hover:not(:disabled) {
+  color: #171305;
+  background: var(--pika-yellow);
+  border-color: var(--pika-yellow);
+}
+.pika-scroll-buttons button:focus-visible {
+  outline: 2px solid #ffe17a;
+  outline-offset: 3px;
+}
+.pika-scroll-buttons button:disabled { opacity: .35; cursor: default; }
+.pika-roadmap {
+  cursor: grab;
+  scrollbar-width: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x proximity;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pan-y;
+  mask-image: none;
+  padding-bottom: 34px;
+}
+.pika-roadmap.is-dragging { cursor: grabbing; user-select: none; scroll-behavior: auto; }
+.pika-roadmap::-webkit-scrollbar { height: 13px; }
+.pika-roadmap::-webkit-scrollbar-track { background: #151c25; border-radius: 999px; }
+.pika-roadmap::-webkit-scrollbar-thumb {
+  background: #76652d;
+  border: 3px solid #151c25;
+  border-radius: 999px;
+}
+.pika-roadmap::-webkit-scrollbar-thumb:hover { background: var(--pika-yellow); }
+.pika-module { scroll-snap-align: start; }
+
+@media (max-width: 700px) {
+  .pika-roadmap-tools { align-items: flex-start; }
+  .pika-scroll-hint { max-width: 210px; line-height: 1.5; }
+  .pika-scroll-buttons button { padding: 7px 9px; }
+}

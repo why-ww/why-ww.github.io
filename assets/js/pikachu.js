@@ -38,6 +38,84 @@
   const setText = (selector, value) => { const element = lab.querySelector(selector); if (element) element.textContent = value; };
   const setWidth = (selector, value) => { const element = lab.querySelector(selector); if (element) element.style.width = value; };
 
+  const roadmapScroller = lab.querySelector('[data-roadmap]');
+  const scrollPrev = lab.querySelector('[data-roadmap-prev]');
+  const scrollNext = lab.querySelector('[data-roadmap-next]');
+
+  function updateRoadmapControls() {
+    if (!roadmapScroller || !scrollPrev || !scrollNext) return;
+    const maximum = Math.max(0, roadmapScroller.scrollWidth - roadmapScroller.clientWidth);
+    scrollPrev.disabled = roadmapScroller.scrollLeft <= 2;
+    scrollNext.disabled = roadmapScroller.scrollLeft >= maximum - 2;
+  }
+
+  function scrollRoadmap(direction) {
+    if (!roadmapScroller) return;
+    const distance = Math.max(360, Math.round(roadmapScroller.clientWidth * 0.72));
+    roadmapScroller.scrollBy({ left: direction * distance, behavior: 'smooth' });
+  }
+
+  if (roadmapScroller) {
+    scrollPrev?.addEventListener('click', () => scrollRoadmap(-1));
+    scrollNext?.addEventListener('click', () => scrollRoadmap(1));
+    roadmapScroller.addEventListener('scroll', updateRoadmapControls, { passive: true });
+
+    roadmapScroller.addEventListener('wheel', (event) => {
+      const maximum = roadmapScroller.scrollWidth - roadmapScroller.clientWidth;
+      if (maximum <= 0) return;
+      const delta = Math.abs(event.deltaX) > Math.abs(event.deltaY) ? event.deltaX : event.deltaY;
+      if (!delta) return;
+      const next = Math.min(maximum, Math.max(0, roadmapScroller.scrollLeft + delta));
+      if (Math.abs(next - roadmapScroller.scrollLeft) > 0.5) {
+        event.preventDefault();
+        roadmapScroller.scrollLeft = next;
+      }
+    }, { passive: false });
+
+    let dragging = false;
+    let moved = false;
+    let blockClick = false;
+    let startX = 0;
+    let startScrollLeft = 0;
+
+    roadmapScroller.addEventListener('pointerdown', (event) => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      dragging = true;
+      moved = false;
+      startX = event.clientX;
+      startScrollLeft = roadmapScroller.scrollLeft;
+      roadmapScroller.classList.add('is-dragging');
+      roadmapScroller.setPointerCapture(event.pointerId);
+    });
+    roadmapScroller.addEventListener('pointermove', (event) => {
+      if (!dragging) return;
+      const distance = event.clientX - startX;
+      if (Math.abs(distance) > 5) moved = true;
+      if (moved) {
+        event.preventDefault();
+        roadmapScroller.scrollLeft = startScrollLeft - distance;
+      }
+    });
+    const finishDrag = (event) => {
+      if (!dragging) return;
+      dragging = false;
+      blockClick = moved;
+      roadmapScroller.classList.remove('is-dragging');
+      if (roadmapScroller.hasPointerCapture(event.pointerId)) {
+        roadmapScroller.releasePointerCapture(event.pointerId);
+      }
+      if (blockClick) setTimeout(() => { blockClick = false; }, 0);
+    };
+    roadmapScroller.addEventListener('pointerup', finishDrag);
+    roadmapScroller.addEventListener('pointercancel', finishDrag);
+    roadmapScroller.addEventListener('click', (event) => {
+      if (!blockClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
+    window.addEventListener('resize', updateRoadmapControls);
+  }
+
   setText('[data-progress-count]', `${completed} / ${total}`);
   setText('[data-progress-percent]', `${percent}%`);
   setText('[data-bottom-count]', `${completed} / ${total}`);
@@ -98,6 +176,7 @@
       });
       route.appendChild(article);
     });
+    requestAnimationFrame(updateRoadmapControls);
   }
 
   function updateCurrent() {

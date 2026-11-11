@@ -28,6 +28,13 @@ for (const file of ['pikachu.md', '_layouts/pikachu.html', '_includes/pikachu-ro
   assert.ok(fs.existsSync(path.join(root, file)), `Missing Pikachu page file: ${file}`);
 }
 
+const roadmapMarkup = fs.readFileSync(path.join(root, '_includes', 'pikachu-roadmap.html'), 'utf8');
+const roadmapScript = fs.readFileSync(path.join(root, 'assets', 'js', 'pikachu.js'), 'utf8');
+assert.match(roadmapMarkup, /data-roadmap-prev/);
+assert.match(roadmapMarkup, /data-roadmap-next/);
+assert.match(roadmapScript, /pointerdown/);
+assert.match(roadmapScript, /addEventListener\('wheel'/);
+
 console.log(`Pikachu roadmap checks passed: ${data.modules.length} modules, ${lessonCount} lessons.`);
 
 
