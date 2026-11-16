@@ -5,7 +5,7 @@ tags: [pikachu]
 title: "Pikachu Lab Report - CSRF Token"
 date: 2026-11-16
 
-skill: ""
+skill: "csrf/token"
 completed: true
 module: "CSRF"
 deployment: "docker"

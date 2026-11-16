@@ -5,9 +5,9 @@ tags: [pikachu]
 title: "Pikachu Lab Report - CSRF(post)"
 date: 2026-11-15
 
-skill: ""
+skill: "csrf/post"
 completed: true
-module: "暴力破解"
+module: "CSRF"
 deployment: "docker"
 environment_status: "unchecked"
 ---
@@ -16,7 +16,7 @@ environment_status: "unchecked"
 
 ## 实验模块
 
-模块：暴力破解
+模块：CSRF
 
 场景：CSRF(post)
 
