@@ -5,7 +5,7 @@ tags: [pikachu]
 title: "Pikachu Lab Report - 字符型注入"
 date: 2026-11-17
 
-skill: ""
+skill: "sql-injection/string"
 completed: true
 module: "SQL注入"
 deployment: "docker"
