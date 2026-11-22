@@ -1,76 +1,69 @@
 ---
 layout: writeup
-tags: [pikachu]
+tags: [pikachu, XSS]
 
-title: "Pikachu Lab Report - 反射型xss(get)"
+title: "Pikachu Lab Report - 反射型 XSS（GET）"
 date: 2026-11-08
 
-skill: "xss/reflected-get"
+pikachu_skill: "xss/reflected-get"
 completed: true
 module: "XSS"
 deployment: "docker"
 environment_status: "unchecked"
 ---
 
-# Pikachu Lab - 反射型xss(get)
+# Pikachu Lab - 反射型 XSS（GET）
 
 ## 实验模块
 
-模块：暴力破解
+模块：XSS
 
-场景：反射型xss(get)
+场景：反射型 XSS（GET）
 
 ## 漏洞场景
 
-题目名称：反射型xss(get)；平台：Pikachu；方向：Web。
+题目名称：反射型 XSS（GET）；平台：Pikachu；方向：Web。
+
+完成状态依据旧稿中保留的浏览器与 Burp Suite 实操记录；本次整理没有重新发送攻击请求。源码复核对象为当前 Pikachu 的 `vul/xss/xss_reflected_get.php`。
 
 ## 测试过程
 
-<br>1. 在输入框中输入 Kobe Bryant 并点击 submit，页面返回 who is Kobe Bryant,i don't care\!，说明输入内容被返回到了页面中，初步发现输入反射现象。
-<br>2. 随后尝试输入 \<script\>alert(1)\</script\> 并点击 submit，未出现预期弹窗，页面只显示 who is；记录中因此初步怀疑输入内容可能没有完整提交。
-<br>3. 打开 Burp Suite 并开启 Proxy 拦截后再次提交测试内容，抓取到 GET /pikachu/vul/xss/xss\_reflected\_get.php?message=...&submit=submit HTTP/1.1，Host 为 localhost；可见请求使用 GET 方法，输入通过 message 参数传递。
-<br>4. 在 Burp Inspector 中查看参数时发现输入内容经过 URL 编码，例如 %3C 对应 \<、%3E 对应 \>、%28 对应 (、%29 对应 )，通过解码可还原原始 Payload。
-<br>5. 将请求发送到 Repeater 查看 Response，并在响应中搜索 svg，定位到包含 input class='xssr\_in'、type='text'、maxlength=20、name='message' 的表单，以及 who is 用户输入内容 ,i don't care\! 的 p 标签内容。
-<br>6. 记录中判断输入框最多允许输入 20 个字符，这解释了较长 script Payload 被截断的原因；同时用户输入被直接放入 HTML 页面，没有进行正确的 HTML 输出编码。
-<br>7. 由于输入框最多允许输入 20 个字符，改用较短的 Payload \<svg onload=alert()\>，重新回到 Pikachu 页面输入并点击 submit；这次浏览器成功弹出 JavaScript 对话框，记录中据此判定反射型 XSS 漏洞验证通过。
+<br>1. 既有记录先在输入框中提交 `Kobe Bryant`，页面返回 `who is Kobe Bryant,i don't care!`，说明 `message` 参数会进入当前请求的响应。
+<br>2. 随后提交较长的 `<script>alert(1)</script>`，页面没有弹窗。Burp 响应中的表单显示输入框带有 `maxlength="20"`，说明浏览器正常输入时会截断超过 20 个字符的内容。
+<br>3. Proxy 抓到的请求为 GET，请求路径包含 `xss_reflected_get.php?message=...&submit=submit`。`<`、`>` 等字符在 URL 中会被百分号编码，这是传输编码，不代表服务端已经做了 HTML 安全编码。
+<br>4. 既有记录改用刚好 20 个字符的 `<svg onload=alert()>` 后，浏览器出现 JavaScript 对话框，因此该输入点已实际验证为反射型 XSS。
+<br>5. 当前源码与现象一致：提交按钮存在时，程序读取 `$_GET['message']`；除 `kobe` 分支外，输入被直接拼入 `<p class='notice'>who is ...</p>`，没有进行 HTML 输出编码。
 
-## 其他观察
+## 源码数据流
 
-从 Repeater 响应中的表单结构推断，maxlength=20 可能在浏览器端限制了可输入字符数；后续较短 Payload 成功，或许进一步支持了该判断。
+<br>1. 来源（source）：URL 查询字符串中的 `message`，由 `$_GET['message']` 读取。
+<br>2. 处理：仅判断是否为空、是否等于 `kobe`；源码没有调用 `htmlspecialchars` 或模板自动转义。
+<br>3. 输出点（sink）：`$html` 中的 `<p>` 标签正文，最后通过 `echo $html` 写入响应。
+<br>4. 结果：浏览器把输入中的标签和事件属性当成 HTML 解析，而不是普通文本显示。
 
+## 验证观察点与常见问题
+
+<br>1. 不要只看是否弹窗，还应在响应中确认 `message` 最终落在 HTML 文本上下文，并比较原始输入与响应内容。
+<br>2. `maxlength` 是前端体验限制，不是安全边界。直接构造请求或使用 Repeater 可以提交更长内容；真正的防护必须发生在服务端输出阶段。
+<br>3. URL 编码只保证字符可以在 URL 中传输。服务器解码后若仍原样写入 HTML，XSS 风险依旧存在。
+<br>4. 若页面只显示残缺内容，应先检查字符长度、请求参数名和编码，而不是立即判断“没有漏洞”。
 
 ## 分析与解答
 
-### 1.
+### 1. 为什么第一次使用 script 标签没有成功？
 
-<br>问题：为什么最初的 \<script\>alert(1)\</script\> 没有触发弹窗？
-<br>解答：从响应中的 maxlength=20 可知输入框限制最多 20 个字符；该 Payload 长度超过限制，提交内容可能被截断，页面只显示 who is。后续改用长度更短的 \<svg onload=alert()\> 后成功触发，说明长度限制是影响验证的因素之一。
+`<script>alert(1)</script>` 超过输入框的 20 字符限制，浏览器正常提交时可能只发送前 20 个字符。换用满足长度限制的测试内容后成功触发，说明失败原因是输入被截断，而不是输出点已经安全。
 
-### 2.
+### 2. 为什么 GET 请求会形成反射型 XSS？
 
-<br>问题：为什么 \<svg onload=alert()\> 能验证反射型 XSS？
-<br>解答：反射型 XSS 的关键是请求参数值未经正确的 HTML 输出编码就进入响应页面。浏览器把 \<svg onload=alert()\> 解析为 SVG 元素，并在加载时执行 onload 事件中的 JavaScript，所以出现弹窗即说明输入被当作 HTML/JS 解释了。
+GET 只决定数据位于 URL 查询字符串。风险来自服务端把本次请求的 `message` 直接拼回 HTML 响应，浏览器随后把它解析成可执行内容。
 
-### 3.
+### 3. 应该怎样修复？
 
-<br>问题：修复反射型 XSS 时只设置 maxlength 或只做前端校验够吗？
-<br>解答：不够。maxlength 只是浏览器端输入限制，攻击者可用 Burp 等工具修改或直接构造请求。应在服务端进行输入校验，并对输出到 HTML 上下文的数据进行上下文相关的 HTML 实体编码，必要时配合 CSP 等防御措施。
-
-
-## 漏洞原理与修复思路
-
-
-
-
-<br>反射型 XSS 发生在服务器把当前请求中的用户输入直接拼接到 HTML 响应中，且未按输出上下文进行编码时。本题的 message 参数值被放入 p 标签，浏览器会将其中的 \<svg onload=alert()\> 解析为标签并执行事件代码，从而触发 JavaScript。
-
-<br>修复时应优先采用上下文相关的输出编码：输出到 HTML 文本或属性时分别进行实体编码；同时对输入做合理校验和长度限制，但不能把前端 maxlength 当作安全边界。还可结合 CSP、HttpOnly 等措施降低影响。
-
+输出到 HTML 文本节点时，应使用 `htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8')` 等可靠方式进行上下文相关编码。输入校验和长度限制可以辅助防御，但不能代替输出编码；还可配置 CSP 降低遗漏时的影响。
 
 ## 学习总结
 
-本次靶场实验主要学习了：
-
-<br>1. 本题验证反射型 XSS 的核心路径是：先确认输入是否原样反射到响应，再检查响应中的 HTML 上下文和限制条件，最后构造符合长度与语法要求的 Payload 触发 JavaScript。
-<br>2. Burp Suite 的 Proxy 与 Repeater 可以帮助观察请求参数、URL 编码和服务器响应，从而定位 maxlength=20 这类影响 Payload 的限制；分析时要把 GET 参数名、表单结构和输出位置对应起来。
-<br>3. 后续学习应重点关注不同 HTML 上下文的输出编码、XSS 防御策略以及 maxlength 等前端限制为何不能替代服务端安全控制。
+<br>1. 本题已经实际验证，核心链路是 `GET message → PHP 字符串拼接 → HTML 文本节点 → 浏览器解析执行`。
+<br>2. 排查 XSS 要同时观察请求、响应和浏览器解析结果，并区分 URL 编码与 HTML 输出编码。
+<br>3. 前端长度限制可以影响测试内容，却不能阻止攻击者直接修改请求。

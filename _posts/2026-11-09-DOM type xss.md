@@ -1,69 +1,68 @@
 ---
 layout: writeup
-tags: [pikachu]
+tags: [pikachu, XSS]
 
-title: "Pikachu Lab Report - DOM型xss"
+title: "Pikachu Lab Report - DOM 型 XSS"
 date: 2026-11-09
 
-skill: ""
+pikachu_skill: "xss/dom"
 completed: true
 module: "XSS"
 deployment: "docker"
 environment_status: "unchecked"
 ---
 
-# Pikachu Lab - DOM型xss
+# Pikachu Lab - DOM 型 XSS
 
 ## 实验模块
 
 模块：XSS
 
-场景：DOM型xss
+场景：DOM 型 XSS
 
 ## 漏洞场景
 
-题目名称：DOM型xss；平台：Pikachu；方向：Web。
+题目名称：DOM 型 XSS；平台：Pikachu；方向：Web。
+
+完成状态依据旧稿中保留的输入、生成链接、开发者工具观察和点击触发记录；本次整理没有重新执行测试。源码复核对象为 `vul/xss/xss_dom.php`。
 
 ## 测试过程
 
-<br>1. 打开 Pikachu 靶场，进入 XSS 模块下的「DOM 型 XSS」页面；页面提供输入框和 click me\! 按钮。
-<br>2. 在输入框中输入测试 Payload：javascript:alert(1)。
-<br>3. 点击 click me\! 按钮，页面通过 JavaScript 读取输入框内容并动态生成一个超链接。
-<br>4. 点击页面生成的蓝色超链接 what do you see?，浏览器执行 href 中的 JavaScript 代码，成功弹出内容为 1 的提示框，完成 DOM 型 XSS 漏洞验证。
+<br>1. 既有记录进入页面后，在输入框中填写 `javascript:alert(1)`，然后点击 `click me!`。
+<br>2. 页面没有向服务器提交表单，而是由前端 `domxss()` 函数读取输入框的 `value`，并在 `div#dom` 中生成一个超链接。
+<br>3. 开发者工具可观察到输入值进入新链接的 `href` 属性。点击生成的 `what do you see?` 链接后，旧稿记录浏览器出现内容为 `1` 的对话框。
+<br>4. 当前源码确认了这条链路：`document.getElementById("text").value` 取得输入，再通过 `innerHTML = "<a href='" + str + "'>..."` 进行字符串拼接。
 
-## 其他观察
+## 源码数据流
 
-使用浏览器开发者工具 F12 进入 Elements 面板，展开对应 div 后，可看到生成的 HTML 为 \<a href="javascript:alert(1)"\>what do you see?\</a\>，说明输入内容被放入了超链接的 href 属性中。
+<br>1. 来源（source）：浏览器页面中 `input#text` 的 `value`。
+<br>2. 处理：前端函数没有校验 URL 协议，也没有进行属性上下文编码。
+<br>3. 输出点（sink）：`element.innerHTML`，它会让浏览器重新解析拼接后的 HTML。
+<br>4. 触发：输入最终成为 `href`；当值使用可执行协议时，需要点击生成的链接才会运行。整个危险数据流发生在浏览器端。
 
+## 验证观察点与常见问题
+
+<br>1. 点击 `click me!` 只负责创建链接；若测试值位于 `href`，通常还要点击新链接才能观察到执行结果。
+<br>2. 本题输入不会出现在网络请求中，抓包工具可能看不到关键数据。应优先使用开发者工具检查事件函数和生成后的 DOM。
+<br>3. 只看“页面源代码”可能找不到动态生成的链接，应查看 Elements 面板中的当前 DOM。
+<br>4. DOM 型描述的是客户端 source 到 sink 的危险数据流，并不表示服务端一定参与了反射或存储。
 
 ## 分析与解答
 
-### 1.
+### 1. 为什么需要点击生成的链接？
 
-<br>问题：为什么输入 javascript:alert(1) 后，需要点击生成的链接才会触发弹窗？
-<br>解答：因为该值被写入 a 标签的 href 属性，javascript: 是伪协议，只有浏览器导航到该链接时才执行其中的脚本；点击链接即触发导航并执行 alert(1)。
+输入被放入 `a` 标签的 `href` 属性。`javascript:` 只有在浏览器导航到该链接时才执行，所以创建链接与触发脚本是两个步骤。
 
-### 2.
+### 2. 为什么这是 DOM 型 XSS？
 
-<br>问题：如何从现象判断这属于 DOM 型 XSS，而不是服务端反射或存储型 XSS？
-<br>解答：记录中页面由前端 JavaScript 读取输入框内容并动态生成超链接，开发者工具能在 DOM 中看到输入被写入 href；这类在浏览器端完成 source 到 sink 的过程符合 DOM 型 XSS 的特征。
+不可信数据由页面脚本从输入框读取，再由同一段脚本写入 `innerHTML`。服务端没有接收这次输入，漏洞形成于客户端 DOM 操作。
 
-### 3.
+### 3. 应该怎样修复？
 
-<br>问题：这类 href 注入应如何修复？
-<br>解答：不要直接把不可信输入拼入 href，可先解析并只允许 http/https 等安全协议，使用 textContent 或安全的 DOM API 设置文本，必要时用可信 URL 和 HTML sanitizer 进行过滤。
-
-
-## 漏洞原理与修复思路
-
-<br>DOM 型 XSS 的成因是前端 JavaScript 将可控数据源（source）写入危险输出位置（sink），例如把输入值放入 a 标签的 href 属性；当用户点击链接时，javascript: 伪协议中的脚本会在当前页面上下文执行。
-
-<br>修复时应避免将不可信输入直接拼接进 href 等可执行上下文；推荐对 URL 做协议白名单校验，只允许 http、https 等安全协议，并通过 textContent 或安全的 DOM API 写入文本，必要时结合可信 URL 校验或 HTML sanitizer 过滤。
-
+不要把不可信字符串拼进 `innerHTML`。可用 `document.createElement('a')` 创建元素、用 `textContent` 设置文本，并对目标 URL 进行协议白名单校验，只允许 `http:`、`https:` 等业务需要的协议。CSP 可作为补充防线。
 
 ## 学习总结
 
-本次靶场实验主要学习了：
-
-<br>1. 本题验证的是 DOM 型 XSS：前端脚本读取输入框内容并写入 href，点击链接后触发 javascript: 伪协议执行；它与服务端拼接响应的反射型或存储型 XSS 在触发链路上不同。
-<br>2. 使用开发者工具查看生成后的 DOM，可以确认输入最终落入的 sink；分析时重点关注 source 是否可控、sink 是否危险，以及是否存在协议过滤或编码处理。
+<br>1. 本题已经实际验证，数据流是 `input.value → 字符串拼接 → innerHTML → href → 用户点击执行`。
+<br>2. DOM 型 XSS 分析要找清 source、sink 和触发动作，网络请求不一定包含关键输入。
+<br>3. 安全 DOM API 与 URL 协议白名单比直接拼接 HTML 更可靠。
