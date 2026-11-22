@@ -1,0 +1,13 @@
+{%- assign exp_state = include.experiment.status | default: 'not_started' -%}
+{%- assign exp_note_url = include.experiment.note_url | default: '' -%}
+{%- assign exp_completed_at = include.experiment.completed_at | default: '' -%}
+{%- assign exp_posts = ai_posts | where: 'experiment_id', include.experiment.id -%}
+{%- assign exp_post = exp_posts | first -%}
+{%- if exp_post -%}
+  {%- assign exp_note_url = exp_post.url -%}
+  {%- if exp_post.learning_status -%}{%- assign exp_state = exp_post.learning_status -%}{%- endif -%}
+  {%- if exp_state == 'completed' -%}{%- assign exp_completed_at = exp_post.completed_at | default: exp_post.date | date: '%Y-%m-%d' -%}{%- endif -%}
+{%- endif -%}
+{%- unless exp_state == 'completed' or exp_state == 'in_progress' -%}{%- assign exp_state = 'not_started' -%}{%- endunless -%}
+{%- assign exp_label = '未开始' -%}
+{%- if exp_state == 'completed' -%}{%- assign exp_label = '已完成' -%}{%- elsif exp_state == 'in_progress' -%}{%- assign exp_label = '进行中' -%}{%- endif -%}

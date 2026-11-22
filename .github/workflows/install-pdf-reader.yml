@@ -1,0 +1,47 @@
+name: Install pinned PDF reader
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/install-pdf-reader.yml'
+permissions:
+  contents: write
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vendor official PDF.js distribution with license
+        run: |
+          python - <<'PY'
+          import urllib.request, zipfile, io, pathlib, json
+          url = "https://github.com/mozilla/pdf.js/releases/download/v6.5.438/pdfjs-6.5.438-dist.zip"
+          with urllib.request.urlopen(url, timeout=120) as response:
+              archive = zipfile.ZipFile(io.BytesIO(response.read()))
+          root = pathlib.Path("assets/pdfjs")
+          root.mkdir(parents=True, exist_ok=True)
+          count = 0
+          for entry in archive.infolist():
+              path = pathlib.PurePosixPath(entry.filename)
+              assert not path.is_absolute() and ".." not in path.parts
+              if entry.is_dir(): continue
+              target = root.joinpath(*path.parts)
+              target.parent.mkdir(parents=True, exist_ok=True)
+              target.write_bytes(archive.read(entry))
+              count += 1
+          assert (root / "web/viewer.html").exists()
+          assert (root / "build/pdf.mjs").exists()
+          (root / "upstream.json").write_text(json.dumps({"version":"6.5.438","source":url,"license":"Apache-2.0"},indent=2)+"\n")
+          print("Installed PDF.js", count, "files")
+          PY
+      - name: Save pinned reader assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/pdfjs
+          if ! git diff --cached --quiet; then
+            git commit -m "Vendor official PDF.js 6.5.438 reader and license"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

@@ -14,7 +14,13 @@
   <div class="pika-layout">
     <main class="pika-main">
       <div class="pika-circuit" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-      <p class="pika-scroll-hint">← 横向滑动，查看完整实验路线 →</p>
+      <div class="pika-roadmap-tools" aria-label="实验路线浏览控制">
+        <p class="pika-scroll-hint"><span aria-hidden="true">↔</span> 按住路线左右拖动，或在路线区域滚动鼠标滚轮</p>
+        <div class="pika-scroll-buttons">
+          <button type="button" data-roadmap-prev aria-label="查看前面的实验模块">← 上一段</button>
+          <button type="button" data-roadmap-next aria-label="查看后面的实验模块">下一段 →</button>
+        </div>
+      </div>
       <div class="pika-roadmap" data-roadmap tabindex="0" role="region" aria-label="可横向滚动的漏洞实验路线">
         <div class="pika-route-line" aria-hidden="true"></div>
         <div class="pika-track" data-route></div>

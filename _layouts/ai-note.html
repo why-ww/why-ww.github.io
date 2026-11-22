@@ -1,0 +1,5 @@
+---
+layout: ai-lab
+---
+{% assign experiment = site.data.ai_learning.dashboard.experiments | where: 'id', page.experiment_id | first %}
+<article class="ai-note-page"><a href="{{ '/lab/roadmap/' | relative_url }}{% if experiment %}#{{ experiment.anchor }}{% endif %}">← 返回关联实验</a><header><p class="ai-kicker">LEARNING JOURNAL · {{ page.date | date: '%Y-%m-%d' }}</p><h1>{{ page.title | escape }}</h1>{% if experiment %}<p>关联实验：{{ experiment.title }} · {{ experiment.id }}</p>{% endif %}</header><div class="ai-note-content">{{ content }}</div></article>
