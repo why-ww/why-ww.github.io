@@ -34,6 +34,7 @@
 
   const total = skills.size;
   const completed = Array.from(skills.keys()).filter((key) => completedSkills.has(key)).length;
+  const documented = Array.from(skills.keys()).filter((key) => postMap.has(key)).length;
   const percent = total ? Math.round((completed / total) * 100) : 0;
   const setText = (selector, value) => { const element = lab.querySelector(selector); if (element) element.textContent = value; };
   const setWidth = (selector, value) => { const element = lab.querySelector(selector); if (element) element.style.width = value; };
@@ -118,8 +119,10 @@
 
   setText('[data-progress-count]', `${completed} / ${total}`);
   setText('[data-progress-percent]', `${percent}%`);
+  setText('[data-writeup-coverage]', `Writeup ${documented} / ${total}`);
   setText('[data-bottom-count]', `${completed} / ${total}`);
   setText('[data-bottom-copy]', `已完成 ${completed} 个实验，共 ${total} 个实验`);
+  setText('[data-bottom-coverage]', `Writeup 覆盖 ${documented} / ${total}`);
   setWidth('[data-progress-bar]', `${percent}%`);
   setWidth('[data-bottom-bar]', `${percent}%`);
 
@@ -136,6 +139,7 @@
     route.replaceChildren();
     displayModules.forEach((module, moduleIndex) => {
       const done = module.lessons.filter((lesson) => completedSkills.has(`${module.id}/${lesson.id}`)).length;
+      const documentedInModule = module.lessons.filter((lesson) => postMap.has(`${module.id}/${lesson.id}`)).length;
       const modulePercent = Math.round((done / module.lessons.length) * 100);
       const article = document.createElement('article');
       article.className = `pika-module${selectedSkill.startsWith(`${module.id}/`) ? ' is-selected' : ''}`;
@@ -146,13 +150,17 @@
         <span class="pika-module-number">${String(moduleIndex + 1).padStart(2, '0')}</span>
         <button class="pika-module-card" type="button" aria-label="查看 ${module.title} 实验">
           <span class="pika-module-title"><i class="pika-module-icon" aria-hidden="true">${module.icon}</i>${module.title}</span>
-          <span class="pika-module-count">${done} / ${module.lessons.length}</span>
+          <span class="pika-module-count">
+            <span>${done} / ${module.lessons.length} 已实操</span>
+            <span class="pika-module-writeups">${documentedInModule} / ${module.lessons.length} Writeup</span>
+          </span>
           <span class="pika-module-bar"><i style="width:${modulePercent}%"></i></span>
         </button>
         <ol class="pika-lessons">
           ${visibleLessons.map((lesson) => {
             const key = `${module.id}/${lesson.id}`;
-            return `<li class="pika-lesson ${lessonStatus(key)}" data-skill="${key}"><button type="button">${lesson.title}</button></li>`;
+            const hasWriteup = postMap.has(key);
+            return `<li class="pika-lesson ${lessonStatus(key)}${hasWriteup ? ' has-writeup' : ''}" data-skill="${key}"><button type="button">${lesson.title}</button></li>`;
           }).join('')}
           ${module.lessons.length > visibleLessons.length ? `<li class="pika-lesson-more">另有 ${module.lessons.length - visibleLessons.length} 个实验</li>` : ''}
         </ol>`;
@@ -168,9 +176,10 @@
           const articleLink = document.createElement('a');
           articleLink.className = 'pika-lesson-writeup';
           articleLink.href = writeup.url;
-          articleLink.textContent = '↗';
+          const isCompleted = completedSkills.has(item.dataset.skill);
+          articleLink.textContent = isCompleted ? 'Writeup' : '原理分析';
           articleLink.setAttribute('aria-label', '阅读 ' + writeup.title);
-          articleLink.title = '直接阅读 Writeup';
+          articleLink.title = isCompleted ? '阅读已完成实验 Writeup' : '阅读原理分析 Writeup';
           item.appendChild(articleLink);
         }
       });
@@ -190,7 +199,10 @@
     setText('[data-current-difficulty]', lesson.difficulty);
     setText('[data-current-duration]', lesson.duration);
     setText('[data-current-tools]', lesson.tools);
-    setText('[data-current-status]', completedSkills.has(selectedSkill) ? '已完成' : '学习中');
+    const status = lab.querySelector('[data-current-status]');
+    const statusState = completedSkills.has(selectedSkill) ? 'completed' : article ? 'analysis' : 'learning';
+    setText('[data-current-status]', statusState === 'completed' ? '已完成' : statusState === 'analysis' ? '原理分析' : '学习中');
+    if (status) status.dataset.state = statusState;
 
     const link = lab.querySelector('[data-current-link]');
     if (article) {
@@ -221,4 +233,5 @@
   renderRoute();
   updateCurrent();
 })();
+
 
