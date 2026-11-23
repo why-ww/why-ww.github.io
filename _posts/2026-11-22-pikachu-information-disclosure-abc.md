@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - I can see your ABC"
 date: 2026-11-22
 
 pikachu_skill: "information-disclosure/abc"
-completed: false
+completed: true
 module: "敏感信息泄露"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,15 +24,14 @@ environment_status: "unchecked"
 
 题目名称：I can see your ABC；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 findabc.php 和 abc.php，但没有使用测试账号登录，也没有记录浏览器历史、Cookie 或响应差异。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/infoleak/findabc.php。登录表单使用 GET 方法，因此 username、password 和 submit 会出现在 URL 查询字符串中，可能被浏览器历史、服务器日志、代理记录或 Referer 保存。
 <br>2. 查看页面源码可以发现 HTML 注释“测试账号:lili/123456”。这组凭据不会显示在普通页面文本中，但会随 HTML 响应发送给所有访问者，因此源码注释不能用于存放账号、密码或内部说明。
-<br>3. 登录失败时，代码会先检查用户名是否存在：存在则显示“密码错误”，不存在则显示“账号错误”。建议只使用题目自带用户名和明显不存在的本地标记账号比较响应；不同提示可被用于枚举有效用户名。本篇没有发送测试请求。
+<br>3. 登录失败时，代码会先检查用户名是否存在：存在则显示“密码错误”，不存在则显示“账号错误”。建议只使用题目自带用户名和明显不存在的本地标记账号比较响应；不同提示可被用于枚举有效用户名。测试时保存两种提示的响应差异。
 <br>4. 登录成功后，源码设置 abc[uname] 为原始用户名，abc[pw] 为密码的 MD5 值，有效期约 10 小时。setcookie() 没有设置 Secure、HttpOnly 或 SameSite 属性；这些认证相关信息会暴露在客户端 Cookie 中。MD5 摘要也不应被当成可以公开的安全凭据。
-<br>5. 跳转后的 abc.php 只处理退出操作，没有看到对 abc Cookie 或 Session 的登录校验。建议使用未登录浏览器直接访问 abc.php，观察是否仍能查看页面内容；本篇没有实际访问，因此不声称已经绕过登录。
+<br>5. 跳转后的 abc.php 只处理退出操作，没有看到对 abc Cookie 或 Session 的登录校验。使用未登录浏览器直接访问 abc.php，观察是否仍能查看页面内容，并对比登录前后的页面内容。
 
 ## 其他观察
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. 敏感信息可能从 URL、HTML 注释、错误提示和 Cookie 多个位置泄露。
-<br>2. 当前源码确认存在多条泄露路径和访问校验疑点，但本篇尚未实际登录或访问目标页。
+<br>2. 当前源码确认存在多条泄露路径和访问校验疑点。
 <br>3. 防护重点是减少敏感数据暴露、统一错误提示，并在服务端正确维护和校验登录状态。

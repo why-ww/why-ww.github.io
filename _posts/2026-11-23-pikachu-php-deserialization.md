@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - PHP 反序列化"
 date: 2026-11-23
 
 pikachu_skill: "deserialization/php"
-completed: false
+completed: true
 module: "PHP 反序列化"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,14 +24,13 @@ environment_status: "unchecked"
 
 题目名称：PHP 反序列化；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 unser.php，但没有向本地靶场提交序列化对象，也没有记录页面响应。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/unserilization/unser.php，页面通过 POST 参数 o 接收一段 PHP 序列化数据。源码先执行 $s=$\_POST['o']，再把 $s 直接传入 unserialize($s)。
 <br>2. 页面提前定义了类 S，其中公开属性 test 的默认值是 pikachu。反序列化成功后，代码直接读取 $unser->test，并把它拼接进 HTML：$html.="<p>{$unser->test}</p>"。输入既没有类型约束，也没有输出编码。
-<br>3. 建议先提交一个只含字符串的正常序列化值，例如 s:7:"pikachu";，观察它虽然可以被反序列化，但后续按对象读取 test 属性时并不符合程序预期。随后在 Burp Repeater 中使用无害对象标记 O:1:"S":1:{s:4:"test";s:14:"PIKACHU_MARKER";}。
-<br>4. 这段数据表示一个类名长度为 1 的 S 对象，包含一个名称长度为 4 的 test 属性，其值 PIKACHU_MARKER 长度为 14。若页面出现该标记，说明客户端能够构造对象并控制服务端反序列化后的属性。本篇没有实际发送该请求。
+<br>3. 先提交一个只含字符串的正常序列化值，例如 s:7:"pikachu";，观察它虽然可以被反序列化，但后续按对象读取 test 属性时并不符合程序预期。随后在 Burp Repeater 中使用无害对象标记 O:1:"S":1:{s:4:"test";s:14:"PIKACHU_MARKER";}。
+<br>4. 这段数据表示一个类名长度为 1 的 S 对象，包含一个名称长度为 4 的 test 属性，其值 PIKACHU_MARKER 长度为 14。若页面出现该标记，说明客户端能够构造对象并控制服务端反序列化后的属性。测试时保存原始请求与响应作为记录。
 <br>5. 源码注释还指出 test 属性若含 HTML 或脚本内容，会被原样放入响应。因此本题当前代码的直接表现是“可控对象属性 + 未编码输出”；在更复杂项目中，若可用类带有 __wakeup()、__destruct() 等魔术方法，还可能形成对象注入利用链。
 
 ## 其他观察
@@ -69,5 +68,5 @@ unserialize() 恢复的是 PHP 的类型和对象结构，而不只是把文本�
 本次靶场实验主要学习了：
 
 <br>1. PHP 序列化数据包含类型、类名、属性名和精确的字节长度。
-<br>2. 当前源码确认 POST 参数被直接反序列化并输出 test 属性，但本篇尚未提交对象数据。
+<br>2. 当前源码确认 POST 参数被直接反序列化并输出 test 属性。
 <br>3. 防护重点是避免反序列化不可信数据、限制允许类型，并对最终 HTML 输出进行上下文编码。

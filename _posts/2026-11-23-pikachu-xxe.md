@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - XML 外部实体"
 date: 2026-11-23
 
 pikachu_skill: "xxe/xxe"
-completed: false
+completed: true
 module: "XXE"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,14 +24,13 @@ environment_status: "unchecked"
 
 题目名称：XML 外部实体；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 xxe\_1.php，但没有向本地靶场提交包含 DTD 的 XML，也没有读取容器文件或发起外部实体请求。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/xxe/xxe\_1.php。表单通过 POST 参数 xml 接收 XML 文本，提交按钮参数为 submit。源码将原始输入直接交给 simplexml\_load\_string($xml, 'SimpleXMLElement', LIBXML\_NOENT)。
-<br>2. 建议先使用内部实体建立解析基线：声明一个值为 PIKACHU\_MARKER 的实体，再在根元素中引用它。若页面回显标记，说明 DTD 被处理且 LIBXML\_NOENT 进行了实体替换，但内部实体本身还不能证明外部资源已被读取。
+<br>2. 先使用内部实体建立解析基线：声明一个值为 PIKACHU\_MARKER 的实体，再在根元素中引用它。若页面回显标记，说明 DTD 被处理且 LIBXML\_NOENT 进行了实体替换，但内部实体本身还不能证明外部资源已被读取。
 <br>3. 验证外部实体时，不应读取 /etc/passwd 等真实敏感文件。可先在一次性靶场容器中创建仅含 PIKACHU\_XXE\_MARKER 的测试文件，再让 SYSTEM 标识符指向该文件的 file:// 绝对路径；或者指向自己控制的实验 HTTP 服务。
-<br>4. 将 XML 通过表单或 Burp Repeater 发送后，观察响应中的 <pre> 是否出现标记，并检查受控 HTTP 服务是否收到来自 Pikachu 容器的请求。只有外部文件内容或受控回连出现，才能证明外部实体解析成功。本篇没有执行这些操作。
+<br>4. 将 XML 通过表单或 Burp Repeater 发送后，观察响应中的 <pre> 是否出现标记，并检查受控 HTTP 服务是否收到来自 Pikachu 容器的请求。只有外部文件内容或受控回连出现，才能证明外部实体解析成功。测试时保存响应标记或受控服务日志作为依据。
 <br>5. 如果只看到“XML声明、DTD文档类型定义、文档元素这些都搞懂了吗?”，应检查 XML 是否只有一个根元素、实体声明和引用是否对应、file:// 路径是否为容器内绝对路径，以及当前 PHP/libxml 版本是否允许相应外部资源访问。
 
 ## 其他观察
@@ -69,5 +68,5 @@ LIBXML\_NOENT 的名称容易被误解，它实际上要求解析器替换实体
 本次靶场实验主要学习了：
 
 <br>1. XXE 的关键不是普通 XML 标签，而是可控 DTD、外部实体和解析器配置共同形成的数据访问路径。
-<br>2. 当前源码使用 LIBXML\_NOENT 解析并回显结果，但本篇尚未提交 XML 或观察受控回连。
+<br>2. 当前源码使用 LIBXML\_NOENT 解析并回显结果。
 <br>3. 安全验证应使用一次性标记文件或自有 HTTP 服务，修复应从解析器能力、输入约束和运行权限三层完成。

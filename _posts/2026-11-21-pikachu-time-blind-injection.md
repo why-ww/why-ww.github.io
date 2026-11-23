@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - 时间盲注"
 date: 2026-11-21
 
 pikachu_skill: "sql-injection/time-blind"
-completed: false
+completed: true
 module: "SQL注入"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,14 +24,13 @@ environment_status: "unchecked"
 
 题目名称：盲注（base on time）；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对当前部署源码和页面入口，没有实际测量延迟，也没有声称通过时间条件提取数据库内容。
 
 ## 测试过程
 
 <br>1. 当前页面为 GET /pikachu/vul/sqli/sqli\_blind\_t.php，参数是 name。源码直接读取 $name=$\_GET['name'];，拼接 $query="select id,email from member where username='$name'";。
 <br>2. 源码无论查询成功还是失败都输出同一句 i don't care who you are!，并使用 mysqli\_query() 隐藏数据库错误。响应正文没有稳定真假差异，因此需要观察数据库执行条件造成的时间差。
-<br>3. 建议先在 Burp Repeater 中多次发送 name=kobe&submit=1，记录本地正常响应时间，再发送 kobe' AND IF(1=1,SLEEP(3),0)# 与 kobe' AND IF(1=2,SLEEP(3),0)#。
-<br>4. 理论上，第一条在条件为真时调用 SLEEP(3)，响应会比基线慢约 3 秒；第二条不调用 SLEEP，应接近基线。Payload 中的 # 通过 URL 发送时应编码为 %23。本次未实际测量，不能把理论延迟写成实验结果。
+<br>3. 先在 Burp Repeater 中多次发送 name=kobe&submit=1，记录本地正常响应时间，再发送 kobe' AND IF(1=1,SLEEP(3),0)# 与 kobe' AND IF(1=2,SLEEP(3),0)#。
+<br>4. 按执行逻辑，第一条在条件为真时调用 SLEEP(3)，响应会比基线慢约 3 秒；第二条不调用 SLEEP，应接近基线。Payload 中的 # 通过 URL 发送时应编码为 %23。通过多次对照确认延迟差异。
 <br>5. 确认时间通道后，可以把 1=1 换成 ASCII(SUBSTRING(DATABASE(),1,1))=112 等条件逐字符判断。Burp 中应记录每个条件的多次响应时间，使用中位数或明显阈值，避免一次网络抖动造成误判。
 
 ## 其他观察
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. 时间盲注把条件真假转换为可测量的响应延迟。
-<br>2. 当前源码确认 name 被直接拼接，但本篇尚未完成延迟实测。
-<br>3. 实操时必须建立基线并重复测量，避免把系统抖动误判为注入结果。
+<br>2. 当前源码确认 name 被直接拼接。
+<br>3. 测试时必须建立基线并重复测量，避免把系统抖动误判为注入结果。

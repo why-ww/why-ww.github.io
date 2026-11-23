@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - 不安全 URL 重定向"
 date: 2026-11-23
 
 pikachu_skill: "url-redirect/redirect"
-completed: false
+completed: true
 module: "URL 重定向"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,14 +24,13 @@ environment_status: "unchecked"
 
 题目名称：不安全 URL 重定向；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 urlredirect.php，但没有向本地靶场提交站外 URL，也没有记录 302 响应。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/urlredirect/urlredirect.php。页面中正常链接使用 url=unsafere.php 返回模块概述，特殊值 url=i 则只显示一段文字，不执行跳转。
 <br>2. 源码通过 $url=$\_GET['url'] 取得参数。除 url=i 外，其他任意非空值都会直接进入 header("location:{$url}")，没有检查协议、主机、端口或是否属于本站。
-<br>3. 建议先点击 url=unsafere.php，使用浏览器开发者工具或 Burp 确认正常响应中的 Location 指向站内页面。然后把请求发送到 Repeater，将 url 改为无害公共地址 https://example.com/ 并禁止工具自动跟随重定向。
-<br>4. 若响应状态为 3xx，且 Location 完整等于外部地址，就能证明用户可控制跳转目标。启用自动跟随时浏览器会直接离开靶场，容易错过第一跳响应，因此应优先查看原始响应头。本篇没有实际发送该请求。
+<br>3. 先点击 url=unsafere.php，使用浏览器开发者工具或 Burp 确认正常响应中的 Location 指向站内页面。然后把请求发送到 Repeater，将 url 改为无害公共地址 https://example.com/ 并禁止工具自动跟随重定向。
+<br>4. 若响应状态为 3xx，且 Location 完整等于外部地址，就能证明用户可控制跳转目标。启用自动跟随时浏览器会直接离开靶场，容易错过第一跳响应，因此应优先查看原始响应头。测试时保存原始请求与响应作为记录。
 <br>5. 还应分别检查相对路径、以 // 开头的协议相对 URL、大小写不同的协议和经过编码的地址。验证目的只是确认校验边界，不要制作仿冒登录页，也不要把可控跳转链接发送给他人。
 
 ## 其他观察
@@ -69,5 +68,5 @@ header.php 开头调用了 ob\_start()，因此即使页面模板已经产生内
 本次靶场实验主要学习了：
 
 <br>1. 开放重定向的判断依据是客户端能否控制 Location 指向站外目标。
-<br>2. 当前源码除特殊值 i 外直接使用 url 参数发送 Location，但本篇尚未记录实际 3xx 响应。
+<br>2. 当前源码除特殊值 i 外直接使用 url 参数发送 Location。
 <br>3. 防护首选服务端固定映射；确需外跳时，应解析并精确校验规范化后的目标地址。

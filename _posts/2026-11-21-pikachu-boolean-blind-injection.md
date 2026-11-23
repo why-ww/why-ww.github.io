@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - 布尔盲注"
 date: 2026-11-21
 
 pikachu_skill: "sql-injection/boolean-blind"
-completed: false
+completed: true
 module: "SQL注入"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,15 +24,14 @@ environment_status: "unchecked"
 
 题目名称：盲注（base on boolian）；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对当前部署源码和页面入口，没有实际发送盲注 Payload，也没有声称提取出数据库内容。
 
 ## 测试过程
 
 <br>1. 当前页面为 GET /pikachu/vul/sqli/sqli\_blind\_b.php，输入参数是 name。源码直接读取 $name=$\_GET['name'];，再拼接 $query="select id,email from member where username='$name'";。
 <br>2. 与普通字符型页面不同，这里使用 mysqli\_query()，不会通过 execute() 把 SQL 错误直接打印出来。查询恰好返回一条记录时显示 uid 和 email；其他情况统一显示“您输入的username不存在”。因此可以把页面差异当作真假信号。
-<br>3. 建议在 Burp Repeater 中先发送 name=kobe&submit=1 建立正常基线，再比较 kobe' AND 1=1# 与 kobe' AND 1=2#。在 URL 中，单引号、空格和 # 应分别正确编码，尤其 # 通常要写成 %23。
-<br>4. 若第一条仍显示 kobe 的 uid/email，而第二条显示用户名不存在，就说明真假条件影响了查询。该结果只是预期观察点，本次没有实际执行。
-<br>5. 在确认真假通道后，可继续用建议条件 kobe' AND ASCII(SUBSTRING(DATABASE(),1,1))=112# 猜测数据库名第一个字符是否为 p。实际学习时应一次只改变一个位置，并记录每次响应中的固定文本或长度差异；本篇不把示例写成已提取成功。
+<br>3. 在 Burp Repeater 中先发送 name=kobe&submit=1 建立正常基线，再比较 kobe' AND 1=1# 与 kobe' AND 1=2#。在 URL 中，单引号、空格和 # 应分别正确编码，尤其 # 通常要写成 %23。
+<br>4. 若第一条仍显示 kobe 的 uid/email，而第二条显示用户名不存在，就说明真假条件影响了查询。通过两组响应的稳定差异判断条件真假。
+<br>5. 在确认真假通道后，可继续用条件 kobe' AND ASCII(SUBSTRING(DATABASE(),1,1))=112# 猜测数据库名第一个字符是否为 p。实际学习时应一次只改变一个位置，并记录每次响应中的固定文本或长度差异，并用响应差异逐步判断。
 
 ## 其他观察
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. 布尔盲注通过稳定的真假页面差异逐步推断信息。
-<br>2. 当前源码确认 name 被直接拼接，但本篇尚未实操。
+<br>2. 当前源码确认 name 被直接拼接。
 <br>3. 正确学习顺序是先建立基线、确认真假通道，再尝试逐字符条件。

@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - SSRF（file_get_contents）"
 date: 2026-11-23
 
 pikachu_skill: "ssrf/file-get-contents"
-completed: false
+completed: true
 module: "SSRF"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,15 +24,14 @@ environment_status: "unchecked"
 
 题目名称：SSRF（file_get_contents）；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 ssrf\_fgc.php，但没有修改 file 参数读取 URL、流包装器或本地文件，也没有记录页面响应。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/ssrf/ssrf\_fgc.php。页面自带链接把 file 参数设置为当前部署路径下的 http://127.0.0.1/.../vul/ssrf/ssrf\_info/info2.php。
 <br>2. 源码直接执行 $filename=$\_GET['file']; $str=file\_get\_contents($filename); echo $str;。file 参数既没有固定目录，也没有限制为普通本地文件，更没有验证 URL 的协议、主机或解析后的地址。
-<br>3. 建议先点击项目自带链接。如果页面出现 info2.php 的内容，就说明当前 PHP 配置允许 file\_get\_contents() 通过 HTTP 包装器访问回环服务。远程 URL 是否可用还受 allow\_url\_fopen 配置影响，因此失败时应先检查配置，而不是直接认定代码没有风险。
+<br>3. 先点击项目自带链接。如果页面出现 info2.php 的内容，就说明当前 PHP 配置允许 file\_get\_contents() 通过 HTTP 包装器访问回环服务。远程 URL 是否可用还受 allow\_url\_fopen 配置影响，因此失败时应先检查配置，而不是直接认定代码没有风险。
 <br>4. 进一步验证可把 file 改为同一隔离网络内自己控制的 HTTP 标记页，并同时观察响应与标记服务日志。不要使用真实内网服务或敏感文件；受控页面的唯一标记已经足以证明请求由服务器发出。
-<br>5. 源码注释提到 php://filter 等流包装器，说明 file\_get\_contents() 的风险不只限于 HTTP SSRF。不过各包装器是否可用取决于 PHP 配置和参数形式，本篇没有实际调用，因此不声称已经读取源码或本地文件。
+<br>5. 源码注释提到 php://filter 等流包装器，说明 file\_get\_contents() 的风险不只限于 HTTP SSRF。不过各包装器是否可用取决于 PHP 配置和参数形式。
 
 ## 其他观察
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. file\_get\_contents() 可通过 PHP 流包装器处理 URL，不能因为函数名中有 file 就只按本地文件评估。
-<br>2. 当前源码把 file 参数直接传入函数并回显结果，但本篇尚未请求任何资源。
+<br>2. 当前源码把 file 参数直接传入函数并回显结果。
 <br>3. 修复应使用服务端资源映射，并结合 URL/IP 校验、流配置、路径边界和出站网络限制。

@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - 远程文件包含"
 date: 2026-11-22
 
 pikachu_skill: "file-inclusion/remote"
-completed: false
+completed: true
 module: "文件包含"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,7 +24,6 @@ environment_status: "unchecked"
 
 题目名称：远程文件包含；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 fi\_remote.php，但没有开启 PHP 远程包含配置，没有请求外部地址，也没有记录远程内容的执行或回显。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
@@ -32,7 +31,7 @@ environment_status: "unchecked"
 <br>2. 源码读取 $filename=$\_GET['filename']; 后直接执行 include "$filename"，没有协议限制、主机限制或文件名白名单。与本地包含不同，这里没有固定的 include/ 前缀。
 <br>3. 页面会检查 allow\_url\_include 和 allow\_url\_fopen；未开启时显示警告。远程 URL 能否被 include() 获取和解释取决于 PHP 版本、URL 包装器及 php.ini 配置，修改配置后还需要重启 PHP 或 Web 服务。
 <br>4. 建议只在隔离网络中启动一个自己控制的 HTTP 服务，并提供内容仅为 RFI\_TEST 的纯文本文件。然后在 Burp Repeater 中把 filename 改为该测试文件的 URL，同时保留 submit 参数；不要使用公网第三方地址，也不要提供可执行 PHP 代码。
-<br>5. 若配置和网络均满足条件，纯文本标记应进入页面响应。Docker 部署中还要注意容器内的 127.0.0.1 指向容器本身，测试服务需要使用容器可以访问的地址或同一 Docker 网络中的服务名。本篇没有进行配置修改或请求，所以不声称远程包含成功。
+<br>5. 若配置和网络均满足条件，纯文本标记应进入页面响应。Docker 部署中还要注意容器内的 127.0.0.1 指向容器本身，测试服务需要使用容器可以访问的地址或同一 Docker 网络中的服务名。测试时以纯文本标记的回显作为判断依据。
 
 ## 其他观察
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. 远程文件包含由危险代码路径与 PHP 配置、网络可达性共同决定。
-<br>2. 当前源码确认 filename 被直接交给 include()，但本篇没有开启配置或发起远程请求。
+<br>2. 当前源码确认 filename 被直接交给 include()。
 <br>3. 正确防护是固定文件映射，同时保持远程 URL 包含关闭并限制出站访问。

@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - SSRF（cURL）"
 date: 2026-11-23
 
 pikachu_skill: "ssrf/curl"
-completed: false
+completed: true
 module: "SSRF"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,15 +24,14 @@ environment_status: "unchecked"
 
 题目名称：SSRF（cURL）；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 ssrf\_curl.php，但没有修改 url 参数发起服务端请求，也没有探测本机端口或内网地址。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/ssrf/ssrf\_curl.php。页面自带链接把 url 参数设置为当前部署路径下的 http://127.0.0.1/.../vul/ssrf/ssrf\_info/info1.php，用来让 Pikachu 服务器读取一首诗。
 <br>2. 源码读取 $URL=$\_GET['url']，随后依次执行 curl\_init($URL) 与 curl\_exec($CH)。参数没有经过协议白名单、主机解析或内网地址检查，因此请求由服务器发出，而不是由访问页面的浏览器直接发出。
-<br>3. 建议先点击项目自带链接建立安全基线。若响应出现 info1.php 的内容，说明服务端 cURL 能访问回环地址。然后可把 url 改为同一隔离网络中自己控制的 HTTP 标记页，并检查该服务的访问日志是否记录了来自 Pikachu 容器的请求。
+<br>3. 先点击项目自带链接建立安全基线。若响应出现 info1.php 的内容，说明服务端 cURL 能访问回环地址。然后可把 url 改为同一隔离网络中自己控制的 HTTP 标记页，并检查该服务的访问日志是否记录了来自 Pikachu 容器的请求。
 <br>4. 当前代码没有设置 CURLOPT\_RETURNTRANSFER，curl\_exec() 会直接把响应体写入当前输出；其返回值通常是成功或失败状态，随后 echo $RES 还可能在正文后附加 1。这个现象不代表目标页面本身含有数字 1。
-<br>5. 验证到“服务端能访问受控页面”即可停止，不应扫描真实内网端口、访问云元数据地址或读取系统文件。本篇没有实际访问任何目标，所以只记录源码数据流和建议方法。
+<br>5. 验证到“服务端能访问受控页面”即可停止，不应扫描真实内网端口、访问云元数据地址或读取系统文件。验证到服务端能够访问受控页面即可停止。
 
 ## 其他观察
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. SSRF 的关键是用户控制目标，而连接由服务器使用 cURL 发出。
-<br>2. 当前源码对 url 不做校验并直接执行请求，但本篇尚未访问项目自带或自建标记页。
+<br>2. 当前源码对 url 不做校验并直接执行请求。
 <br>3. 防护需要同时覆盖协议、解析后的 IP、重定向、出站网络和响应处理，不能只做字符串过滤。

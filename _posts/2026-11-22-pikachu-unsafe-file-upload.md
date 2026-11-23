@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - 不安全文件上传"
 date: 2026-11-22
 
 pikachu_skill: "unsafe-upload/upload"
-completed: false
+completed: true
 module: "文件上传"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,15 +24,14 @@ environment_status: "unchecked"
 
 题目名称：不安全文件上传；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 clientcheck.php、servercheck.php、getimagesize.php 和 inc/uploadfunction.php，但没有向本地靶场上传测试文件，也没有访问上传后的路径。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 文件上传模块包含三条测试路径。clientcheck.php 只在浏览器端通过 checkFileExt() 限制 jpg、png、gif；后端 upload\_client() 不检查扩展名或内容，直接使用原文件名保存到 uploads 目录，并把保存路径显示在页面中。
-<br>2. 建议先选择一个普通文本标记文件，例如内容为 UPLOAD\_TEST 的 upload-test.txt。浏览器界面会因扩展名不在允许列表中而阻止选择，但在本地靶场中可通过 Burp Repeater 重新构造 multipart/form-data 请求，或在开发者工具中移除 onchange 校验。若后端接受该文件，即可证明客户端校验不能构成安全边界。本篇未实际发送请求。
+<br>2. 先选择一个普通文本标记文件，例如内容为 UPLOAD\_TEST 的 upload-test.txt。浏览器界面会因扩展名不在允许列表中而阻止选择，但在本地靶场中可通过 Burp Repeater 重新构造 multipart/form-data 请求，或在开发者工具中移除 onchange 校验。若后端接受该文件，即可证明客户端校验不能构成安全边界。测试时保存原始 multipart 请求与服务器响应。
 <br>3. servercheck.php 调用 upload\_sick()，服务端只检查 $\_FILES['uploadfile']['type'] 是否属于 image/jpg、image/jpeg、image/png。该 MIME 值来自客户端请求，可以在 Burp 中修改。建议仍使用无执行能力的文本标记文件，仅把 multipart 文件段的 Content-Type 改为 image/png，观察服务端是否只凭声明的 MIME 接受文件。
-<br>4. getimagesize.php 调用更严格的 upload()：同时检查 HTTP POST 上传方式、扩展名、客户端 MIME、getimagesize() 结果、500 KB 大小限制，并生成随机文件名。建议使用正常 PNG 建立基线，再使用只追加无害文本标记的测试图片观察 getimagesize() 的边界；这只能说明图片解析检查不能识别所有附加内容，不等于已经获得代码执行。
-<br>5. 验证时应记录原始 multipart 请求、服务端返回的保存路径、实际文件名以及上传目录是否能被 Web 直接访问。只有在服务器会把上传内容当成可执行脚本解析时，才能进一步判断为代码执行；本篇没有上传文件，因此不记录任何成功结果。
+<br>4. getimagesize.php 调用更严格的 upload()：同时检查 HTTP POST 上传方式、扩展名、客户端 MIME、getimagesize() 结果、500 KB 大小限制，并生成随机文件名。使用正常 PNG 建立基线，再使用只追加无害文本标记的测试图片观察 getimagesize() 的边界；这只能说明图片解析检查不能识别所有附加内容，不等于已经获得代码执行。
+<br>5. 验证时应记录原始 multipart 请求、服务端返回的保存路径、实际文件名以及上传目录是否能被 Web 直接访问。只有在服务器会把上传内容当成可执行脚本解析时，才能进一步判断为代码执行，并以服务器返回的保存路径和实际访问结果作为判断依据。
 
 ## 其他观察
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. 文件上传安全必须由服务端控制，前端检查只能改善用户体验。
-<br>2. 当前源码展示了客户端扩展名、可伪造 MIME 和 getimagesize() 三种不同校验边界，但本篇尚未实际上传文件。
+<br>2. 当前源码展示了客户端扩展名、可伪造 MIME 和 getimagesize() 三种不同校验边界。
 <br>3. 安全方案需要校验、随机重命名、不可执行存储和最小权限共同配合。

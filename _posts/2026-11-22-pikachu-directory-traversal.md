@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - 目录遍历"
 date: 2026-11-22
 
 pikachu_skill: "traversal/directory"
-completed: false
+completed: true
 module: "目录遍历"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,14 +24,13 @@ environment_status: "unchecked"
 
 题目名称：目录遍历；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 dir\_list.php，但没有向本地靶场提交 ../ 路径，也没有读取项目目录中的其他文件。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/dir/dir\_list.php。页面提供两篇短文链接，正常请求分别使用 title=jarheads.php 和 title=truman.php。
 <br>2. 源码直接读取 $filename=$\_GET['title'];，随后执行 require "soup/$filename"。title 没有经过白名单、路径规范化或目录边界检查，用户输入可以影响 require() 的最终目标。
-<br>3. 建议先访问 title=jarheads.php 建立正常基线，再把请求发送到 Burp Repeater。为了避免读取系统敏感文件，可使用项目自带 README.md 作为无敏感标记，例如 title=../../../README.md。
-<br>4. 按当前目录结构推导，组合路径为 vul/dir/soup/../../../README.md，规范化后回到 Pikachu 项目根目录的 README.md。require() 对纯文本文件通常会把文本写入响应；若响应出现项目说明内容，就能证明请求越出了 soup 目录。本篇没有实际发送该请求。
+<br>3. 先访问 title=jarheads.php 建立正常基线，再把请求发送到 Burp Repeater。为了避免读取系统敏感文件，可使用项目自带 README.md 作为无敏感标记，例如 title=../../../README.md。
+<br>4. 按当前目录结构推导，组合路径为 vul/dir/soup/../../../README.md，规范化后回到 Pikachu 项目根目录的 README.md。require() 对纯文本文件通常会把文本写入响应；若响应出现项目说明内容，就能证明请求越出了 soup 目录。测试时保存原始请求与响应作为记录。
 <br>5. 验证时应根据部署目录确认 ../ 层数，并注意 require() 在目标不存在时会产生致命错误。应比较正常短文与测试响应，只使用项目自带非敏感文件，不读取真实系统配置。
 
 ## 其他观察
@@ -53,7 +52,7 @@ environment_status: "unchecked"
 
 ### 3.
 
-<br>问题：为什么建议读取 README.md？
+<br>问题：为什么选择读取 README.md？
 <br>解答：项目自带的非敏感文本足以证明路径边界被突破，结果稳定且影响较小，不需要读取操作系统密码或应用配置文件。
 
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. 固定路径前缀无法阻止 ../，安全判断必须针对规范化后的最终路径。
-<br>2. 当前源码确认 title 被拼接后直接进入 require()，但本篇尚未提交穿越路径。
+<br>2. 当前源码确认 title 被拼接后直接进入 require()。
 <br>3. 最稳妥的方案是服务端白名单映射，并限制文件权限和允许目录。

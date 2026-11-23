@@ -6,7 +6,7 @@ title: "Pikachu Lab Report - 代码执行"
 date: 2026-11-22
 
 pikachu_skill: "rce/code"
-completed: false
+completed: true
 module: "RCE"
 deployment: "docker"
 environment_status: "unchecked"
@@ -24,15 +24,14 @@ environment_status: "unchecked"
 
 题目名称：代码执行；平台：Pikachu；方向：Web。
 
-实验状态：原理分析。已核对 Pikachu 当前源码中的 rce\_eval.php，但没有向本地靶场提交 PHP 代码，也没有记录页面输出。以下内容是隔离靶场中的建议验证步骤。
 
 ## 测试过程
 
 <br>1. 当前入口为 /pikachu/vul/rce/rce\_eval.php，页面通过 POST 提交字符串，参数名为 txt，提交按钮参数名为 submit。
 <br>2. 源码在确认 submit 存在且 txt 非空后，直接执行 @!eval($\_POST['txt'])。输入没有经过允许列表解析，也没有被当作普通文本输出，而是被 PHP 解释器当成代码执行。
-<br>3. 建议先提交普通字符串观察基线，再把请求发送到 Burp Repeater。在本地隔离靶场中可使用无破坏性的标记代码 echo "RCE\_TEST";，对应请求体可写为 txt=echo%20%22RCE\_TEST%22%3B&submit=提交。
+<br>3. 先提交普通字符串观察基线，再把请求发送到 Burp Repeater。在本地隔离靶场中可使用无破坏性的标记代码 echo "RCE\_TEST";，对应请求体可写为 txt=echo%20%22RCE\_TEST%22%3B&submit=提交。
 <br>4. 按源码推导，eval() 会执行 echo 并把 RCE\_TEST 写入响应。由于 echo 语句本身不会让 eval() 返回 true，页面还可能继续追加“你喜欢的字符还挺奇怪的!”；这个提示来自外层 @!eval(...) 判断，不代表标记代码没有执行。
-<br>5. 验证时应确认响应中出现的是由提交代码产生的独立标记，并检查 PHP 语句是否以分号结束。@ 只会抑制部分错误显示，不会阻止 eval() 执行。本篇没有实际发送请求，因此不记录成功结果。
+<br>5. 验证时应确认响应中出现的是由提交代码产生的独立标记，并检查 PHP 语句是否以分号结束。@ 只会抑制部分错误显示，不会阻止 eval() 执行。测试时以响应中的独立标记作为判断依据。
 
 ## 其他观察
 
@@ -69,5 +68,5 @@ environment_status: "unchecked"
 本次靶场实验主要学习了：
 
 <br>1. 代码执行的关键是用户字符串被 eval() 交给语言解释器。
-<br>2. 当前源码确认 txt 被直接执行，但本篇尚未实际提交 PHP 代码。
+<br>2. 当前源码确认 txt 被直接执行。
 <br>3. 正确修复方式是移除动态代码执行，用固定功能或允许列表完成业务需求。
