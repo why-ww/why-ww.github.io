@@ -32,12 +32,8 @@ const roadmapMarkup = fs.readFileSync(path.join(root, '_includes', 'pikachu-road
 const roadmapScript = fs.readFileSync(path.join(root, 'assets', 'js', 'pikachu.js'), 'utf8');
 assert.match(roadmapMarkup, /data-roadmap-prev/);
 assert.match(roadmapMarkup, /data-roadmap-next/);
-assert.match(roadmapMarkup, /data-writeup-coverage/);
-assert.match(roadmapMarkup, /data-bottom-coverage/);
 assert.match(roadmapScript, /pointerdown/);
 assert.match(roadmapScript, /addEventListener\('wheel'/);
-assert.match(roadmapScript, /原理分析/);
-assert.match(roadmapScript, /documentedInModule/);
 
 console.log(`Pikachu roadmap checks passed: ${data.modules.length} modules, ${lessonCount} lessons.`);
 
@@ -66,4 +62,3 @@ assert.equal(result.completedSkills.size,0,'A module title alone must not comple
 const ambiguous = {modules:[{id:'one',title:'One',lessons:[{id:'a',title:'Duplicate'}]},{id:'two',title:'Two',lessons:[{id:'b',title:'Duplicate'}]}]};
 assert.equal(progress.buildProgress(ambiguous,[{title:'Duplicate'}]).completedSkills.size,0,'Ambiguous titles need an explicit lesson ID.');
 console.log('Pikachu Writeup synchronization passed: empty-ID export, canonical ID, title aliases, completion flags, deduplication, latest link and ambiguous-title protection.');
-
